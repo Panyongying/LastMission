@@ -51,8 +51,6 @@
 			</li>';
 				}
 
-				return $addr;
-
 			} else {
 				return false;
 			}

@@ -51,8 +51,6 @@
 
 				$addr = D('order')->showAddress();
 
-				// dump($addr);exit;
-
 				$this->assign('data', $data);
 				$this->assign('addr', $addr);
 
@@ -62,14 +60,13 @@
 
 		public function addAddress()
 		{
-			$res = D('order')->addAddress();
+			$res = D('user')->addAddress();
 
 			if (!$res) {
 				echo 2;
-			} else {
-				echo json_encode($res);
 			}
 
+			echo $res;
 		}
 
 		public function queryOrder()
