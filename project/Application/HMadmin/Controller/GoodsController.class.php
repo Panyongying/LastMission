@@ -177,6 +177,12 @@
         {
             if (IS_POST) {
 
+                if (!D('goods')->create()) {
+
+                    echo "<script>alert('修改失败');history.go(-1)</script>";
+
+                }
+
                 $res = D('goods')->editOneGood();
 
                 if ($res) {
@@ -184,7 +190,7 @@
                     $this->success('修改成功', U('Goods/index'));
                 } else {
 
-                    $this->error('修改失败', U('Goods/index'));
+                    echo "<script>alert('修改失败');history.go(-1)</script>";
                 }
 
             } else {

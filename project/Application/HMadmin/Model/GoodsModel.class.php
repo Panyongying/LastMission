@@ -15,8 +15,7 @@
             array('price', 'require', '价格必须有'),
             array('des', 'require', '描述不能为空'),
             array('detail', 'require', '详情不能为空'),
-            array('goodsNum', '/[0-9]{1,10}/', '库存只能为数字'),
-            array('pic', 'require', '必须上传一张以上的图'),
+            array('goodsNum', '/[1-9][0-9]{1,10}/', '库存只能为11位之内数字'),
         );
 
         //查询所有商品的信息+分页搜索
@@ -37,7 +36,7 @@
             $page = new \Think\Page($total, 10);
 
             //分页
-            $goodsList = $this->field('id,name,price,tid,des,status,viewtimes,saled,addtime')->where($search)->limit($page->firstRow.','.$page->listRows)->select();
+            $goodsList = $this->field('id,name,price,tid,des,status,viewtimes,saled,addtime')->where($search)->order('id desc')->limit($page->firstRow.','.$page->listRows)->select();
 
             $show = $page->show();
 
@@ -226,6 +225,11 @@
 
             $flag = true;
             $data = I('post.');
+
+            if (empty($data['pic'])) {
+
+                $flag = false;
+            }
 
             $data['addtime'] = time();
 
