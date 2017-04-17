@@ -1,0 +1,327 @@
+<extend name="Base:base" />
+
+<block name="title">
+<foreach name="OneList" item="vo">
+    <if condition="$pid eq $vo['id']">
+    <title>{$vo.name}</title>
+    </if>
+</foreach>
+</block>
+
+
+<block name="main">
+    <main role="main" class="responsive segments"><!-- Main -->
+        <!--AEMPUBPRDAP12-->
+    	<div class="layout">
+    		<section class="sidebarpluscontent modules">
+    			<aside class="aside section-menu">
+    				<div class="left parbase">
+
+
+        	<nav class="section-menu  ">
+        		<ul>
+        		  <li>
+
+        		      <h2>
+        		          <a href="./时尚女装——潮流购物 _ H&M CN_files/时尚女装——潮流购物 _ H&M CN.html">女士</a>
+        		      </h2>
+        	          <div class="section-menu-sub-menu">
+        	              <div class="section-menu-sub-menu-inner">
+        	                  <div class="section-menu-categories">
+
+        	                          <div class="section-menu-category">
+        	                              <h4 class="">
+        	                                   <span>通过产品筛选</span>
+        	                              </h4>
+        	                              <ul style="display: block;">
+                                                <foreach name="twoList" item="v">
+        	                                      <li class="section-menu-subdepartment" style="padding:5px 0px">
+        	                                           <a href="__URL__/goodsList/tid/{$v.id}/pid/{$pid}">
+        	                                               {$v.name}
+        	                                           </a>
+
+                                                  </li>
+                                                </foreach>
+        	                              </ul>
+        	                          </div>
+
+        	                  </div>
+        	              </div>
+        	          </div>
+
+                  </li>
+                </ul>
+        	</nav>
+        </div>
+
+
+
+    			</aside>
+    			<div class="parsys main">
+
+
+
+       <div class="product-filters sticky-on-scroll"  style="width:100%" >
+                   <div class="row" style="margin-left:185px">
+                       <div class="totop">
+                           <a href="#" class="toptrigger">返回到顶部</a> <a href="__CONTROLLER__/index" class="filterlogo" style="background-image:url('__PUBLIC__/show/logotype.png');">返回到开始</a>
+                       </div>
+                       <div class="filteractions clearfix">
+                           <ul class="triggers clearfix">
+                               
+                               <li class="js-clickexpand clickexpand filter" style="border-right:1px solid #d1d1d1" data-expandoptions="{&quot;toggle&quot;:&quot;true&quot;}">
+                                <a href="javascript:;" class="trigger js-expandtrigger"><strong>筛选</strong></a>
+                                <div class="expandtarget js-expandtarget filters">
+                               
+
+
+
+
+
+                                <div class="row shut">
+                                    <div class="cols clearfix">
+                                                  <style>
+                                                    .borderBlack{
+                                                      border: 3px solid black;
+                                                    }
+                                                  </style>
+
+                                                <div class="col">
+                                                    <h4>颜色</h4>
+                                                    <ul class="inputlist grid" data-filter-param-name="colorWithNames">
+                                                          <foreach name="typeOne" item="vc">
+                                                         <li>
+                                                            <label  for="{$vc.attrname}" class="filter-option choose" ><input  class="choose-input"  type="checkbox" name="color" id="{$vc.attrname}" data-value="{$vc.attrname}"><span class="pattern" data-value="{$vc.attrname}" style="background:{$vc.attrname};margin-left:2px"></span>
+                                                        
+                                                            </label>
+                                                        </li>
+                                                    </foreach>
+                                                   
+                                                      
+                                                    </ul>
+                                                </div>
+
+
+                                                <div class="col">
+                                                    <h4>尺码</h4>
+                                                    <ul class="inputlist row-cols">
+
+                                                    <foreach name="typeTwo" item="vt">
+                                                        <li class="row-col">
+                                                            <ul data-filter-param-name="sizes" class="inputlist rows"> 
+                                                                <li>
+                                                                    <label class="choose" for="{$vt.attrname}">
+                                                                        <input class="choose-input" id="{$vt.attrname}" type="checkbox" name="size[]" data-value="{$vt.attrname}">
+                                                                                        <div class="detailbox detailbox-value"><span>{$vt.attrname}</span></div>
+                                                                    </label>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </foreach>
+                                                    </ul>
+                                                </div>
+                                                
+                                               
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row clearfilters shut">
+                                    <button class="button button-secondary js-filters-clear">清除所有</button>
+                                    <a class="button js-filters-close close" href="javascript:;">关闭</a>
+                                </div>
+
+                                <input type="hidden" name="image" value="model" class="filter-toggle-images-value" data-filter-param-name="image">
+
+
+                                </form>
+                                </div>
+                            </li>
+                               <li class="js-clickexpand clickexpand sort-by">
+                                   <a href="javascript:;" class="trigger js-expandtrigger"><strong>排序方式</strong></a>
+                                   <div class="expandtarget js-expandtarget sort">
+                                       
+<ul class="menu toggleCurrent">
+    <li class="menu-sub-item"><label class="menu-link" >默认排序<input type="radio" style="display:none" name="choose-radio" data-value="default" ></label></li>
+    <li class="menu-sub-item"><label class="menu-link" >模糊搜索<input type="radio" style="display:none" name="choose-radio" data-value="stock" ></label></li>
+    <li class="menu-sub-item"><label class="menu-link" >最低价格<input type="radio" style="display:none" name="choose-radio" data-value="ascPrice" ></label></li>
+    <li class="menu-sub-item"><label class="menu-link" >最高价格<input type="radio" style="display:none" name="choose-radio" data-value="descPrice" ></label></li>
+</ul>
+                                   </div>
+                                   
+                               </li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+               <!-- /Product filters -->                    
+           </div>
+
+
+        <section class="segment section singleteasercontainer">
+            <div class="row">
+                <foreach name="lists" item="vv">
+
+                <div class="col-3" style="float:left;margin-left:12px">
+
+                    <article class="product-item club-price-item" data-articlecode="0481148009" onclick="setOsaParameters(utag_data.category_id,'SMALL', '0481148009'); setNotificationTicket('Oy9wbHAvcHJvZHVjdC1saXN0LXdpdGgtY291bnQvcHJvZHVjdC1saXN0OyM7cHJvZHVjdF9rZXk7MDQ4MTE0OF96aF9jbjswNDgxMTQ4MDEwX3poX2NuOzsjOzU7','0481148009');">
+                        <a href="__CONTROLLER__/goodsDetail/id/{$vv.id}" title="{$vv.name}" class="product-item-link"> <img width="222" height="333" src="__PUBLIC__/{$vv[pic][0]}" data-altimage="//lp2.hm.com/hmprod?set=source[/model/2017/E00 0481148 009 62 3245.jpg],type[STILLLIFE_FRONT]&amp;hmver=1&amp;call=url[file:/product/style]" class="product-item-image" alt="{$vv.name} 模特款型" data-alttext="缩褶连衣裙 " title="{$vv.name} 模特款型">
+
+
+                                <button type="button" class="favorite icon icon-favorites js-favorite" data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0481148009|缩褶连衣裙|LADIES_SHOPBYPRODUCT : DRESSES_DRESSES : VIEWALL_VIEW_ALL" data-saved-text="已加入收藏" data-not-saved-text="加入收藏" value="{$vv.id}">加入收藏</button>
+
+
+
+
+
+
+
+
+
+
+                        </a>
+
+
+                        <div class="product-item-details">
+
+
+
+                            <h3 class="product-item-heading">
+                                <a href="/zh_cn/productpage.0481148009.html">{$vv.name}</a>
+                            </h3>
+
+
+
+
+                                        <strong class="price">
+                                            ¥ {$vv.price} </strong>
+
+
+
+
+
+                                <div class="product-item-selection">新品</div>
+
+
+                            
+                        </div>
+                    </article>
+                </div>
+
+                </foreach>
+            </div>
+
+
+
+
+        </section>
+        <script>
+
+            var num = 1;
+
+            var nums = 1;
+
+            $('.filter').on('click', function(event) {
+
+                var that = $(this);
+
+                console.log(num);
+
+                if (num == 1) {
+
+                    that.addClass('isOpen');
+
+                    $('.sort-by').removeClass('isOpen');
+
+                    nums = 1;
+                } else {
+
+                    that.removeClass('isOpen');
+
+                    num = 0;
+                }
+
+                num += 1;
+
+                event.stopPropagation();
+            });
+
+            $('.close').click(function() {
+
+                $('.filter').removeClass('isOpen');
+
+                num = 1;
+            });
+
+            //阻止冒泡
+            $('.shut').click(function(event) {
+
+                event.stopPropagation();
+            });
+
+
+            $(document).click(function(event) {
+
+                $('.filter').removeClass('isOpen');
+                $('.sort-by').removeClass('isOpen');
+
+                num = 1;
+                nums = 1;
+                event.stopPropagation();
+            });
+
+            //阻止a跳转
+            $('.favorite').on('click', function() {
+
+                $(this).parent().one('click', function() {
+                    return false;
+                });
+
+            });
+
+
+            $('.sort-by').on('click', function(event) {
+
+                var that = $(this);
+
+                that.addClass('isOpen');
+
+                if (nums == 1) {
+
+                    that.addClass('isOpen');
+
+                    $('.filter').removeClass('isOpen');
+                    num = 1;
+                } else {
+
+                    that.removeClass('isOpen');
+
+                    nums = 0;
+                }
+
+                nums += 1;
+
+                event.stopPropagation();
+            });
+
+
+
+        </script>
+
+        <!-- 滚动条显示顶部栏 -->
+      <script>
+        $(document).on('scroll', function() {
+          // sticky
+          var scrollHeight = $(this).scrollTop();
+          if (scrollHeight > 200) {
+            $('.sticky-on-scroll').addClass('sticky');
+          } else {
+            $('.sticky-on-scroll').removeClass('sticky');
+          }
+          
+        });
+      </script> 
+      
+    </main>
+</block>
