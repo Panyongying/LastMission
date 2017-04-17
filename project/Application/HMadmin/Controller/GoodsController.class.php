@@ -61,6 +61,12 @@
 
             if (IS_POST) {
 
+                if (!D('goods')->create()) {
+
+                    $this->error(D('goods')->getError(), U('Goods/addGood'));
+                    exit;
+                }
+
                 $res = D('goods')->addGood();
 
                 if ($res) {
@@ -280,6 +286,10 @@
                 if ($res != false) {
 
                     $this->success('添加成功', 'Index/index');
+
+                } else {
+
+                    $this->error('添加失败', 'Index/index');
                 }
 
             } else {
@@ -369,6 +379,9 @@
                 if ($res) {
 
                     $this->success('添加成功', U('Goods/showGoodsPic'));
+                } else {
+
+                    $this->error('添加失败', U('Goods/showGoodsPic'));
                 }
 
             } else {

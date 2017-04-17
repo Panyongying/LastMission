@@ -23,7 +23,7 @@
         <div class="you">
           <select name="aid">
           <foreach name="attrColor" item="vo">
-            <option value="{$vo.id}">{$vo.attrname}</option>
+            <option value="{$vo[0].id}">{$vo[0].attrname}</option>
           </foreach>
           </select>
         </div>
