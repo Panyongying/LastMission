@@ -182,6 +182,7 @@
 		    }else {
 
 		       $this->error('邮件发送失败,请稍后激活');
+		    
 		    }
 
 	    }
@@ -194,7 +195,7 @@
 	  			$this->display('Sign/signin');
 
 	  			exit;
-	  		}
+	  		}       	
 
 	  		$res = D('user')->showPersonal();
 	  		
@@ -276,5 +277,57 @@
 
 	  	}
 
+	  	//添加地址和显示地址
+	  	public function addAddress()
+	  	{
+	  		if( !isset($_SESSION['userInfo']) ){
 
+	  			$this->display('Sign/signin');
+
+	  			exit;
+	  		}
+
+	  		if (IS_GET){
+
+	  			$res = D('user')->getAddress();
+
+	  			$this->assign('list', $res);
+
+	  			$this->display('Address/address');
+	  		}
+
+	  		if (IS_AJAX){
+
+	  			$res = D('user')->addAddress();
+
+	  			echo $res;
+
+	  		}
+	  		
+	  	}
+
+	  	//删除地址
+	  	
+	  	public function delAddress()
+	  	{
+	  		$res = D('user')->deleteAddress();
+
+	  		echo $res;
+	  	}
+	  	//修改地址为默认地址
+	  	
+	  	public function changeAddrStatus()
+	  	{
+	  		$res = D('user')->changeAddrStat();
+	  		
+	  		return $res;
+	  	}
+
+	  	//修改地址
+	  	public function editAddress()
+	  	{
+	  		$res = D('user')->editAddr();
+
+	  		echo $res;
+	  	}
 	} 
