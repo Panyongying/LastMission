@@ -8,10 +8,11 @@
     {
 
         //自动验证
-        protected $dataAll = array(
+        protected $_validate = array(
 
             array('name', 'require', '商品名不能为空'),
-            array('price', '/[0-9]{1,10}/', '价格必须有'),
+            array('name','','帐号名称已经存在！',0,'unique',1),
+            array('price', 'require', '价格必须有'),
             array('des', 'require', '描述不能为空'),
             array('detail', 'require', '详情不能为空'),
             array('goodsNum', '/[0-9]{1,10}/', '库存只能为数字'),
@@ -204,9 +205,16 @@
         //查询颜色属性
         public function findAttrColor()
         {
-            $attrColor = M('attr')->where('attrType=1')->select();
+            $gid = I('get.gid');
 
-            return $attrColor;
+            $attrColor = M('stock')->field('aid')->where('gid='.$gid)->select();
+
+            foreach ($attrColor as $value) {
+
+                $attrColors[] = M('attr')->field('id,attrName')->select($value['aid'][0]);
+            }
+
+            return $attrColors;
         }
 
         //添加商品
@@ -218,17 +226,8 @@
 
             $flag = true;
             $data = I('post.');
-            // dump($data);exit;
-
 
             $data['addtime'] = time();
-
-
-            if (!M('goods')->create($data)) {
-
-                $this->error('失败', U('Goods/addGood'));
-                exit;
-            }
 
             //过滤添加
             $res = M('goods')->field('name,price,tid,des,status,addtime')->data($data)->add();
@@ -488,9 +487,17 @@
         {
             $data = I('post.');
 
-            $data['aid'] = join(',', $data['aid']);
+            if ($data['goodsNum'] != false) {
 
-            $res = M('stock')->add($data);
+                $data['aid'] = join(',', $data['aid']);
+
+                $res = M('stock')->add($data);
+
+            } else {
+
+                $res = false;
+            }
+
 
             return $res;
         }
@@ -531,14 +538,16 @@
 
             for ($i=0; $i<count($data); $i++) {
 
-                //根据id查商品有什么颜色，再根据颜色查商品有多少张图
-                $data[$i]['aid'] = M('goods_pic')->distinct(true)->field('aid')->where('gid='.$data[$i]['id'])->select();
+                //根据id查库存商品有什么颜色，再根据颜色查商品有多少张图
+                $data[$i]['aid'] = M('stock')->field('aid')->where('gid='.$data[$i]['id'])->select();
 
                 for ($j=0; $j<count($data[$i]['aid']); $j++) {
 
-                    $data[$i]['aid'][$j] = explode(',', $data[$i]['aid'][$j]['aid'][0]);
+                    $data[$i]['aid'][$j] = $data[$i]['aid'][$j]['aid'][0][0];
 
                 }
+
+                $data[$i]['aid'] = array_unique($data[$i]['aid']);
             }
 
             // dump($data);exit;
@@ -571,21 +580,28 @@
         {
             $data = I('post.');
 
-            $num = count($data['pic']);
+            if ( !empty($data['pic']) ) {
 
-            for ($i=0; $i<$num; $i++) {
+                $num = count($data['pic']);
 
-                $data['p'][$i] = $data['pic'][$i];
-            }
+                for ($i=0; $i<$num; $i++) {
 
-            for ($i=0; $i<$num; $i++) {
+                    $data['p'][$i] = $data['pic'][$i];
+                }
 
-                $data['pic'] = $data['p'][$i];
+                for ($i=0; $i<$num; $i++) {
 
-                $res[] = M('goods_pic')->data($data)->add();
+                    $data['pic'] = $data['p'][$i];
+
+                    $res[] = M('goods_pic')->data($data)->add();
+                }
+            } else {
+
+                $res = false;
             }
 
             return $res;
         }
 
     }
+

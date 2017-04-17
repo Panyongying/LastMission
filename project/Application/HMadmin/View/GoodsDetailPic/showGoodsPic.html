@@ -84,7 +84,13 @@
                 </a>&nbsp;
                 </foreach>
                 </td>
-                <td><a href="__CONTROLLER__/addColorPic/gid/{$vo.id}">商品颜色/对应图片</a></td>
+                <td>
+                <empty name="vo['aid'][0]">
+                <a href="javascript:;">请添加颜色</a>
+                <else />
+                <a href="__CONTROLLER__/addColorPic/gid/{$vo.id}">商品颜色/对应图片</a>
+                </empty>
+                </td>
 
 
 
