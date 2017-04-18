@@ -21,7 +21,7 @@
 
 				<li class="">
 
-					<a href="/zh_cn/my-account"> 您的账户</a>
+					<a href="#"  onclick="return false;"> 您的账户</a>
 				</li>
 				<li class="active">
 
@@ -47,14 +47,11 @@
 					<a href="" role="menuitem">地址簿</a>
 							
 				</li>
-				<li class="item" role="presentation" tabindex="-1">
-					<a href="/zh_cn/my-account/payment-details" role="menuitem">银行卡信息</a>
-							
-				</li>
+	
 			</ul>
 		</nav>
 		<div class="layout layout-eight" >
-			<div class="hidden modal-content" id="address-validation-popup" ng-show="getContext().showPopup && getContext().popupType =='ADDRESSES'" ng-cloak>
+			<div class="hidden modal-content" id="address-validation-popup">
 				<div class="modal-text">
 				<div class="address-validation">
 				<h1 class="heading">{{getContext().popupHeader}}</h1>

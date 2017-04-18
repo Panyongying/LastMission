@@ -1,0 +1,130 @@
+<extend name="Base:base" />
+
+<block name="title"><title>H&M_Favourites</title></block>
+ <block name="main">
+
+<main role="main" class="responsive fill">
+	<div class="wrapper">    
+		<nav class="breadcrumbs">
+			<ul>
+				<li>		
+					<a href="__APP__/Home/Index/index">HM.COM</a>
+				</li>
+
+			</ul>
+		</nav>
+				
+
+		<div class="wrapper">
+			<h1 class="favorite-heading">收藏</h1>
+			<div>
+
+				<ul class="product-detail-list responsive favorite-list js-favorite-list" id="favouritesPage-items" style="display:none">
+					<li class="product-detail-list-item" >
+						<div class="product-detail-list-item-image-wrapper">
+								<div class="wrapper-inner">
+									<a href="" class="product-detail-list-item-image ">
+										<div class="marker icon-club-price" >9</div> 
+													
+										<img class="product-detail-list-item-image-image"
+												 alt=""
+												title="" />
+									</a>
+								</div>
+						</div>
+						<div class="product-detail-list-item-details">
+										
+								<div class="product-detail-list-item-price-info">
+									<p class="product-detail-list-item-total-price">已售完</p>
+								</div>
+
+
+								<div>
+									<img alt="" class="label"
+												/>
+								</div>
+								<h3 class="sub-sub-heading"></h3>
+
+								<div>
+									<p class="product-detail-price"  >
+												
+									</p>	
+									<p class="club-price-text" >
+										<span class="club-price"></span>  			
+									</p>
+								</div>
+								<div>
+									<p  class="product-detail-price">
+											
+										<span class="original-price"></span>
+											
+									</p>			
+											
+								</div>
+								<p class="product-detail-selection"></p>
+
+								<dl class="product-detail-list-item-details-list">
+									<dt>
+										商品编号：</dt>
+									<dd></dd>
+									<dt>颜色：</dt>
+													
+									<dd></dd>
+								</dl>
+						</div>
+						<div class="product-detail-list-item-actions favorite-list-actions">
+							<button class="button secondary icon  icon-trash" type="button"
+											title=从收藏中移除>从收藏中移除</button>
+											
+										
+							<label class="product-detail-list-item-actions-label"for="favorite-options-1"></label>
+											
+							<div class="favorite-add-to-bag icon-add-to-bag">
+
+								<select class="add-to-bag" name="favorite-add-to-bag-options-1"
+													id="favorite-options-1" 
+													title=加入购物袋>
+													
+									<option value="">选择尺码</option>
+									<option 
+										value="" >
+									</option>
+
+								</select>
+							</div>
+						</div>
+					</li>
+
+				</ul>
+				<div style="display:block">		
+					<section class="segment favorites-empty"  >
+						<h3 class="heading icon-favorites">
+							收藏您喜欢的商品
+						</h3>
+						<p class="text"  >
+							 希望收藏喜欢的商品？点击商品上的心形符号，便可在此处显示。
+						</p>
+						<a class="button" href="__APP__/Home/Index/index">现在查看</a>
+					</section>
+				</div> 
+			</div>
+
+			<div class="hidden modal-content fadeInModal" style="margin-top: 91.5px;" id="error-popup">
+				<button class="modalclose icon-close-black"></button>
+				<h1 class="sticky heading"></h1>
+				<div class="modal-wrapper" style="max-height: 140px;">
+					<div class="modal-content">
+						<div class="modal-text">
+							<p class="text"></p>
+						</div>
+						<div class="sticky button-group">
+							<button  class="modalclose button">	确定</button> 
+									
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+</block>

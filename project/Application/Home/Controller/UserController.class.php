@@ -198,8 +198,10 @@
 	  		}       	
 
 	  		$res = D('user')->showPersonal();
+			$OneList = D('goods')->OneList();
 	  		
 			$this->assign('user', $res);
+			$this->assign('OneList', $OneList);
 
 			$this->display('Person/person');
 
@@ -220,7 +222,9 @@
 	  			}
 
 	  			$res = D('user')->showPersonal();
+	  			$OneList = D('goods')->OneList();
 
+				$this->assign('OneList', $OneList);
 	  			$this->assign('list', $res);
 
 	  			$this->display('Person/account');
@@ -290,7 +294,8 @@
 	  		if (IS_GET){
 
 	  			$res = D('user')->getAddress();
-
+	  			$OneList = D('goods')->OneList();
+				$this->assign('OneList', $OneList);
 	  			$this->assign('list', $res);
 
 	  			$this->display('Address/address');
@@ -330,4 +335,24 @@
 
 	  		echo $res;
 	  	}
+
+
+  	    public function base()
+    	{
+
+	        if (IS_POST) {
+
+	            $twoList = D('goods')->twoGoodsList();
+
+	            echo json_encode($twoList);
+
+	        } else {
+
+	            $OneList = D('goods')->OneList();
+
+	            $this->assign('OneList', $OneList);
+	            $this->display('Base/base');
+	        }
+
+    	}
 	} 
