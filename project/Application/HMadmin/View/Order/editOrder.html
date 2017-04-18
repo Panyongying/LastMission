@@ -7,6 +7,7 @@
   
     <div class="listbiaoti am-cf">
       <ul class="am-icon-flag on"> 修改订单</ul>
+      <dl><button type="button" class="am-btn am-btn-danger am-round am-btn-xs am-icon-close back-btn">返回</button></dl>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">修改订单</a></dl>
 
@@ -110,4 +111,10 @@
       </form>
     </div>
 </div>
+
+<script>
+  $('.back-btn').click(function () {
+    history.back();
+  });
+</script>
 </block>

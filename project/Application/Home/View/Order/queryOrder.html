@@ -87,7 +87,7 @@
 		</li>
 		<li class="item">
 			<span class="label">订单日期</span>
-			<span class="static">{date('Y-m-d H:i:s', $orderData.orderAddtime)}</span>
+			<span class="static">{$orderData.orderaddtime}</span>
 		</li>
 	</ul>
 </div>
@@ -97,15 +97,15 @@
 	<br>
 	<form method="post" class="checkout-place-order-section ng-pristine ng-valid" ng-submit="paymentCtrl.doPayment(&#39;54365404&#39;)">
 		 
-
+		<if condition="($orderData.orderstatus eq 1) AND ($orderData.ordersendstatus eq 1)">
 	    <input type="submit" id="checkoutViewPaymentButton" class="button-big" value="现在付款" data-not-added-text="页面正在跳转至您所选择的付款平台，请勿关闭或者回退页面，整个跳转过程可能需要持续60秒左右。">
+	    </if>
  	     <!-- CR 18208 Add Loader Div Start-->
  	     <div class="payment-loader js-payment-loader" aria-hidden="true" style="display: none;" data-payment-loader-title="我们正在处理您的付款" data-payment-loader-text="这可能会花费一点时间，请耐心等候。请勿关闭窗口或点击后退键">
             <div class="payment-loader-wrapper">
                 <div class="payment-loader-container">
-                    <span class="loader"></span>
-                    <h2 class="title"></h2>
-                    <p class="text"></p>
+                    <h2 class="title">我们正在处理您的付款</h2>
+                    <p class="text">这可能会花费一点时间，请耐心等候。请勿关闭窗口或点击后退键</p>
                 </div>
             </div>
         </div>
@@ -113,8 +113,8 @@
  		
  		
 		<ul class="item-list">
-			<li class="item-list-item"><a href="https://www2.hm.com/zh_cn/my-account/orders">我的订单</a></li>
-			<li class="item-list-item"><a href="https://www2.hm.com/zh_cn/customer-service.html">客户服务</a></li>
+			<li class="item-list-item"><a href="__APP__/Home/User/orders">我的订单</a></li>
+			<li class="item-list-item"><a href="__APP__/Home/CustomService/index">客户服务</a></li>
 		</ul>
 	</form>
 	<div id="payeaseForm"></div>
@@ -124,12 +124,12 @@
 </div>
 </div>
 							<ul class="order-products product-detail-list responsive">
-							<foreach name="$orderDetail" item="ov" >
+							<foreach name="orderDetail" item="ov" >
 								<li class="product-detail-list-item" data-articlecode="0482071001">
 	<!-- Order confirmation item -->
 	<div class="product-detail-list-item-image-wrapper">
 		<div class="wrapper-inner">
-			<a href="https://www2.hm.com/zh_cn/payment/orderPayment/54365404#" class="product-detail-list-item-image ">
+			<a href="__APP__/Home/Index/goodsDetail/id/{$ov.gid}">
 				<img src="{$ov.pic}" alt="{$ov.name}" title="{$ov.name}" class="product-detail-list-item-image-image">
 			</a>
 			<!-- ngIf: false -->
@@ -140,13 +140,13 @@
 		<div class="product-detail-list-item-price-info">
 	        <p class="product-detail-list-item-total-price">
 				总价：&nbsp;
-				¥134.10</p>
+				¥{$ov.allPrice}</p>
 		</div>
 	
 		<h3 class="sub-sub-heading">{$ov.name}</h3>
 		<div class="product-detail-price" ng-class="{&#39;sale-price&#39; : false }">
 					<span class="original-price">
-						¥{$ov.price}</span>
+						¥{$ov.gprice}</span>
 				</div>
 			<p class="product-detail-selection"></p>
 		<dl class="product-detail-list-item-details-list">
@@ -174,12 +174,12 @@
 							<ul class="order-table">
 								<li class="item">
     <span class="label">总价：</span>
-    <span class="static ">¥{$orderData.totalPrice}</span>
+    <span class="static ">¥{$orderData.ordertotalprice}</span>
 </li>
 
 <li class="item order-total">
 			<span class="label">总价：</span>
-			<span class="static ">¥{$orderData.totalPrice}</span>
+			<span class="static ">¥{$orderData.ordertotalprice}</span>
 		</li>
 	</ul>
 							<script type="text/javascript">
@@ -315,4 +315,28 @@
 	
 </div>
 		</main>
+
+	<script>
+		$('#checkoutViewPaymentButton').click(function () {
+			$('.js-payment-loader').css('display', 'block');
+
+			$.post(
+				'__APP__/Home/Order/pay',
+				{
+					oid:{$orderData.id}
+				},
+				function (data) {
+					if (data == 2) {
+						$('.js-payment-loader').children().children().find('h2').text('支付被拒绝');
+						$('.js-payment-loader').children().children().find('p').text('当前无法处理您的订单。请刷新页面并重试。');
+					} else {
+						location.href = '__APP__/Home/Order/thinkYou';
+					}
+				},
+				'json'
+			);
+
+			return false;
+		});
+	</script>
 </block>

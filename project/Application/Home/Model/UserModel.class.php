@@ -424,6 +424,10 @@
 
 			$data['recname'] = I('post.lastName').I('post.firstName');
 
+			if (empty($data['recname'])) {
+				$data['recname'] = I('recname');
+			}
+
 			$data['addr'] = I('post.province').I('post.town').I('post.district').I('post.addr');
 
 			$data['phone'] = I('post.phone');
@@ -577,6 +581,94 @@
 
 			return $res;
 
+		}
+
+		// 订单页面
+		public function orders()
+		{
+			$uid = $_SESSION['userInfo']['id'];
+			$od['uid'] = $uid;
+			// 获取所有订单
+			$orders = M('order')->where($od)->select();
+
+			// return $orders;
+
+			// 获取订单详情
+			foreach ($orders as $ok => $ov) {
+				$oid = $ov['id'];
+
+				$od['oid'] = $oid;
+
+				$orderDetail = M('order_detail')->where($od)->select();
+
+				// 查出订单详情信息
+				foreach ($orderDetail as $k => $v) {
+					$gid = $v['gid'];
+					$aid = $v['aid'];
+
+					// 查询名字
+					$nameArr['id'] = $gid;
+					$name = M('goods')->field('name')->where($nameArr)->find()['name'];
+
+					// 查询颜色
+					$map['id'] = array('IN', $aid);
+					$map['attrType'] = array('EQ', 1);
+					$color = M('attr')->field('attrName')->where($map)->find()['attrname'];
+
+					// 查询图片
+					$where['aid'] = array('IN', $aid);
+					$where['gid'] = array('EQ', $gid);
+					$pic = __APP__.'Public/'.ltrim(M('goods_pic')->field('pic')->where($where)->find()['pic'], './');
+
+					// 查询尺码
+					$map['attrType'] = array('EQ', 2); // 先查询衣服的尺码
+					$size = M('attr')->field('attrName')->where($map)->find()['attrname'];
+
+					// 当结果为空时说明不是衣服继续查鞋子尺码
+					if (!$size) {
+						$map['attrType'] = array('EQ', 3);
+						$size = M('attr')->field('attrName')->where($map)->find()['attrname'];
+					}
+
+					$orderDetail[$k]['allPrice'] = number_format($v['gnum'] * $v['gprice'], 2);
+					$orderDetail[$k]['name'] = $name;
+					$orderDetail[$k]['color'] = $color;
+					$orderDetail[$k]['size'] = $size;
+					$orderDetail[$k]['pic'] = $pic;
+				}
+
+				$orders[$ok]['orderaddtime'] = date('Y-m-d H:i:s', $orders[$ok]['orderaddtime']);
+
+				if ($orders[$ok]['orderconfirmtime']) {
+					$orders[$ok]['orderconfirmtime'] = date('Y-m-d H:i:s', $orders[$ok]['orderconfirmtime']);
+				}
+
+				$orders[$ok]['ordertotalprice'] = number_format($orders[$ok]['ordertotalprice'], 2);
+
+				$orders[$ok]['orderDetail'] = $orderDetail;
+			}
+
+			return $orders;
+		}
+
+		// 个人首页的订单
+		public function minOrders()
+		{
+			$uid = $_SESSION['userInfo']['id'];
+
+			$orders = M('order')->field('orderAddtime,id,orderTotalPrice,orderStatus,orderSendStatus')->where("uid={$uid}")->limit(3)->order("orderAddtime desc")->select();
+
+			if (empty($orders)) {
+				return 'empty';
+			}
+
+			// 格式化日期和总价
+			foreach ($orders as $k => $v) {
+				$orders[$k]['ordertotalprice'] = number_format($orders[$k]['ordertotalprice'], 2);
+				$orders[$k]['orderaddtime'] = date('Y-m-d H:i:s', $orders[$k]['orderaddtime']);
+			}
+
+			return $orders;
 		}
 
 	}

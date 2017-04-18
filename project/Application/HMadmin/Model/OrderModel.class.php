@@ -110,4 +110,25 @@
 				return $list;
 			}
 		}
+
+		// 发货
+		public function send()
+		{
+			if (IS_GET) {
+				$oid = I('get.id');
+
+				$change['id'] = $oid;
+				$change['orderSendStatus'] = 2; // 发货状态
+
+				$res = M('order')->save($change);
+
+				if ($res === false) {
+					return 2;
+				} else {
+					return 1;
+				}
+			}
+		}
 	}
+
+

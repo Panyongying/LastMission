@@ -46,7 +46,7 @@
 				// 查询图片
 				$where['aid'] = array('IN', $aid);
 				$where['gid'] = array('EQ', $gid);
-				$pic = __APP__.'/Public/'.rtrim(M('goods_pic')->field('pic')->where($where)->find()['pic'], './');
+				$pic = __APP__.'/Public/'.ltrim(M('goods_pic')->field('pic')->where($where)->find()['pic'], './');
 
 				// 查询尺码
 				$map['attrType'] = array('EQ', 2); // 先查询衣服的尺码

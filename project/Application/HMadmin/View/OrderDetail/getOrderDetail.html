@@ -34,6 +34,7 @@
             <thead>
               <tr class="am-success">
                 <th class="table-author am-hide-sm-only">商品名</th>
+                <th class="table-author am-hide-sm-only">商品图片</th>
                 <th class="table-author am-hide-sm-only">商品属性</th>
                 <th class="table-author am-hide-sm-only">商品数量</th>
                 <th class="table-author am-hide-sm-only">商品价格</th>
@@ -41,13 +42,14 @@
               </tr>
             </thead>
             <tbody>
-              <foreach name="$data.orderDetail" item="ov" >
+              <foreach name="data.orderDetail" item="ov" >
                 <tr>                  
                   <td>{$ov.gname}</td>
+                  <td><img src="{$ov.pic}" alt="" width="100"></td>
                   <td>{$ov.attrName}</td>
                   <td class="am-hide-sm-only">{$ov.gnum}</td>
-                  <td class="am-hide-sm-only">{$ov.gprice}</td>
-                  <td class="am-hide-sm-only">{$ov.gnum * $ov.gprice}</td>
+                  <td class="am-hide-sm-only">￥{$ov.gprice}</td>
+                  <td class="am-hide-sm-only">￥{$ov.allPrice}</td>
                 </tr>
               </foreach>
             </tbody>

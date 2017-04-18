@@ -155,7 +155,7 @@
 	</if>
 	
 	</ul>
-	<button class="button secondary newAddr-btn">新建地址</button>
+	<button class="button secondary newAddr-btn" style="margin-top: 10px;">新建地址</button>
 </fieldset><p ng-if-end="" class="ng-scope"></p><!-- end ngIf: deliveryMode.type == 'address' -->	
 						<!-- ngSwitchWhen: places -->				
 						 <!-- ngSwitchWhen: timeSlot -->
@@ -252,7 +252,7 @@
 		总价：&nbsp;
 		
 <span ng-if="entry.totalPrice !== 0" class="ng-binding ng-scope">
-			¥{$ov.gnum * $ov.price}
+			¥{$ov.allPrice}
 		</span>
 		
 	</div>
@@ -265,14 +265,14 @@
 	<tbody>
 		<tr>
 			<th scope="row">订单价值：</th>
-			<td><span id="newPriceSubtotal" class="ng-binding">¥{$ov.totalPrice}</span></td>
+			<td><span id="newPriceSubtotal" class="ng-binding">¥{$data.totalPrice}</span></td>
 		</tr>		
 	</tbody>
 	<tfoot>
 		<tr>
 			<th scope="row">总价:</th>
 			<td id="total_price_of_basket" class="ng-binding">
-				¥{$ov.totalPrice}
+				¥{$data.totalPrice}
 		    	</td>
 		   </tr>
 		 </tfoot>
@@ -550,6 +550,8 @@
 				if (data == 2) {
 					$('#desktopPaymentConfirmationLoader').children().children().children().remove();
 					$('#desktopPaymentConfirmationLoader').children().children().append('<p class="text"> 系统繁忙，请刷新页面重新提交</p>');
+				} else {
+					location.href = '__APP__/Home/Order/queryOrder/oid/' + data;
 				}
 			},
 			'json'

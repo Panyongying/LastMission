@@ -198,8 +198,11 @@
 	  		}       	
 
 	  		$res = D('user')->showPersonal();
+
+	  		$orders = D('User')->minOrders();
 	  		
 			$this->assign('user', $res);
+			$this->assign('orders', $orders);
 
 			$this->display('Person/person');
 
@@ -329,5 +332,14 @@
 	  		$res = D('user')->editAddr();
 
 	  		echo $res;
+	  	}
+
+	  	// 订单页面
+	  	public function orders()
+	  	{
+	  		$orders = D('User')->orders();
+
+	  		$this->assign('orders', $orders);
+	  		$this->display('Person/orders');
 	  	}
 	} 

@@ -5,6 +5,7 @@
 
 	class OrderModel extends Model
 	{
+		// 检测是否登录
 		public function checkoutLogin()
 		{
 			if (IS_POST) {
@@ -18,6 +19,7 @@
 			}
 		}
 
+		// 添加地址操作
 		public function addAddress()
 		{
 			$res = D('user')->addAddress();
@@ -58,6 +60,7 @@
 			}
 		}
 
+		// 查出地址
 		public function showAddress()
 		{
 			$uid = $_SESSION['userInfo']['id'];
@@ -94,13 +97,15 @@
 				$addrData = M('addr')->where("id={$addrid}")->find();
 
 				// 查出购物车信息
-				$cartData = M('cart')->where("id={$uid}")->select();
+				$cartData = M('cart')->where("uid={$uid}")->select();
 
 				// 总价
 				$totalPrice = 0;
 
 				// 遍历出商品价格并放回数组
 				foreach ($cartData as $k => $v) {
+					unset($cartData[$k]['id']);
+
 					$cartData[$k]['gprice'] = M('goods')->field('price')->where("id={$v['gid']}")->find()['price'];
 
 					$totalPrice += $v['gnum'] * $cartData[$k]['gprice'];
@@ -116,14 +121,12 @@
 				$order['orderRecAddr'] = $addrData['addr'];
 				$order['orderRecPhone'] = $addrData['phone'];
 				// 开启事务插入数据
-				$this->startTrans();
+				M('order')->startTrans();
 
 				$oid = M('order')->data($order)->add();
 
-
-
 				if (!$oid) { // 添加失败
-					$this->rollback();
+					M('order')->rollback();
 
 					return false;
 				}
@@ -135,7 +138,7 @@
 					$res = M('order_detail')->add($v);
 
 					if (!$res) { // 添加失败
-						$this->rollback();
+						M('order')->rollback();
 
 						return false;
 					}
@@ -147,13 +150,13 @@
 				$res = M('cart')->where($where)->delete();
 
 				if ($res === false) { // 出错
-					$this->rollback();
+					M('order')->rollback();
 
 					return false;
 				}
 
 				// 提交事务
-				$this->commit();
+				M('order')->commit();
 
 				// 返回订单号
 				return $oid;
@@ -161,6 +164,7 @@
 				$oid = I('get.oid');
 
 				$order['id'] = $oid;
+				$order['uid'] = $_SESSION['userInfo']['id'];
 
 				// 查出订单信息
 				$orderData = M('order')->where($order)->find();
@@ -169,8 +173,21 @@
 					return false;
 				}
 
+				// if ($orderData['orderstatus'] != 3) { // 判断订单是否超时，自动取消
+				// 	if (($orderData['orderaddtime'] + 21600) > time()) { // 超时
+				// 		$change['orderStatus'] = 3; // 已取消
+				// 		$change['id'] = $orderData['id']; // 主键
+
+				// 		$M('order')->save($change);
+				// 	}
+				// }
+
+				$orderData['orderaddtime'] = date('Y-m-d H:i:s', $orderData['orderaddtime']);
+				$orderData['ordertotalprice'] = number_format($orderData['ordertotalprice'], 2);
+
 				// 查出订单详情
-				$orderDetail = M('order_detail')->where($order)->select();
+				$od['oid'] = $oid;
+				$orderDetail = M('order_detail')->where($od)->select();
 
 				// 循环查出详细信息
 				foreach ($orderDetail as $k => $v) {
@@ -178,31 +195,35 @@
 					$aid = $v['aid'];
 
 					// 查询名字
-					$name = M('goods')->field('name')->where("id={$gid}")->find()['name'];
+					$nameArr['id'] = $gid;
+					$name = M('goods')->field('name')->where($nameArr)->find()['name'];
 
 					// 查询颜色
 					$map['id'] = array('IN', $aid);
 					$map['attrType'] = array('EQ', 1);
-					$color = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+					$color = M('attr')->field('attrName')->where($map)->find()['attrname'];
 
 					// 查询图片
 					$where['aid'] = array('IN', $aid);
 					$where['gid'] = array('EQ', $gid);
-					$pic = M('goods_pic')->field('pic')->where($where)->find()['pic'];
+					$pic = __APP__.'Public/'.ltrim(M('goods_pic')->field('pic')->where($where)->find()['pic'], './');
 
 					// 查询尺码
 					$map['attrType'] = array('EQ', 2); // 先查询衣服的尺码
-					$size = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+					$size = M('attr')->field('attrName')->where($map)->find()['attrname'];
 
 					// 当结果为空时说明不是衣服继续查鞋子尺码
 					if (!$size) {
 						$map['attrType'] = array('EQ', 3);
-						$size = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+						$size = M('attr')->field('attrName')->where($map)->find()['attrname'];
 					}
 
+					$orderDetail[$k]['gprice'] = number_format($orderDetail[$k]['gprice'], 2);
+					$orderDetail[$k]['allPrice'] = number_format($v['gnum'] * $v['gprice'], 2);
 					$orderDetail[$k]['name'] = $name;
 					$orderDetail[$k]['color'] = $color;
 					$orderDetail[$k]['size'] = $size;
+					$orderDetail[$k]['pic'] = $pic;
 				}
 
 				// 存入数组返回
@@ -210,6 +231,49 @@
 				$data['orderData'] = $orderData;
 
 				return $data;
+			}
+		}
+
+		// 付款操作
+		public function pay()
+		{
+			if (IS_POST) {
+				$pay['id'] = I('post.oid'); // 主键
+				$pay['orderStatus'] = 2; // 修改状态为已付款
+				$pay['orderConfirmTime'] = time(); // 订单确认时间
+
+				$res = M('order')->save($pay);
+
+				if ($res === false) {
+					return 2;
+				} else {
+					return $res;
+				}
+			}
+		}
+
+		// 确认收货操作
+		public function receipt()
+		{
+			$map['id'] = I('post.id'); // 主键
+			$map['orderSendStatus'] = 3; // 已收货
+
+			$res = M('order')->save($map);
+
+			if ($res === false) {
+				return 'no';
+			} else {
+				return $res;
+			}
+		}
+
+		// 评论
+		public function comment()
+		{
+			if (IS_POST) {
+
+			} else if (IS_GET) {
+				
 			}
 		}
 	}

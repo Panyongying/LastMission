@@ -31,7 +31,7 @@
 							<a href="__URL__/account" role="menuitem">个人信息</a>					
 						</li>
 						<li class="item" role="presentation" tabindex="-1">
-							<a href="/zh_cn/my-account/orders" role="menuitem">订单</a>
+							<a href="__APP__/Home/User/orders" role="menuitem">订单</a>
 					
 						</li>
 						<li class="item" role="presentation" tabindex="-1">
@@ -98,13 +98,34 @@
 									<h1 class="module-heading-title">
 										订单
 									</h1>
-									
-									
-									<a href="/zh_cn/my-account/orders" class="view-all link" title="View all orders">查看所有订单</a>
+									<if condition="$orders eq 'empty'">
+									没有找到订单
+									</if>
+									<a href="__APP__/Home/User/orders" class="view-all link" title="View all orders">查看所有订单</a>
 								</header>
 								<div class="module-content">
-								
-									<a href="/zh_cn/my-account/orders" class="navigate button" title="View all orders">查看所有订单</a>
+								<if condition="$orders neq 'empty'">
+									<table aria-labelledby="hmd003">
+										<foreach name="orders" item="ov">
+										<tbody>
+											<tr class="order-row" data-order-id="{$ov.id}">
+												<td class="order-date"><strong class="my-hm-order-date" style="width: 25%">{$ov.orderaddtime}</strong></td>
+													<td class="order-id ">{$ov.id}</td>
+													<td class="order-total">¥{$ov.ordertotalprice}</td>
+													<td class="order-status"><a class="order-link" href="/zh_cn/my-account/orders" title="View order {$ov.id}">
+													<if condition="$ov.orderstatus eq 1">
+						 								订单确认中 
+						 							<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 1)"/>等待配送
+						 							<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 2)"/>配送中
+						 							<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3)"/>已收货
+						 							<elseif condition="$ov.orderstatus eq 3"/>已取消
+						 							</if>
+													</a></td>
+												</tr>
+										</tbody>
+										</foreach>		
+									</table>
+								</if>
 								</div>
 							</section>
 							<div class="two modules">
@@ -135,4 +156,9 @@
 				</div>
 			</div>
 		</main>
+		<script>
+			$('.module-content').click(function () {
+				location.href = "__APP__/Home/User/orders";
+			});
+		</script>
 </block>

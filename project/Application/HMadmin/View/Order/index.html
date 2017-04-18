@@ -86,7 +86,7 @@
                         <button class="am-btn am-btn-default am-btn-xs am-text-success am-round de-btn"  oid="{$ov.id}" title="查看订单详情"><span class="am-icon-search"></span></button>
                         <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round mo-btn" data-am-modal="{target: '#my-popups'}" oid="{$ov.id}" title="修改订单"><span class="am-icon-pencil-square-o"></span></button>
                         <if condition="($ov.orderstatus eq '已付款') AND ($ov.ordersendstatus eq '等待配送')">
-                          <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" title="发货"><span class="am-icon-plane"></span></button>
+                          <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round se-btn " oid="{$ov.id}" title="发货"><span class="am-icon-plane"></span></button>
                         </if>
                         <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round rm-btn" oid="{$ov.id}" title="删除订单"><span class="am-icon-trash-o" ></span></button>
                       </div>
@@ -193,7 +193,9 @@
       
       $.post(
         '__CONTROLLER__/multipleDelete',
-        {ids:ids},
+        {
+          ids:ids
+        },
         function (data) {
           if (data == 1) {
               $('input:checked').parent().parent().remove();
@@ -204,6 +206,29 @@
           'json'
       );
     }
+  });
+
+  $('.se-btn').click(function () {
+    var that = $(this);
+
+    $.get(
+        '__CONTROLLER__/send',
+        {
+          id:$(this).attr('oid')
+        },
+        function (data) {
+          console.log(data);
+          if (data == 1) {
+            that.remove();
+            that.parent().parent().parent().prev().prev().text('配送中');
+          } else {
+            alter('操作失败，请稍后再试。');
+          }
+        },
+        'json'
+      );
+
+    return false;
   });
 
 </script>

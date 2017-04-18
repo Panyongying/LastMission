@@ -49,6 +49,10 @@
 			} else {
 				$data = D('cart')->showCart();
 
+				if ($data == 'empty') {
+					$this->redirect('Index/index');
+				}
+
 				$addr = D('order')->showAddress();
 
 				// dump($addr);exit;
@@ -60,6 +64,7 @@
 			}
 		}
 
+		// 添加地址
 		public function addAddress()
 		{
 			$res = D('order')->addAddress();
@@ -72,6 +77,7 @@
 
 		}
 
+		// 确认订单操作
 		public function queryOrder()
 		{
 			if (IS_POST) {
@@ -83,7 +89,7 @@
 					exit;
 				}
 
-				$this->redirect("queryOrder/oid/{$res}");
+				echo $res;
 			} else if (IS_GET) {
 				$oid = I('get.oid');
 
@@ -104,6 +110,49 @@
 				$this->assign('data', $data);
 				$this->assign('orderData', $order['orderData']);
 				$this->assign('orderDetail', $order['orderDetail']);
+
+				$this->display();
+			}
+		}
+
+		// 付款操作
+		public function pay()
+		{
+			if (IS_POST) {
+				$res = D('order')->pay();
+
+				echo $res;
+			} else if (IS_GET) {
+				$this->redirect('Index/index');
+			}
+		}
+
+		// 显示感谢页面
+		public function thinkYou()
+		{
+			$data = D('cart')->showCart();
+
+			$this->assign('data', $data);
+			$this->display();
+		}
+
+		//确认收货操作
+		public function receipt()
+		{
+			if (IS_POST) {
+				$res = D('order')->receipt();
+
+				echo $res;
+			}
+		}
+
+		// 评论
+		public function comment()
+		{
+			if (IS_POST) {
+
+			} else if (IS_GET) {
+				$this->display();
 			}
 		}
 	}
