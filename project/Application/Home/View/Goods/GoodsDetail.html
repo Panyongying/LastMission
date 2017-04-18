@@ -151,7 +151,7 @@
                       <button class="button button-big button-buy product-details-favorite button-disabled" data-not-added-text="您必须选择一个可用的尺码" data-added-text="已添加商品" data-shopping-bag-text="购物袋" data-shopping-bag-failed-text="将商品添加到购物袋时出错" data-quantity-text="数量" data-color-text="颜色" data-size-text="尺码" data-default-quantity="1" data-sold-out-text="已售完" data-not-added-sold-out-text="该颜色的所有尺码已售完" data-gid="{$goodsDeatil.id}">添加到购物袋</button>
 
                         <div class="button-sold-out-warning" style="top: 316px;display:none"></div>
-                         <button  class="button button-big button-secondary button-favorite icon icon-favorites-dark js-button-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏">加入收藏</button>
+                         <button  class="button button-big button-secondary button-favorite icon icon-favorites-dark js-button-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏"  data-gid="{$goodsDeatil.id}">加入收藏</button>
 
 
                       <div class="parbase details">
@@ -259,6 +259,9 @@
     $('.filter-option:first').parent().parent().prev('div').children().html( $('.filter-option:first').attr('title') );
     $('.filter-option:first').parent().parent().prev('div').attr('data-value', $('.filter-option:first').attr('title'));
     $('.button-buy').attr('data-color', $('.filter-option:first').attr('title'));
+    $('.button-secondary').attr('data-color', $('.filter-option:first').attr('title'));
+
+
 
     //点击换颜色
     $('.filter-option').on('click', function() {
@@ -273,6 +276,9 @@
 
       //为购物车按钮添加颜色属性
       $('.button-buy').attr('data-color', $(this).attr('title'));
+
+      //为收藏按钮添加颜色属性
+      $('.button-secondary').attr('data-color', $(this).attr('title'));
 
       //根据点击的值查询对应图片和size
       $.post(url, {aid:$(this).attr('title'),gid:{$goodsDeatil['id']}}, function(data) {
@@ -322,6 +328,7 @@
 
     //获取尺码
     $('input[type=radio]').on('click', function() {
+      $('.button-buy').removeClass('button-disabled');
 
       $(this).parent().parent().parent().prev('div').children().html($(this).attr('value'));
 
@@ -329,11 +336,16 @@
 
       //为购物车添加尺码属性
       $('.button-buy').attr('data-size', $(this).attr('value'));
+
+      //为收藏按钮添加尺码属性
+      $('.button-secondary').attr('data-size', $(this).attr('value'));
     })
 
     //gid,aid
     // 点击购物车按钮
-    $('.button-buy').on('click', function() {
+    // $('.button-buy').on('click', function() {
+    $('.button-buy').click(function() {
+      var that = $(this);
 
       //如果没点size,不给请求
       if ( !($(this).attr('data-size')) ) {
@@ -342,11 +354,39 @@
       } else {
 
         $('.button-sold-out-warning').css('display', 'none');
+
+        // 添加购物车操作
+        $.post(
+          '__APP__/Home/cart/addToCart',
+          {
+            gid:that.attr('data-gid'),
+            color:that.attr('data-color'),
+            size:that.attr('data-size'),
+          },
+          function (data) {
+            if (data == 2) { // 添加失败
+              alert('添加失败');
+            } else if (data == 3) { // 没库存
+              alert('没库存了')
+            } else { // 添加成功
+              $('shopping-bag-rollover-items-wrapper').children().remove();
+              $('.shopping-bag-rollover-items-wrapper').append(data.topCart);
+              $('.shopping-bag-rollover-summary .clearfix').children().find('dd').text('￥' + data.totalPrice);
+              $('.shoppingbag-item-count').text(data.goodsNum);
+              $('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + data.totalPrice);
+            }
+          },
+          'json'
+        );
       }
 
 
     });
 
+    if ( !($('.button-buy').attr('data-size')) == undefined ) {
+
+        $('.button-buy').removeClass('button-disabled');
+    }
 
 
 </script>

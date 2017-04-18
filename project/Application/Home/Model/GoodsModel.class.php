@@ -80,11 +80,16 @@ class GoodsModel extends Model
 
                 $data[$i]['aid'][$j] = $data[$i]['aid'][$j]['aid'][0];
 
-                $data[$i]['aid'] = array_unique($data[$i]['aid']);
-
-                $data[$i]['aid'][$j] = M('attr')->field('attrName')->select($data[$i]['aid'][$j]);
+                $data[$i]['color'] = array_unique($data[$i]['aid']);
 
             }
+
+            for ($k=0; $k<count($data[$i]['color']); $k++) {
+
+                $data[$i]['color'][$k] = M('attr')->field('attrName')->select($data[$i]['color'][$k]);
+            }
+
+            unset($data[$i]['aid']);
         }
 
         return $data;

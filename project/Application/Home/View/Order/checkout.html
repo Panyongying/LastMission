@@ -137,7 +137,7 @@
 	<if condition="$addr eq 'empty'">
 		<li>暂无地址，请按下方按钮添加</li>
 	<else />
-		<foreach name="$addr" item="ov">
+		<foreach name="addr" item="ov">
 			<li class="item js-check-option check-option delivery-option ng-scope">
 				<label for="delivery-address-{$ov.id}" class="delivery-option-label">
 					<input type="radio" name="addrid" id="delivery-address-{$ov.id}" class="js-update-on-change delivery-option-radio js-check-option-input ng-pristine ng-untouched ng-valid" 
@@ -224,7 +224,7 @@
 		<h2 class="box-headline">
 			您的订单</h2>
 		<ul class="checkout-order-items">
-		<foreach name="$data.cartList" item="ov">
+		<foreach name="data.cartList" item="ov">
 			<li class="checkout-order-item ng-scope" id="{$ov.gid}">
 	<img alt="{$ov.name}" title="{$ov.name}" class="checkout-order-item-image" src="{$ov.pic}">
 
@@ -509,7 +509,7 @@
 					code:code.val()
 				},
 				function (data) {
-					if (res == 2) {
+					if (data == 2) {
 						that.attr('disabled', false);
 						that.css('background', 'black');
 						that.siblings().remove();
@@ -519,7 +519,7 @@
 						that.css('background', 'black');
 						that.siblings().remove();
 						$('#zzc').css('display', 'none');
-						$('.choose-delivery-address').child().remove();
+						$('.choose-delivery-address').children().remove();
 						$('.choose-delivery-address').append(data);
 					}
 				},
@@ -530,7 +530,7 @@
 
 	// 确认付款操作
 	$('#placeorderbutton').click(function () {
-		if ($('input[name="addrid"]').val() == undefined) {
+		if ($('input[name="addrid"]:checked').val() == undefined) {
 			$(this).prev().remove();
 			$(this).before('<span class="input-info invalid button-validation-message">请检查您的地址信息。</span>');
 
@@ -548,8 +548,8 @@
 			},
 			function (data) {
 				if (data == 2) {
-					$('#desktopPaymentConfirmationLoader').child().child().child().remove();
-					$('#desktopPaymentConfirmationLoader').child().child().append('<p class="text"> 系统繁忙，请刷新页面重新提交</p>');
+					$('#desktopPaymentConfirmationLoader').children().children().children().remove();
+					$('#desktopPaymentConfirmationLoader').children().children().append('<p class="text"> 系统繁忙，请刷新页面重新提交</p>');
 				}
 			},
 			'json'

@@ -51,6 +51,8 @@
 			</li>';
 				}
 
+				return $addr;
+
 			} else {
 				return false;
 			}
@@ -75,7 +77,7 @@
 		public function queryOrder()
 		{
 			if (IS_POST) {
-				$uid = $_SESSION['userInfo']['id'];
+				$uid = intval($_SESSION['userInfo']['id']);
 
 				// 判断非法访问
 				if (empty($uid)) {
@@ -105,18 +107,20 @@
 				}
 
 				// 创建订单
+				$order = [];
 				$order['uid'] = $uid;
 				$order['orderAddtime'] = time();
-				$order['totalPrice'] = $totalPrice;
+				$order['orderTotalPrice'] = $totalPrice;
 				$order['orderRecName'] = $addrData['recname'];
-				$order['orderZip'] = $addrData['zip'];
+				$order['orderRecZip'] = $addrData['zip'];
 				$order['orderRecAddr'] = $addrData['addr'];
 				$order['orderRecPhone'] = $addrData['phone'];
-
 				// 开启事务插入数据
 				$this->startTrans();
 
-				$oid = M('order')->add($order);
+				$oid = M('order')->data($order)->add();
+
+
 
 				if (!$oid) { // 添加失败
 					$this->rollback();
@@ -138,7 +142,9 @@
 				}
 
 				// 删除购物车表的信息
-				$res = M('cart')->where("uid={$uid}")->delete();
+				$where['uid'] = $uid;
+				
+				$res = M('cart')->where($where)->delete();
 
 				if ($res === false) { // 出错
 					$this->rollback();

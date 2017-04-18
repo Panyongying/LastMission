@@ -22,21 +22,27 @@
 		<div class="row sticky-wrapper ng-scope" ng-controller="CartContextController">
 			<div class="grid col-8">
 				<h2 class="visuallyhidden">购物袋商品</h2>
-					<if condition="$data = 'empty' ">
+					<if condition="$data eq 'empty' ">
 						<div class="ng-scope">
 							<div id="cartPage-body-empty" class="box">
 								<div class="box-content shopping-bag-empty">
 									<h2>您的购物袋是空的</h2>
 									<div class="ng-scope">
-										请登录保存商品到购物袋,或读取购物袋中已保存商品。 <br><br>
+										<if condition="$login eq 2">
+										请登录保存商品到购物袋,或读取购物袋中已保存商品。 
+										<br><br>
 										<a href="__APP__/Home/User/signIn">登录</a>
+										<else />
+										您的购物袋是空的{$cart}
+										</if>
+										<br><br>
 									</div>
 								</div>
 							</div>
 						</div>
 					<else />
 					<ul ng-if="getContext().cartEntries.length &gt; 0" class="product-detail-list responsive ng-scope" id="cartPage-items">
-						<foreach name="$data.cartList" item="ov">
+						<foreach name="data.cartList" item="ov">
 					<li class="product-detail-list-item ng-scope" id="0401021001" ng-repeat="entry in getContext().cartEntries" >
 		<div class="product-detail-list-item-image-wrapper">
 			<div class="wrapper-inner">
@@ -50,7 +56,7 @@
 		
 				<div class="product-detail-list-item-price-info">
 					<p class="product-detail-list-item-total-price">
-						总价：<span id="entry_new_price" class="ng-binding">¥{$ov.price * $ov.gnum}</span>
+						总价：<span id="entry_new_price" class="ng-binding">¥{$ov.allPrice}</span>
 					</p>
 				</div>
 		
@@ -87,13 +93,17 @@
                 <label class="product-detail-list-item-actions-label" for="shopping-bag-quantity-options-4"></label>
 				<div class="select-primary product-detail-list-item-quantity">
     				<select name="product-detail-list-item-quantity-options-4" id="shopping-bag-quantity-options-4" data-validation="false" ng-change="updateQuantity(entry,entry.quantity)" ng-model="entry.quantity" ng-options="option for option in range(entry.maxQuantity)" class="ng-pristine ng-untouched ng-valid num-sel"  aid="{$ov.aid}" gid="{$ov.gid}">
-    					<if condition="$ov.stock egt 10">
+    					<if condition="$ov['stock'] egt 10">
     						<for start="1" end="11">
-    							<option value="{$i}" <if condition="$i = $ov.stock">selected</if> label="{$i}">{$i}</option>
+    							<option value="{$i}" 
+    							<if condition="$i eq $ov['gnum']">selected 
+    							</if> label="{$i}">{$i}</option>
     						</for>
     					<else />
-    						<for start="1" end="$ov.stock + 1">
-    							<option value="{$i}" <if condition="$i = $ov.stock">selected</if> label="{$i}">{$i}</option>
+    						<for start="1" end="$ov['stock'] + 1">
+    							<option value="{$i}" 
+    							<if condition="$i eq $ov['gnum']">selected 
+    							</if> label="{$i}">{$i}</option>
     						</for>
     					</if>
     				</select>
@@ -115,8 +125,8 @@
 		<tr>
 			<th scope="row">订单价值：</th>
 			<td><span id="newPriceSubtotal" class="ng-binding">¥
-				<if condition="$data = 'empty'">0.00
-				<else />{$ov.totalPrice}
+				<if condition="$data eq 'empty'">0.00
+				<else />{$data.totalPrice}
 				</if>
 			</span></td>
 		</tr>
@@ -125,15 +135,15 @@
 		<tr>
 			<th scope="row">总价:</th>
 			<td id="total_price_of_basket" class="ng-binding">
-				¥<if condition="$data = 'empty'">0.00
-				<else />{$ov.totalPrice}
+				¥<if condition="$data eq 'empty'">0.00
+				<else />{$data.totalPrice}
 				</if>
 		    	</td>
 		   </tr>
 		 </tfoot>
 </table>
 				
-			<button id="goToQuery" class="button button-big" <if condition="$data = 'empty'">disabled
+			<button id="goToQuery" class="button button-big" <if condition="$data eq 'empty'">disabled
 				<else />
 				</if>
 				>
@@ -226,13 +236,8 @@
 <!--AEMPUBPRDAP15-->
 <div class="parsys main"><section class="legaltext parbase section">
 <h1 class="sub-sub-heading"></h1>
-<p class="text"></p><p><b>请在结账时，在”支付”栏中点击编辑，添加折扣代码。、</b></p>
-<p>&nbsp;</p>
-<p><b>踏青特惠+包邮</b></p>
-<p>购物满399元立减40元，使用代码5001</p>
-<p>购物满599元立减80元，使用代码5002&nbsp;</p>
-<p>购物满799元立减150元，使用代码5003</p>
-<p>&nbsp;</p>
+<p class="text">
+
 <p><b>退货和退款</b></p>
 <p>如果要退货，请自行安排快递并承担快递费用。<a class="underline overlay-trigger" href="http://www2.hm.com/zh_cn/customer-service/return-link.html">在此处</a>了解更多有关退货和退款的信息。<br>
 您的发票将会在您提出要求后，为您提供。在&nbsp;<a class="underline overlay-trigger" href="http://www2.hm.com/zh_cn/customer-service/fapiao.html">这里</a>&nbsp;了解更多有关发票的信息</p>
@@ -288,7 +293,7 @@
 
 <script>
 	// 删除按钮
-	$('.rm-btn').click(function () {
+	$(document).on('click', '.rm-btn', function () {
 		var aid = $(this).attr('aid');
 		var gid = $(this).attr('gid');
 
@@ -304,12 +309,13 @@
 				} else {
 					$('.visuallyhidden').next().remove();
 					$('.visuallyhidden').after(data.mainCart);
-					$('.shopping-bag-rollover-items-wrapper').child().remove();
+					$('.shopping-bag-rollover-items-wrapper').children().remove();
 					$('.shopping-bag-rollover-items-wrapper').append(data.topCart);
-					$('.clearfix').child().find('dd').text('￥' + data.totalPrice);
-					$('.shopping-bag-rollover-order-total').child().find('dd').text('￥' + data.totalPrice);
+					$('.clearfix').children().find('dd').text('￥' + data.totalPrice);
+					$('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + data.totalPrice);
 					$('#total_price_of_basket').text('￥' + data.totalPrice);
 					$('#newPriceSubtotal').text('￥' + data.totalPrice);
+					$('.shoppingbag-item-count').text(data.goodsNum);
 					if (data.totalPrice == '0.00') {
 						$('#goToQuery').attr('disabled', true);
 					} else {
@@ -322,7 +328,7 @@
 	});
 
 	// 去收藏按钮
-	$('.fav-btn').click(function () {
+	$(document).on('click', '.fav-btn', function () {
 		var aid = $(this).attr('aid');
 		var gid = $(this).attr('gid');
 
@@ -340,11 +346,12 @@
 				} else {
 					$('.visuallyhidden').next().remove();
 					$('.visuallyhidden').after(data.mainCart);
-					$('.shopping-bag-rollover-items-wrapper').child().remove();
+					$('.shopping-bag-rollover-items-wrapper').children().remove();
 					$('.shopping-bag-rollover-items-wrapper').append(data.topCart);
-					$('.clearfix').child().find('dd').text('￥' + data.totalPrice);
-					$('.shopping-bag-rollover-order-total').child().find('dd').text('￥' + data.totalPrice);
+					$('.clearfix').children().find('dd').text('￥' + data.totalPrice);
+					$('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + data.totalPrice);
 					$('#total_price_of_basket').text('￥' + data.totalPrice);
+					$('.shoppingbag-item-count').text(data.goodsNum);
 					$('#newPriceSubtotal').text('￥' + data.totalPrice);
 
 					if (data.totalPrice == '0.00') {
@@ -359,7 +366,7 @@
 	});
 
 	// 改变商品数量
-	$('.num-sel').change(function () {
+	$(document).on('change', '.num-sel', function () {
 		var gnum = $(this).val();
 		var aid = $(this).attr('aid');
 		var gid = $(this).attr('gid');
@@ -374,13 +381,16 @@
 			function (data) {
 				if (data == 2) {
 					alert('系统繁忙，请稍后再试');
+				} else if (data == 3) {
+					alert('没有库存了');
 				} else {
 					$('.visuallyhidden').next().remove();
 					$('.visuallyhidden').after(data.mainCart);
-					$('.shopping-bag-rollover-items-wrapper').child().remove();
+					$('.shopping-bag-rollover-items-wrapper').children().remove();
 					$('.shopping-bag-rollover-items-wrapper').append(data.topCart);
-					$('.clearfix').child().find('dd').text('￥' + data.totalPrice);
-					$('.shopping-bag-rollover-order-total').child().find('dd').text('￥' + data.totalPrice);
+					$('.shopping-bag-rollover-summary .clearfix').children().find('dd').text('￥' + data.totalPrice);
+					$('.shoppingbag-item-count').text(data.goodsNum);
+					$('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + data.totalPrice);
 					$('#total_price_of_basket').text('￥' + data.totalPrice);
 					$('#newPriceSubtotal').text('￥' + data.totalPrice);
 

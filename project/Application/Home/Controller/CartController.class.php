@@ -9,17 +9,28 @@
 		{
 			$data = D('cart')->showCart();
 
+			if (empty($_SESSION['userInfo']['id'])) {
+				$this->assign('login', 2);
+			} else {
+				$this->assign('login', 1);
+			}
+
 			$this->assign('data', $data);
 
-			$this->display();
+			$this->display('cart/index');
 		}
 
 		// 添加购物车
 		public function addToCart()
 		{
-			$res = D('cart')->addToCart();
+			if (IS_POST) {
+				$res = D('cart')->addToCart();
+				
+				echo json_encode($res);
+			} else if (IS_GET) {
+				$this->redirect('Index/index');
+			}
 
-			echo $res;
 		}
 
 		// 删除购物车中的商品
