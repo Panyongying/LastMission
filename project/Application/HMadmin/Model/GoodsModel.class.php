@@ -12,7 +12,7 @@
 
             array('name', 'require', '商品名不能为空'),
             array('name','','帐号名称已经存在！',0,'unique',1),
-            array('price', 'require', '价格必须有'),
+            array('price', '/[1-9][0-9]{1,10}/', '价格只能为11位之内数字'),
             array('des', 'require', '描述不能为空'),
             array('detail', 'require', '详情不能为空'),
             array('goodsNum', '/[1-9][0-9]{1,10}/', '库存只能为11位之内数字'),
@@ -102,14 +102,14 @@
 
             $res = M('goods_pic')->where('gid='.$id)->delete();
 
-            if ($res == false) {
+            if ($res === false) {
 
                 $flag = false;
             }
 
             $res = M('stock')->where('gid='.$id)->delete();
 
-            if ($res == false) {
+            if ($res === false) {
 
                 $flag = false;
             }
