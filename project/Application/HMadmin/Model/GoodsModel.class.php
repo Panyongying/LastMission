@@ -4,6 +4,9 @@
 
     use Think\Model;
 
+    import("XS.lib.XS");
+
+
     class GoodsModel extends Model
     {
 
@@ -77,7 +80,10 @@
 
         //删除商品
         public function deleteOne()
-        {
+        {   
+            //迅搜对象
+            $xs = new \XS('jhjy');
+            $index = $xs->index;
             //启动事务
             $Goods = M();
             $Goods->startTrans();
@@ -85,6 +91,9 @@
             $flag = true;
 
             $id = I('get.id');
+
+
+            
 
             $res = M('goods')->delete($id);
 
@@ -102,19 +111,22 @@
 
             $res = M('goods_pic')->where('gid='.$id)->delete();
 
-            if ($res == false) {
+            if ($res === false) {
 
                 $flag = false;
             }
 
             $res = M('stock')->where('gid='.$id)->delete();
 
-            if ($res == false) {
+            if ($res === false) {
 
                 $flag = false;
             }
 
             if ($flag) {
+
+                //删除索引
+                $xsRes = $index->del($id);
 
                 $Goods->commit();
                 return true;
@@ -129,6 +141,9 @@
         //批量删除
         public function deleteAll()
         {
+            //迅搜对象
+            $xs = new \XS('jhjy');
+            $index = $xs->index;
             //启动事务
             $Goods = M();
             $Goods->startTrans();
@@ -136,6 +151,10 @@
             $flag = true;
 
             $checkVal = I('post.checkson');
+
+            
+
+
 
             $ids = rtrim( join(',', $checkVal) );
 
@@ -172,6 +191,9 @@
             }
 
             if ($flag) {
+
+                //删除索引
+                $xsRes = $index->del($checkVal);
 
                 $Goods->commit();
                 return true;
@@ -349,6 +371,13 @@
         //修改商品信息
         public function editOneGood()
         {
+        	//迅搜对象
+        	$xs = new \XS('jhjy');
+    		$index = $xs->index;
+    		$search = $xs->search;
+   			$doc = new \XSDocument;
+
+
             //启动事务
             $Goods = M();
             $Goods->startTrans();
@@ -397,6 +426,38 @@
             if ($flag) {
 
                 $Goods->commit();
+            	$index->del($data['id']);
+            	//查数据库获取数据
+	            $xsRes =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('left join hm_stock ON hm_goods.id = hm_stock.gid')->where("hm_goods.id = {$data['id']}")->select();
+	        
+	            foreach ($xsRes as $v) {
+	                $xsRes2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
+	                // var_dump($res2);
+	                foreach ($xsRes2 as $vo) {
+	                    @$v['attrName'] .= $vo['attrname'].',';
+	                }
+	                $v['attrName'] = rtrim($v['attrName'],',');
+	                $xsData[] = $v;
+	            }
+
+
+
+	            // //创建索引
+	            foreach ($xsData as $v) {
+	                $docs = $doc->setFields(array(
+	                    'id'=>$v['id'],
+	                    'name'=>$v['name'],
+	                    'price'=>$v['price'],
+	                    'tid'=>$v['tid'],
+	                    'status'=>$v['status'],
+	                    'attrname'=>$v['attrName'],
+	                ));
+	                $xsRes3 = $index->add($doc);
+
+	           
+	            }
+            	
+
                 return true;
 
             } else {
@@ -489,6 +550,12 @@
         //添加库存颜色尺码
         public function addStock()
         {
+            $xs = new \XS('jhjy');
+
+            $index = $xs->index;
+
+            $doc = new \XSDocument;
+
             $data = I('post.');
 
             if ($data['goodsNum'] != false) {
@@ -496,6 +563,35 @@
                 $data['aid'] = join(',', $data['aid']);
 
                 $res = M('stock')->add($data);
+
+            $index->del($data['gid']);
+                //查数据库获取数据
+            $xsRes =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('left join hm_stock ON hm_goods.id = hm_stock.gid')->where("hm_goods.id = {$data['gid']}")->select();
+        
+            foreach ($xsRes as $v) {
+                $xsRes2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
+                // var_dump($res2);
+                foreach ($xsRes2 as $vo) {
+                    @$v['attrName'] .= $vo['attrname'].',';
+                }
+                $v['attrName'] = rtrim($v['attrName'],',');
+                $xsData[] = $v;
+            }
+
+
+
+            // //创建索引
+            foreach ($xsData as $v) {
+                $docs = $doc->setFields(array(
+                    'id'=>$v['id'],
+                    'name'=>$v['name'],
+                    'price'=>$v['price'],
+                    'tid'=>$v['tid'],
+                    'status'=>$v['status'],
+                    'attrname'=>$v['attrName'],
+                ));
+                $xsRes3 = $index->add($doc);
+            }
 
             } else {
 
