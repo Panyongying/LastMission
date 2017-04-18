@@ -32,14 +32,14 @@
         <div class="am-form-group am-cf">
           <div class="zuo">描述：</div>
           <div class="you">
-            <textarea class="" rows="2" id="doc-ta-1" name="des">{$goodData.des}</textarea>
+            <textarea class="des" rows="2" id="doc-ta-1" name="des">{$goodData.des}</textarea>
           </div>
         </div>
 
         <div class="am-form-group am-cf">
           <div class="zuo">商品详情：</div>
           <div class="you">
-            <textarea class="" rows="2" id="doc-ta-1" name="detail">{$goodData.detail}</textarea>
+            <textarea class="detail" rows="2" id="doc-ta-1" name="detail">{$goodData.detail}</textarea>
           </div>
         </div>
 
@@ -217,6 +217,71 @@
               $('.staop').eq(i).attr('selected', true);
             }
           }
+
+
+        //验证用户输入信息
+        $('.fbneirong input').focus(function() {
+
+            $('#spanSize').html('');
+
+            if ($('input[name=name]').val() && $('input[name=price]').val()) {
+
+                $("button").removeAttr("disabled");
+
+            } else {
+
+                $('button').attr('disabled', 'true');
+            }
+
+
+        }).blur(function() {
+
+            if ($('input[name=name]').val() == '') {
+
+                $('#spanSize').css('color', 'red').html('请输入商品名');
+                $('button').attr('disabled', 'true');
+
+
+            } else if ($('input[name=price]').val() == '') {
+
+                $('#spanSize').css('color', 'red').html('请输入价格');
+                $('button').attr('disabled', 'true');
+
+            }
+
+        });
+
+        $('.fbneirong textarea').focus(function() {
+
+            $('#spanSize').html('');
+            if ($('.des').val() && $('.detail').val()) {
+
+                $("button").removeAttr("disabled");
+
+            } else {
+
+                $('button').attr('disabled', 'true');
+            }
+
+        }).blur(function() {
+
+            if ($('.des').val() == '') {
+
+                $('#spanSize').css('color', 'red').html('请输入描述');
+                $('button').attr('disabled', 'true');
+
+            } else if ($('.detail').val() == '') {
+
+                $('#spanSize').css('color', 'red').html('请输入商品详情');
+                $('button').attr('disabled', 'true');
+
+            }
+            if ($('.des').val() && $('.detail').val()) {
+
+                $("button").removeAttr("disabled");
+            }
+
+        });
         </script>
 
         <div class="am-form-group am-cf">

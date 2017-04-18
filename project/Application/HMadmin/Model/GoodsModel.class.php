@@ -80,7 +80,7 @@
 
         //删除商品
         public function deleteOne()
-        {   
+        {
             //迅搜对象
             $xs = new \XS('jhjy');
             $index = $xs->index;
@@ -93,7 +93,7 @@
             $id = I('get.id');
 
 
-            
+
 
             $res = M('goods')->delete($id);
 
@@ -152,7 +152,7 @@
 
             $checkVal = I('post.checkson');
 
-            
+
 
 
 
@@ -429,7 +429,7 @@
             	$index->del($data['id']);
             	//查数据库获取数据
 	            $xsRes =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('left join hm_stock ON hm_goods.id = hm_stock.gid')->where("hm_goods.id = {$data['id']}")->select();
-	        
+
 	            foreach ($xsRes as $v) {
 	                $xsRes2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
 	                // var_dump($res2);
@@ -454,9 +454,9 @@
 	                ));
 	                $xsRes3 = $index->add($doc);
 
-	           
+
 	            }
-            	
+
 
                 return true;
 
@@ -540,11 +540,19 @@
 
             $data = I('post.');
 
-            $data['aid'] = join(',', $data['aid']);
+            if ($data['goodsNum'] > 0) {
 
-            $res = M('stock')->where('id='.$data['id'])->save($data);
+                $data['aid'] = join(',', $data['aid']);
 
-            return $res;
+                $res = M('stock')->where('id='.$data['id'])->save($data);
+
+                return $res;
+
+            } else {
+
+                return false;
+            }
+
         }
 
         //添加库存颜色尺码
@@ -558,40 +566,40 @@
 
             $data = I('post.');
 
-            if ($data['goodsNum'] != false) {
+            if ($data['goodsNum'] > 0) {
 
                 $data['aid'] = join(',', $data['aid']);
 
                 $res = M('stock')->add($data);
 
-            $index->del($data['gid']);
+                $index->del($data['gid']);
                 //查数据库获取数据
-            $xsRes =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('left join hm_stock ON hm_goods.id = hm_stock.gid')->where("hm_goods.id = {$data['gid']}")->select();
-        
-            foreach ($xsRes as $v) {
-                $xsRes2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
-                // var_dump($res2);
-                foreach ($xsRes2 as $vo) {
-                    @$v['attrName'] .= $vo['attrname'].',';
+                $xsRes =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('left join hm_stock ON hm_goods.id = hm_stock.gid')->where("hm_goods.id = {$data['gid']}")->select();
+
+                foreach ($xsRes as $v) {
+                    $xsRes2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
+                    // var_dump($res2);
+                    foreach ($xsRes2 as $vo) {
+                        @$v['attrName'] .= $vo['attrname'].',';
+                    }
+                    $v['attrName'] = rtrim($v['attrName'],',');
+                    $xsData[] = $v;
                 }
-                $v['attrName'] = rtrim($v['attrName'],',');
-                $xsData[] = $v;
-            }
 
 
 
-            // //创建索引
-            foreach ($xsData as $v) {
-                $docs = $doc->setFields(array(
-                    'id'=>$v['id'],
-                    'name'=>$v['name'],
-                    'price'=>$v['price'],
-                    'tid'=>$v['tid'],
-                    'status'=>$v['status'],
-                    'attrname'=>$v['attrName'],
-                ));
-                $xsRes3 = $index->add($doc);
-            }
+                // //创建索引
+                foreach ($xsData as $v) {
+                    $docs = $doc->setFields(array(
+                        'id'=>$v['id'],
+                        'name'=>$v['name'],
+                        'price'=>$v['price'],
+                        'tid'=>$v['tid'],
+                        'status'=>$v['status'],
+                        'attrname'=>$v['attrName'],
+                    ));
+                    $xsRes3 = $index->add($doc);
+                }
 
             } else {
 
@@ -703,5 +711,88 @@
             return $res;
         }
 
+        //缓存时间首页数据
+        public function mechaIndex()
+        {
+            $data = M('expire')->order('id desc')->select();
+
+            foreach ($data as $key=>$value) {
+
+                $data[$key]['gname'] = M('goods')->field('name')->find($value['gid']);
+            }
+
+            return $data;
+        }
+
+        //ajax删除缓存时间表
+        public function ajaxDeleteMemcha()
+        {
+            $id = I('get.id');
+
+            $res = M('expire')->delete($id);
+
+            return $res;
+        }
+
+        //修改缓存时间
+        public function mechaEdit()
+        {
+            $data = I('post.');
+
+            $expire['id'] = I('post.id');
+            $expire['expire'] = $data['year'] * 3600 * 24 * 30 * 12 + $data['month'] * 3600 * 24 * 30 + $data['hour'] * 3600 + $data['min'] * 60 + $data['s'];
+
+            if ($expire['expire'] >= 0) {
+
+                $res = M('expire')->save($expire);
+                return $res;
+
+            } else {
+
+                return false;
+            }
+        }
+
+        //查询为加缓存时间的商品id，name
+        public function goodsTime()
+        {
+
+            $data = M('goods')->field('id,name')->select();
+            $timeData = M('expire')->field('gid')->select();
+
+            foreach ($timeData as $value) {
+
+                foreach ($data as $k=>$val) {
+
+                    if ($value['gid'] == $val['id']) {
+
+                        unset($data[$k]);
+                    }
+                }
+            }
+
+            return $data;
+        }
+
+        //添加商品缓存时间
+        public function addMemcha()
+        {
+
+            $data = I('post.');
+
+            $expire['gid'] = $data['gid'];
+            $expire['expire'] = $data['year'] * 3600 * 24 * 30 * 12 + $data['month'] * 3600 * 24 * 30 + $data['hour'] * 3600 + $data['min'] * 60 + $data['s'];
+
+            if ($expire['expire'] >= 0) {
+
+                $res = M('expire')->data($expire)->add();
+                return $res;
+
+            } else {
+
+                return false;
+            }
+
+        }
     }
 

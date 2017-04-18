@@ -4,12 +4,12 @@
  *
  * 这个文件是由开发工具中的 'build lite' 指令智能合并类定义的源码文件
  * 并删除所有注释而自动生成的。
- * 
+ *
  * 当您编写搜索项目时，先通过 require 引入该文件即可使用所有的 PHP-SDK
  * 功能。合并的主要目的是便于拷贝，只要复制这个库文件即可，而不用拷贝一
  * 大堆文件。详细文档请阅读 {@link:http://www.xunsearch.com/doc/php/}
- * 
- * 切勿手动修改本文件！生成时间：2016/08/25 13:44:37 
+ *
+ * 切勿手动修改本文件！生成时间：2016/08/25 13:44:37
  *
  * @author hightman
  * @link http://www.xunsearch.com/
@@ -17,7 +17,7 @@
  * @license http://www.xunsearch.com/license/
  * @version $Id$
  */
-error_reporting ( E_ALL  ^  E_NOTICE );
+error_reporting ( E_ALL  ^  E_NOTICE ^ E_WARNING );
 define('XS_CMD_NONE',	0);
 define('XS_CMD_DEFAULT',	XS_CMD_NONE);
 define('XS_CMD_PROTOCOL',	20110707);
