@@ -18,4 +18,12 @@
 	  		$this->display('Favourites/favourites');      	
 
 		}
+
+
+		public function getGoodsInfo()
+		{	
+
+			D('favorite')->getGoodsDetail();
+			
+		}
 	}
