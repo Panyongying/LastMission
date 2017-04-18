@@ -80,11 +80,19 @@ class GoodsModel extends Model
 
                 $data[$i]['aid'][$j] = $data[$i]['aid'][$j]['aid'][0];
 
-                $data[$i]['aid'] = array_unique($data[$i]['aid']);
-
-                $data[$i]['aid'][$j] = M('attr')->field('attrName')->select($data[$i]['aid'][$j]);
+                $data[$i]['color'] = array_unique($data[$i]['aid']);
 
             }
+
+            unset($data[$i]['aid']);
+
+            sort($data[$i]['color']);
+
+            for ($k=0; $k<count($data[$i]['color']); $k++) {
+
+                $data[$i]['color'][$k] = M('attr')->field('attrName')->select($data[$i]['color'][$k]);
+            }
+
         }
 
         return $data;
@@ -113,13 +121,64 @@ class GoodsModel extends Model
     {
         $id = I('get.id');
 
-        $data = M('goods')->field('name,price,des')->where('id='.$id)->find();
+        //设置缓存信息
+        S(array(
+
+            'type'=>'memcache',
+            'host'=>'192.168.42.167',
+            'port'=>'11211',
+            'prefix'=>'think',
+            'expire'=>100)
+        );
+
+        //查询有没有设定缓存时间
+        $expire = M('expire')->field('expire')->where('gid='.$id)->find();
+
+        //判断是否缓存了des，是就不查，没有就查
+        if ( !isset(S($key)['des']) ) {
+
+            $goodsfield = 'name,price,des';
+
+        } else {
+
+            $goodsfield = 'name,price';
+            $data['des'] = S($key)['des'];
+        }
+
+        $data = M('goods')->field($goodsfield)->where('id='.$id)->find();
 
         $data['pic'] = M('goods_pic')->field('pic')->where('gid='.$id)->select();
 
         $data['aid'] = M('stock')->field('aid')->where('gid='.$id)->select();
 
-        $data['detail'] = M('goods_detail')->field('detail')->where('gid='.$id)->find();
+        //判断是否缓存了detail，是就不查，没有就查
+        if ( !isset(S($key)['detail']) ) {
+
+            $data['detail'] = M('goods_detail')->field('detail')->where('gid='.$id)->find();
+
+        } else {
+
+            $data['detail'] = S($key)['detail'];
+        }
+
+        $key = md5($id);
+
+        if ( !isset($exist) ) {
+
+            $exist = 'exist';
+
+            $menca = $data['detail'];
+            $menca['des'] = $data['des'];
+
+            if (isset($expire)) {
+
+                S($key, $menca, $expire['expire']);
+
+            } else {
+
+                S($key, $menca);
+            }
+        }
 
         for ($i=0; $i<count($data['pic']); $i++) {
 

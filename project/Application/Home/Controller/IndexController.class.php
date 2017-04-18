@@ -92,10 +92,11 @@ class IndexController extends Controller
         $search = $xs->search;
         //搜索关键字
         $keyword = I('get.keyword');
-        $res = $search->setLimit(8)->search($keyword);
+        $search->setCollapse('id');
+        $res = $search->setLimit(8)->search("$keyword");
 
         //匹配数量
-        $lastCount = $search->count($keyword);
+        $lastCount = $search->count("$keyword");
 
         //一级菜单
         $OneList = D('goods')->OneList();
@@ -118,6 +119,9 @@ class IndexController extends Controller
     {
         $xs = new \XS('jhjy');
         $search = $xs->search;
+        $search->setCollapse('id');
+        
+
 
         if (IS_POST) {
             $data = I('post.data');
@@ -147,44 +151,44 @@ class IndexController extends Controller
         if (IS_POST) {
             switch ($data->orderBy) {
             case 'stock':
-            $res = $search->setLimit($data->showNum)->setFuzzy()->search($searchword);
+            $res = $search->setLimit($data->showNum)->setFuzzy()->search("$searchword");
 
                 break;
 
             case 'ascPrice':
-            $res = $search->setLimit($data->showNum)->setSort('price', true)->search($searchword);
+            $res = $search->setLimit($data->showNum)->setSort('price', true)->search("$searchword");
 
                 break;
 
             case 'descPrice':
-            $res = $search->setLimit($data->showNum)->setSort('price')->search($searchword);
+            $res = $search->setLimit($data->showNum)->setSort('price')->search("$searchword");
 
                 break;
 
             default:
-            $res = $search->setLimit($data->showNum)->search($searchword);
+            $res = $search->setLimit($data->showNum)->search("$searchword");
 
                 break;
             }
         } else {
             switch ($data->orderBy) {
             case 'stock':
-            $res = $search->setLimit(8,$data->showNum)->setFuzzy()->search($searchword);
+            $res = $search->setLimit(8,$data->showNum)->setFuzzy()->search("$searchword");
 
                 break;
 
             case 'ascPrice':
-            $res = $search->setLimit(8,$data->showNum)->setSort('price', true)->search($searchword);
+            $res = $search->setLimit(8,$data->showNum)->setSort('price', true)->search("$searchword");
 
                 break;
 
             case 'descPrice':
-            $res = $search->setLimit(8,$data->showNum)->setSort('price')->search($searchword);
+            $res = $search->setLimit(8,$data->showNum)->setSort('price')->search("$searchword");
 
                 break;
 
             default:
-            $res = $search->setLimit(8,$data->showNum)->search($searchword);
+            $res = $search->setLimit(8,$data->showNum)->search("$searchword");
                 break;
             }
 

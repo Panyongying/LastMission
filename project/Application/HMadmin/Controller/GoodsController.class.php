@@ -401,5 +401,85 @@
             }
 
         }
+
+        //缓存时间首页
+        public function mechaIndex()
+        {
+
+            if (IS_POST) {
+
+            } else {
+
+                $mechaData = D('goods')->mechaIndex();
+
+                $this->assign('mechaData', $mechaData);
+                $this->display('Memcache/mechaIndex');
+            }
+
+        }
+
+        //ajax删除缓存时间
+        public function ajaxDeleteMemcha()
+        {
+            if (IS_AJAX) {
+
+                $res = D('goods')->ajaxDeleteMemcha();
+
+                $this->ajaxReturn($res);
+            }
+
+        }
+
+        //修改缓存时间
+        public function mechaEdit()
+        {
+
+            if (IS_POST) {
+
+                $res = D('goods')->mechaEdit();
+
+                if ($res) {
+
+                    $this->success('修改成功', U('goods/mechaIndex'));
+
+                } else {
+
+                    $this->error('修改失败');
+                }
+
+            } else {
+
+                $id = I('get.id');
+
+                $this->assign('id', $id);
+                $this->display('Memcache/mechaEdit');
+            }
+        }
+
+        //添加商品缓存时间
+        public function addMemcha()
+        {
+
+            if (IS_POST) {
+
+                $res = D('goods')->addMemcha();
+
+                if ($res) {
+
+                    $this->success('添加成功', U('goods/mechaIndex'));
+
+                } else {
+
+                    $this->error('添加失败');
+                }
+
+            } else {
+
+                $data = D('goods')->goodsTime();
+
+                $this->assign('data', $data);
+                $this->display('Memcache/addMemcha');
+            }
+        }
     }
 
