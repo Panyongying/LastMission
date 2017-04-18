@@ -6,7 +6,7 @@
 <div class="admin-biaogelist">
 
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 栏目名称</ul>
+      <ul class="am-icon-flag on"> 栏目名称 &nbsp;<span id="spanSize"></span></ul>
 
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="__APP__/HMadmin/Goods/Index">商品列表</a></dl>
 
@@ -158,6 +158,19 @@
               });
 
             }
+          });
+
+
+          //验证用户输入信息
+          $('.fbneirong input').blur(function() {
+
+            if ($(this).val() == '') {
+
+              $('#spanSize').css('color', 'red').html('请输出商品名');
+
+            }
+
+
           });
 
         </script>

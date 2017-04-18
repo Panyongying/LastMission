@@ -190,7 +190,7 @@
                         <a href="__CONTROLLER__/goodsDetail/id/{$vv.id}" title="{$vv.name}" class="product-item-link"> <img width="222" height="333" src="__PUBLIC__/{$vv[pic][0]}" data-altimage="//lp2.hm.com/hmprod?set=source[/model/2017/E00 0481148 009 62 3245.jpg],type[STILLLIFE_FRONT]&amp;hmver=1&amp;call=url[file:/product/style]" class="product-item-image" alt="{$vv.name} 模特款型" data-alttext="缩褶连衣裙 " title="{$vv.name} 模特款型">
 
 
-                                <button type="button" class="favorite icon icon-favorites js-favorite" data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0481148009|缩褶连衣裙|LADIES_SHOPBYPRODUCT : DRESSES_DRESSES : VIEWALL_VIEW_ALL" data-saved-text="已加入收藏" data-not-saved-text="加入收藏" value="{$vv.id}">加入收藏</button>
+                                <button type="button" class="favorite icon icon-favorites js-favorite" data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0481148009|缩褶连衣裙|LADIES_SHOPBYPRODUCT : DRESSES_DRESSES : VIEWALL_VIEW_ALL" data-saved-text="已加入收藏" data-not-saved-text="加入收藏" value="{$vv.id}" data-aid="{$vv['color'][0][0].attrname}">加入收藏</button>
 
 
 
@@ -226,7 +226,7 @@
 
 
                             <ul class="list-swatches">
-                            <foreach name="vv.aid" item="va">
+                            <foreach name="vv.color" item="va">
                                     <li class="item" style="background:{$va[0].attrname};margin-left:2px"></li>
                             </foreach>
                             </ul>
@@ -250,8 +250,6 @@
             $('.filter').on('click', function(event) {
 
                 var that = $(this);
-
-                console.log(num);
 
                 if (num == 1) {
 

@@ -13,12 +13,13 @@
 				// 查询出购物车表的数据
 				$uid = $_SESSION['userInfo']['id'];
 
-				$map['id'] = array('EQ', $uid);
+				$map['uid'] = array('EQ', $uid);
 
 				$cartList = M('cart')->where($map)->select();
 			} else { // 未登录
 				$cartList = @$_SESSION['cart'];
 			}
+
 
 			// 购物车为空时
 			if (!$cartList) {
@@ -40,21 +41,21 @@
 				// 查询颜色
 				$map['id'] = array('IN', $aid);
 				$map['attrType'] = array('EQ', 1);
-				$color = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+				$color = M('attr')->field('attrName')->where($map)->find()['attrname'];
 
 				// 查询图片
 				$where['aid'] = array('IN', $aid);
 				$where['gid'] = array('EQ', $gid);
-				$pic = M('goods_pic')->field('pic')->where($where)->find()['pic'];
+				$pic = __APP__.'/Public/'.rtrim(M('goods_pic')->field('pic')->where($where)->find()['pic'], './');
 
 				// 查询尺码
 				$map['attrType'] = array('EQ', 2); // 先查询衣服的尺码
-				$size = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+				$size = M('attr')->field('attrName')->where($map)->find()['attrname'];
 
 				// 当结果为空时说明不是衣服继续查鞋子尺码
 				if (!$size) {
 					$map['attrType'] = array('EQ', 3);
-					$size = M('goods_attr')->field('attrName')->where($map)->find()['attrName'];
+					$size = M('attr')->field('attrName')->where($map)->find()['attrName'];
 				}
 
 				// 查询价格
@@ -64,7 +65,7 @@
 				$where['gid'] = array('EQ', $gid);
 				$where['aid'] = array('EQ', $aid);
 
-				$stock = M('stock')->field('num')->where($where)->find()['stock'];
+				$stock = M('stock')->field('goodsNum')->where($where)->find()['goodsnum'];
 
 				$cartList[$k]['pic'] = $pic;
 				$cartList[$k]['name'] = $name;
@@ -72,11 +73,13 @@
 				$cartList[$k]['size']  = $size;
 				$cartList[$k]['price'] = $price;
 				$cartList[$k]['stock'] = $stock;
-				$data['num'] += $cartList[$k]['gnum'];
-				$data['totalPrice'] += $cartList[$k]['gnum'] * $price;
+				$cartList[$k]['allPrice'] = number_format($price * $v['gnum'], 2);
+				$data['num'] += $v['gnum'];
+				$data['totalPrice'] += $v['gnum'] * $price;
 			}
 
 			$data['cartList'] = $cartList;
+			$data['totalPrice'] = number_format($data['totalPrice'], 2);
 
 			return $data;
 		}
@@ -97,22 +100,101 @@
 			$bool = $this->checkLogin();
 
 			if ($bool) { // 已登录
-				$map = I('get.');
+				// 查询购物车中有没有这件商品，有则数量加一
+				$where['gid'] = I('post.gid');
+				$where['uid'] = $_SESSION['userInfo']['id'];
 
-				$map['uid'] = $_SESSION['userInfo']['id'];
+				// 获取aid
+				$color = I('post.color');
+				$attr['attrName'] = $color;
+				$colorid = M('attr')->field('id')->where($attr)->find()['id'];
 
-				$res = M('cart')->add($map);
+				$size = I('post.size');
+				$attr['attrName'] = $size;
+				$sizeid = M('attr')->field('id')->where($attr)->find()['id'];
 
-				if ($res) {
-					return 1;
-				} else {
-					return 2;
+				$aid = $colorid.','.$sizeid;
+
+				$where['aid'] = $aid;
+
+				$gnum = M('cart')->where($where)->find()['gnum'];
+
+				// 查出所剩库存
+				$stock['gid'] = I('post.gid');
+				$stock['aid'] = $aid;
+
+				$stockNum = M('stock')->field('goodsNum')->where($stock)->find()['goodsnum'];
+
+				if ($gnum >= $stockNum) {
+					return 3; // 表示没库存了
+				}
+
+
+				if (empty($gnum)) { // 无这件商品
+					$where['gnum'] = 1;
+
+					$res = M('cart')->add($where);
+
+					if (!$res) {
+						return 2;
+					}
+				} else { // 有这商品
+					$newNum['gnum'] = $gnum + 1;
+
+					$res = M('cart')->where($where)->save($newNum);
+
+					if ($res === false) {
+						return 2;
+					}
 				}
 			} else {
-				$_SESSION['cart'][] = I('get.');
+				$gid = I('post.gid');
+				$uid = $_SESSION['userInfo']['id'];
 
-				return 1;
+				// 获取aid
+				$color = I('post.color');
+				$attr['attrName'] = $color;
+				$colorid = M('attr')->field('id')->where($attr)->find()['id'];
+
+				$size = I('post.size');
+				$attr['attrName'] = $size;
+				$sizeid = M('attr')->field('id')->where($attr)->find()['id'];
+
+				$aid = $colorid.','.$sizeid;
+
+				// 查出所剩库存
+				$stock['gid'] = I('post.gid');
+				$stock['aid'] = $aid;
+
+				$stockNum = M('stock')->field('goodsNum')->where($stock)->find()['goodsnum'];
+
+				foreach ($_SESSION['cart'] as $k => $v) {
+					if ($gid == $v['gid'] && $uid == $v['uid'] && $aid == $v['aid']) { // 有这件商品
+						if ($_SESSION['cart'][$k]['gnum'] >= $stockNum) {
+							return 3; // 表示没库存了
+						}
+
+						$_SESSION['cart'][$k]['gnum'] += 1;
+					} else { // 无这件商品
+						$goods = I('post.');
+
+						$goods['gnum'] = 1; // 默认添加1件
+						$goods['aid'] = $aid;
+
+						$_SESSION['cart'][] = $goods;
+					}
+				}
 			}
+
+			$data = $this->showCart();
+
+			dump($data);exit;
+
+			$result = $this->runData($data);
+
+			unset($result['mainCart']);
+
+			return json_encode($result);
 		}
 
 		// 删除购物车中的商品
@@ -151,10 +233,20 @@
 			$bool = $this->checkLogin();
 
 			if ($bool) { // 已登录
-				$data = I('get.gnum');
+				$data['gnum'] = I('get.gnum');
 
 				$map['gid'] = I('get.gid');
 				$map['uid'] = $_SESSION['userInfo']['id'];
+
+				// 查出所剩库存
+				$stock['gid'] = I('get.gid');
+				$stock['aid'] = I('get.aid');
+
+				$stockNum = M('stock')->field('goodsNum')->where($stock)->find()['goodsnum'];
+
+				if ($data['gnum'] >= $stockNum) {
+					return 3; // 表示没库存了
+				}
 
 				$res = M('cart')->where($map)->save($data);
 
@@ -188,14 +280,19 @@
 				// 开启事务
 				$this->startTrans();
 
-				// 添加数据给收藏表
-				$res = M('favorite')->add($map);
+				// 查出收藏表是否有相同商品
+				$data = M('favorite')->field('id')->where($map)->find();
 
-				if (!$res) {
-					// 回滚
-					$this->rollback();
+				if (!$data) { // 不存在商品
+					// 添加数据给收藏表
+					$res = M('favorite')->add($map);
 
-					return 2;
+					if (!$res) {
+						// 回滚
+						$this->rollback();
+
+						return 2;
+					}
 				}
 
 				// 删除购物车表数据
@@ -247,8 +344,12 @@
 								<div class="box-content shopping-bag-empty">
 									<h2>您的购物袋是空的</h2>
 									<div class="ng-scope">
-										请登录保存商品到购物袋,或读取购物袋中已保存商品。 <br><br>
-										<a href="__APP__/Home/User/signIn">登录</a>
+										您的购物袋是空的<br><br>';
+				if (empty($_SESSION['userInfo']['id'])) {
+					$result['mainCart'] .= '<a href="__APP__/Home/User/signIn">登录</a>';
+				}
+
+				$result['mainCart'] .= '
 									</div>
 								</div>
 							</div>
@@ -284,7 +385,7 @@
                                                 </div>
                                         <dl class="clearfix">
                                                                                     <dt>数量：</dt>
-                                                                                    <dd>'.$v['num'].'</dd>
+                                                                                    <dd>'.$v['gnum'].'</dd>
                                                                                     <dt>颜色：</dt>
                                                                                     <dd>'.$v['color'].'</dd>
                                                                                     <dt>尺码：</dt>
@@ -293,7 +394,7 @@
                                                                             </div>
                                                                             <div class="shopping-bag-item-total-price product-item-price">
                                                                                 总价:&nbsp;
-                                                                                ¥'.$v['num'] * $v['price'].'</div>
+                                                                                ¥'.$v['allPrice'].'</div>
                                                                         </li>';
 					// 主体购物车的处理
 					$result['mainCart'] .= '<li class="product-detail-list-item ng-scope" id="'.$v['gid'].'">
@@ -310,7 +411,7 @@
 		
 				<div class="product-detail-list-item-price-info">
 					<p class="product-detail-list-item-total-price">
-						总价：<span id="entry_new_price" class="ng-binding">¥'.$v['num'] * $v['price'].'</span>
+						总价：<span id="entry_new_price" class="ng-binding">¥'.$v['allPrice'].'</span>
 					</p>
 				</div>
 		
@@ -345,7 +446,7 @@
                 <button class="button secondary icon icon-move-favorite ng-scope fav-btn" type="button" data-saved-text="Saved to favorites" data-not-saved-text="Not saved to favorites" title="Toggle favorite" aid="'.$v['aid'].'" gid="'.$v['gid'].'"></button>
                 <label class="product-detail-list-item-actions-label" for="shopping-bag-quantity-options-4"></label>
 				<div class="select-primary product-detail-list-item-quantity">
-    				<select name="product-detail-list-item-quantity-options-4" id="shopping-bag-quantity-options-4" data-validation="false" ng-change="updateQuantity(entry,entry.quantity)" ng-model="entry.quantity" ng-options="option for option in range(entry.maxQuantity)" class="ng-pristine ng-untouched ng-valid"  aid="'.$v['aid'].'" gid="'.$v['gid'].'">';
+    				<select name="product-detail-list-item-quantity-options-4" id="shopping-bag-quantity-options-4" data-validation="false" ng-change="updateQuantity(entry,entry.quantity)" ng-model="entry.quantity" ng-options="option for option in range(entry.maxQuantity)" class="ng-pristine ng-untouched ng-valid num-sel"  aid="'.$v['aid'].'" gid="'.$v['gid'].'">';
     				if ($v['stock'] >= 10) {
     					$v['stock'] = 10;
     				}
@@ -353,8 +454,8 @@
 					for ($i = 1; $i <= $v['stock']; $i++) {
 						$result['mainCart'] .= '<option value="'.$i.'"';
 
-						if ($v['stock'] == $i) {
-							$result['mainCart'] .= ' selected';
+						if ($v['gnum'] == $i) {
+							$result['mainCart'] .= ' selected ';
 						}
 						
 						$result['mainCart'] .= 'label="'.$i.'">'.$i.'</option>';

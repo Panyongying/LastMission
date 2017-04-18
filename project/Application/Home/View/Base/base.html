@@ -114,7 +114,7 @@
 
                     	<ul class="list">
 
-                    		<li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/shopping-at-hm/store-locator.html">H&amp;M门店信息</a></li>
+                    		<li class="item"><a class="link" href="__APP__/Home/Store/index">H&amp;M门店信息</a></li>
 
                     	</ul>
                  </div>
@@ -126,7 +126,7 @@
 
                 <div class="session-menu-top-row">
 
-                        <a href="http://www2.hm.com/zh_cn/favourites" class="js-favorite-entry-point favorite-entry-point is-favorite icon-favorites-dark icon">
+                        <a href="__APP__/Home/Favourites/index" class="js-favorite-entry-point favorite-entry-point is-favorite icon-favorites-dark icon">
                             收藏
                         </a>
 
@@ -135,7 +135,7 @@
                             <a id="overcar" href="__APP__/Home/cart/index" class="goto-shopping-bag rollover-toggle">
                                购物袋
                                (<span class="shoppingbag-item-count">
-                                   <if condition="$data = 'empty'">0
+                                   <if condition="$data eq 'empty'">0
                                    <else />{$data.num}
                                    </if>
                                </span>)
@@ -147,7 +147,7 @@
                         			</div>
                         			 <div class="shopping-bag-rollover-items-wrapper ">
                                             <!-- 购物车为空时候 -->
-                                            <if condition="$data = 'empty' ">
+                                            <if condition="$data eq 'empty' ">
                             				    <div  class="cart_modal_popup empty-popup-cart">
                             						<dl class="clearfix">
                             							<dd><h2>您的购物袋是空的</h2></dd>
@@ -171,7 +171,7 @@
                                                     </div>
                                                     <div class="shopping-bag-rollover-items-wrapper ">
                                                         <ul class="shopping-bag-rollover-items" style="top: 0px;">
-                                                                <foreach name="data['cartList']" item="ov">
+                                                                <foreach name="data.cartList" item="ov">
                                                                     <li class="shopping-bag-rollover-item clearfix clickable-container has-link ">
                                                                             <a href="">
                                                                                 <img alt="Straight Regular Jeans" class="shopping-bag-rollover-item-image" height="126" width="84" src="{$ov.pic}" title="{$ov.name}">
@@ -196,7 +196,7 @@
                                                                             </div>
                                                                             <div class="shopping-bag-item-total-price product-item-price">
                                                                                 总价:&nbsp;
-                                                                                ¥{$ov.price * $ov.gnum}</div>
+                                                                                ¥{$ov.allPrice}</div>
                                                                         </li>
                                                                     </foreach>
                                                                     </ul>
@@ -207,14 +207,14 @@
                                                             <div class="shopping-bag-rollover-summary">
                                                                 <dl class="clearfix">
                                                                     <dt>订单价值：</dt>
-                                                                    <dd>¥{$ov.totalPirce}</dd>
+                                                                    <dd>¥{$data['totalPrice']}</dd>
                                                                 </dl>
                                                                 <dl class="shopping-bag-rollover-order-total">
                                                                     <dt>总价:</dt>
-                                                                    <dd>¥{$ov.totalPirce}</dd>
+                                                                    <dd>¥{$data['totalPrice']}</dd>
                                                                 </dl>
 
-                                                                <a href="/zh_cn/checkout" class="button button-big">
+                                                                <a href="__APP__/Home/order/checkout" class="button button-big">
                                                                 结账</a>
                                                                 <a href="__APP__/Home/Cart/index" class="button button-big button-secondary">
                                                                     购物袋</a>
