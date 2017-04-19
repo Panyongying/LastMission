@@ -1,25 +1,21 @@
-<?php
-    if(C('LAYOUT_ON')) {
-        echo '{__NOLAYOUT__}';
-    }
-?>
+<?php if (!defined('THINK_PATH')) exit(); if(C('LAYOUT_ON')) { echo ''; } ?>
 <!DOCTYPE html>
 <!-- saved from url=(0045)http://cnchat.hm.com/client/home?_projectid=1 -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>【提示H&amp;M】H&amp;M提示</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type/">
-     <link href="__PUBLIC__/CustomService/bootstrap.min.css" rel="stylesheet">
-    <link href="__PUBLIC__/CustomService/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
-    <link href="__PUBLIC__/CustomService/hm.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/CustomService/uploadify.css">
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/CustomService/filetype.css">
-	<script src="__PUBLIC__/CustomService/jquery.min.js.下载" type="text/javascript"></script>
+     <link href="/last/LastMission/project/Public/CustomService/bootstrap.min.css" rel="stylesheet">
+    <link href="/last/LastMission/project/Public/CustomService/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+    <link href="/last/LastMission/project/Public/CustomService/hm.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/last/LastMission/project/Public/CustomService/uploadify.css">
+	<link rel="stylesheet" type="text/css" href="/last/LastMission/project/Public/CustomService/filetype.css">
+	<script src="/last/LastMission/project/Public/CustomService/jquery.min.js.下载" type="text/javascript"></script>
 	
 
 
 
 
-<!-- <script src="__PUBLIC__/CustomService/flashutil.js.下载" type="text/javascript"></script> -->
+<!-- <script src="/last/LastMission/project/Public/CustomService/flashutil.js.下载" type="text/javascript"></script> -->
 
 
 
@@ -55,7 +51,7 @@
     <td align="center"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tbody><tr>
         <td width="30%">&nbsp;</td>
-        <td align="center"><img src="__PUBLIC__/CustomService/hm_logo.png" width="106" height="64" class="img_logo"></td>
+        <td align="center"><img src="/last/LastMission/project/Public/CustomService/hm_logo.png" width="106" height="64" class="img_logo"></td>
         <td width="30%" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_close">
           <tbody><tr onclick="closeChatWindow();" style="cursor: pointer;">
 
