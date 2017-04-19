@@ -35,7 +35,7 @@
 		
 			return $res;
 		}
-
+		//获取数据
 		public function getGoodsDetail()
 		{
 

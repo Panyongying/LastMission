@@ -201,7 +201,7 @@
 			$num = M('user_login_detail')->field('login_time')->where($map)->select();
 
 			$lasttime = $num[0]['login_time'];
-			//当过了3600秒后,用户登录表中的登录错误结果会自动删除.
+			//当过了1800秒后,用户登录表中的登录错误结果会自动删除.
 			if ($time - $lasttime >= 1800){
 
 				M('user_login_detail')->where($map)->delete();
