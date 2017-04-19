@@ -58,7 +58,7 @@
             //统计总条数
             $total = count($listAll);
 
-            $page = new \Think\Page($total, 5);
+            $page = new \Think\Page($total, 8);
 
             //分页
             $userInfo = $this->field('id,email,status,addtime')->where($search)->limit($page->firstRow.','.$page->listRows)->select();
@@ -85,6 +85,18 @@
 			$id = I('get.id');
 
             $res = $this->where('id='.$id)->delete();
+
+            if ( $res ) {
+
+            	M('account')->where('uid='.$id)->delete();
+
+            	M('addr')->where('uid='.$id)->delete();
+
+            	M('user_login_detail')->where('uid='.$id)->delete();
+
+            	M('favorite')->where('uid='.$id)->delete();
+            	
+            }
 
             return $res;
             
@@ -134,6 +146,20 @@
 
 	       $list =	$this->where($map)->delete();
 
+	       $m['uid'] = array('in', "$ids");
+
+
+            if ( $list ) {
+
+            	M('account')->where($m)->delete();
+
+            	M('addr')->where($m)->delete();
+
+            	M('user_login_detail')->where($m)->delete();
+
+            	M('favorite')->where($m)->delete();
+
+            }
 	       return $list;
 		}
 

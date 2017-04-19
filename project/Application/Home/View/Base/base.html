@@ -99,13 +99,13 @@
                     	<ul class="list">
 
 
-                    		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service.html">客户服务</a></li>
+                    		       <li class="item"><a class="link" href="">客户服务</a></li>
 
 
-                    		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/newsletter.html">订阅时尚资讯 </a></li>
+                    		       <li class="item"><a class="link" href="__APP__/Home/Book/index">订阅时尚资讯 </a></li>
 
 
-                    		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/download-app.html">下载 APP</a></li>
+                    		       <li class="item"><a class="link" href="">下载 APP</a></li>
 
                     	</ul>
                 </div>
@@ -218,7 +218,7 @@
                                                                 结账</a>
                                                                 <a href="__APP__/Home/Cart/index" class="button button-big button-secondary">
                                                                     购物袋</a>
-                                                                <div ng-if="''">
+                                                                <div >
                                                                  <p class="text"></p>
                                                               </div>
                                                             </div>
@@ -457,11 +457,13 @@
 
                 		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service.html">客户服务</a></li>
 
+                             <if condition="isset($_SESSION['userInfo'])">
+                		       <li class="item"><a class="link" href="__APP__/Home/User/person">我的H&amp;M</a></li>
+                            <else />
+                               <li class="item"><a class="link" href="__APP__/Home/User/signIn">我的H&amp;M</a></li>
 
-                		       <li class="item"><a class="link" href="https://www2.hm.com/zh_cn/login">我的H&amp;M</a></li>
-
-
-                		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/shopping-at-hm/store-locator.html">H&amp;M门店信息</a></li>
+                            </if>   
+                		       <li class="item"><a class="link" href="__APP__/Home/Store/index">H&amp;M门店信息</a></li>
 
 
                 		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/legal-and-privacy/privacy-link.html">隐私及法律条款</a></li>
@@ -594,14 +596,6 @@
 
                 $('.primary-menu-sub-menu').hide();
             });
-
-
-
-
-
-
-
-
 
 
 
