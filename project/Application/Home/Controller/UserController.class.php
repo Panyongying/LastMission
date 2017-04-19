@@ -113,7 +113,8 @@
 	    public function forgetPassword()
 	    {
 	    	if( IS_GET){
-
+	    		$OneList = D('goods')->OneList();
+				$this->assign('OneList', $OneList);
 	    		$this->display();
 	    	}
 	    	if (IS_POST){
@@ -249,12 +250,18 @@
 	  	//页面注册
 	  	public function signUp()
 	  	{	
+	  		$OneList = D('goods')->OneList();
+			$this->assign('OneList', $OneList);
+
 	  		$this->display('Sign/signup');
 	  	}
 	  	//页面登录
 	  	
 	  	public function signIn()
-	  	{
+	  	{	
+
+	  		$OneList = D('goods')->OneList();
+			$this->assign('OneList', $OneList);
 	  		$this->display('Sign/signin');
 
 	  	}
@@ -271,6 +278,9 @@
 
 	  		if (IS_GET) {
 
+	  			$OneList = D('goods')->OneList();
+				$this->assign('OneList', $OneList);
+	  			
 				$this->display('Person/updatePassword');
 				
 	  		}		
@@ -346,7 +356,8 @@
 	  	public function orders()
 	  	{
 	  		$orders = D('User')->orders();
-
+	  		$OneList = D('goods')->OneList();
+			$this->assign('OneList', $OneList);
 	  		$this->assign('orders', $orders);
 	  		$this->display('Person/orders');
 	  	}

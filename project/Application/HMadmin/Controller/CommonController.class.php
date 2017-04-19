@@ -30,19 +30,12 @@
 
 			$bool = $auth->check($name ,$uid);
 
-			// var_dump($bool);
 
+			if ( !$bool ) {
 
-			// if ( !$bool ) {
+				$this->error('你对此页面没有权限', U('Index/index') );exit;
 
-				// 没有权限
-				// $this->error('你对此页面没有权限', U('Index/index') );
-				// exit;
-// 
-			// }
-
-
-
+			}
 
 		}
 	}
