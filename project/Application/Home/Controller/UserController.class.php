@@ -346,7 +346,7 @@
 	  	public function orders()
 	  	{
 	  		$orders = D('User')->orders();
-
+	  		
 	  		$this->assign('orders', $orders);
 	  		$this->display('Person/orders');
 	  	}

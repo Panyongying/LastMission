@@ -71,7 +71,7 @@
 				$cartList[$k]['name'] = $name;
 				$cartList[$k]['color'] = $color;
 				$cartList[$k]['size']  = $size;
-				$cartList[$k]['price'] = $price;
+				$cartList[$k]['price'] = number_format($price, 2);
 				$cartList[$k]['stock'] = $stock;
 				$cartList[$k]['allPrice'] = number_format($price * $v['gnum'], 2);
 				$data['num'] += $v['gnum'];
@@ -149,7 +149,7 @@
 				}
 			} else {
 				$gid = I('post.gid');
-				$uid = $_SESSION['userInfo']['id'];
+				// $uid = $_SESSION['userInfo']['id'];
 
 				// 获取aid
 				$color = I('post.color');
@@ -168,27 +168,34 @@
 
 				$stockNum = M('stock')->field('goodsNum')->where($stock)->find()['goodsnum'];
 
-				foreach ($_SESSION['cart'] as $k => $v) {
-					if ($gid == $v['gid'] && $uid == $v['uid'] && $aid == $v['aid']) { // 有这件商品
-						if ($_SESSION['cart'][$k]['gnum'] >= $stockNum) {
-							return 3; // 表示没库存了
+				if (empty($_SESSION['cart'])) { // 为空时直接添加
+					$goods = I('post.');
+
+					$goods['gnum'] = 1; // 默认添加1件
+					$goods['aid'] = $aid;
+
+					$_SESSION['cart'][] = $goods;
+				} else {
+					foreach ($_SESSION['cart'] as $k => $v) {
+						if (($gid == $v['gid']) && ($aid == $v['aid'])) { // 有这件商品
+							if ($_SESSION['cart'][$k]['gnum'] >= $stockNum) {
+								return 3; // 表示没库存了
+							}
+
+							$_SESSION['cart'][$k]['gnum'] += 1;
+						} else { // 无这件商品
+							$goods = I('post.');
+
+							$goods['gnum'] = 1; // 默认添加1件
+							$goods['aid'] = $aid;
+
+							$_SESSION['cart'][] = $goods;
 						}
-
-						$_SESSION['cart'][$k]['gnum'] += 1;
-					} else { // 无这件商品
-						$goods = I('post.');
-
-						$goods['gnum'] = 1; // 默认添加1件
-						$goods['aid'] = $aid;
-
-						$_SESSION['cart'][] = $goods;
 					}
 				}
 			}
 
 			$data = $this->showCart();
-
-			dump($data);exit;
 
 			$result = $this->runData($data);
 
@@ -214,7 +221,7 @@
 				}
 			} else { // 未登录
 				foreach ($_SESSION['cart'] as $k => $v) {
-					if ($v['gid'] = I('get.gid')) {
+					if ($v['gid'] == I('get.gid') && ($v['aid'] == I('get.aid'))) {
 						unset($_SESSION['cart'][$k]);
 					}
 				}

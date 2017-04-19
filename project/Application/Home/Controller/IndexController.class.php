@@ -14,7 +14,11 @@ class IndexController extends Controller
 
         $OneList = D('goods')->OneList();
         $data = D('cart')->showCart();
+        $mainPic = D('IndexPic')->getMainPic();
+        $lastPic = D('IndexPic')->getLastPic();
 
+        $this->assign('mainPic', $mainPic);
+        $this->assign('lastPic', $lastPic);
         $this->assign('data', $data);
         $this->assign('OneList', $OneList);
         $this->display();

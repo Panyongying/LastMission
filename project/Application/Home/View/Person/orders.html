@@ -45,10 +45,6 @@
 						<a href="__URL__/addAddress" role="menuitem">
 							地址簿</a>
 					</li>
-				<li class="item" role="presentation" tabindex="-1">
-						<a href="/zh_cn/my-account/payment-details" role="menuitem">
-							银行卡信息</a>
-					</li>
 			</ul>
 		</nav>
 	<div class="layout layout-eight" id="profileDIV">
@@ -103,7 +99,8 @@
  订单确认中 
 <elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 1)" /><div style="color: #dddd26;">等待配送</div>
 <elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 2)" /><div style="color: #dddd26;"><a href="javascript:;" class="receipt-btn" oid="{$ov.id}" style="color: #0d0d0d">[确认收货]</a>&nbsp;&nbsp;配送中</div>
-<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3)" /><div style="color: #dddd26;"><a href="javascript:;" class="goToCom-btn" oid="{$ov.id}" style="color: #0d0d0d">[去评论]</a>&nbsp;&nbsp;已收货</div>
+<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3) AND ($ov.com eq 0)" /><div style="color: #dddd26;"><a href="javascript:;" class="goToCom-btn" oid="{$ov.id}" style="color: #0d0d0d">[去评论]</a>&nbsp;&nbsp;已收货</div>
+<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3) AND ($ov.com eq 1)" /><div style="color: #dddd26;">&nbsp;&nbsp;已收货</div>
 <elseif condition="$ov.orderstatus eq 3" /><div style="color: #cd2026;">已取消</div>
 </if>
 </span>
@@ -277,16 +274,13 @@
 	</div>
 </main>
 <script>
-	var flag = false;
 	$('.order-item').click(function () {
-		if (flag === false) {
+		var str = $(this).attr('class');
+
+		if (str.indexOf("is-close") >= 0) {
 			$(this).removeClass('is-close').addClass('is-open');
-			
-			flag = !flag;
 		} else {
 			$(this).removeClass('is-open').addClass('is-close');
-			
-			flag = !flag;
 		}
 	});
 
@@ -315,11 +309,16 @@
 	});
 
 	$('.goToCom-btn').click(function () {
-		location.href = "__APP__/Home/Order/comment/oid" + $(this).attr('oid');
+		location.href = "__APP__/Home/Comment/comment/oid/" + $(this).attr('oid');
 	});
 
 	$('.goToCom-btn').click(function(event){
     	event.stopPropagation();
 	});
+
+	$('.order-info').click(function(event){
+    	event.stopPropagation();
+	});
+
 </script>
 </block>

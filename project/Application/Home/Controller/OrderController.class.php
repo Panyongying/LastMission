@@ -25,7 +25,7 @@
 		    	}
 
 			    $res = D('user')->signIn();
-					
+				
 				if ($res) {
 					$this->redirect('Home/Order/checkout');
 				}else {
@@ -43,7 +43,7 @@
 		public function checkout()
 		{
 			$res = D('order')->checkoutLogin();
-
+			
 			if (!$res) {
 				$this->checkoutLogin();
 			} else {

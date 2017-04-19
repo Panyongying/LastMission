@@ -22,7 +22,18 @@
 			}
 
 			// 拿到分页按钮存入数组返回
-			$data['show'] = $page->show();
+			// $data['show'] = $page->show();
+			
+			$page->lastSuffix = false;//最后一页不显示为总页数
+			$page->setConfig('header','<li class="am-disabled"><a>共<em>%TOTAL_ROW%</em>条  <em>%NOW_PAGE%</em>/%TOTAL_PAGE%页</a></li>');
+	        $page->setConfig('prev','上一页');
+	        $page->setConfig('next','下一页');
+	        $page->setConfig('last','末页');
+	        $page->setConfig('first','首页');
+	        $page->setConfig('theme','%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
+			$page_show = bootstrap_page_style($page->show());//重点在这里
+
+			$data['show'] = $page_show;
 
 			$data['CommentaryList'] = $CommentaryList;
 

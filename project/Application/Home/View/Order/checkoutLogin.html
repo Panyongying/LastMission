@@ -40,7 +40,7 @@
 					<!-- Login form -->
 					<h3>
 						登录</h3>
-					<form id="mainLoginForm" action="" method="post"  class="ng-pristine ng-valid"><input type="hidden" id="targetURL" name="targetURL" value="/login/checkout">
+					<form id="mainLoginForm" action="__APP__/Home/Order/checkoutLogin" method="post"  class="ng-pristine ng-valid"><input type="hidden" id="targetURL" name="targetURL" value="/login/checkout">
                           
 						<div class="inputwrapper required">
 							<label class="label">电子邮箱</label><input id="signin-email"data-validation-required="true" data-validation-required-text="请输入您的电子邮箱" data-validation-email="true" type="email" data-validation-inline="false" class="text-input" data-validation-email-text="请输入有效电子邮箱" name="username" value="" maxlength="40"></div>
@@ -240,7 +240,7 @@ text-decoration: none;
 		您的订单
 	</h2>
 	<ul class="checkout-order-items">
-	<foreach name="$data.cartList" item="ov">
+	<foreach name="data.cartList" item="ov">
 					<li class="checkout-order-item">
 			
 				<img src="./Proceed to Checkout _ H&amp;M China_files/hmprod-set=source[%2Fmodel%2F2016%2FE00+0438740+001+74+1904.jpg],type[STILLLIFE_FRONT]&amp;hmver=1&amp;call=url[file-%2Fproduct%2Forder]" alt="{$ov.name}" title="{$ov.name}" class="checkout-order-item-image">
@@ -272,7 +272,7 @@ text-decoration: none;
 					<div class="shopping-bag-item-total-price product-item-price">
 						总价：
 						&nbsp;
-						¥{$ov.price * $ov.num}
+						¥{$ov.allPrice}
 					</div>
 				</div>
 					
@@ -288,7 +288,7 @@ text-decoration: none;
 					<th scope="row">订单价值：
 					</th>
 					<td><span id="newPriceSubtotal"> ¥
-						<if condition="$data = 'empty'">0.00
+						<if condition="$data == 'empty'">0.00
                         <else />{$data.totalPrice}
                         </if>
 					</span></td>
@@ -330,7 +330,7 @@ text-decoration: none;
 								总价:
 							</th>
 							<td id="total_price_of_basket">
-								¥<if condition="$data = 'empty'">0.00
+								¥<if condition="$data == 'empty'">0.00
                         <else />{$data.totalPrice}
                         </if>
 						    	
