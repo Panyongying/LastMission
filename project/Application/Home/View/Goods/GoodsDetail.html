@@ -416,6 +416,8 @@
 
         var that = $(this);
 
+      if(!that.hasClass("is-favorite")){
+
         $.post('__APP__/Home/Favorite/addFavorite',{
 
             'gid': that.attr('data-gid'),
@@ -432,14 +434,33 @@
 
                 }, 1200);
 
-
+              return false;
             }
 
               that.addClass('is-favorite');
 
-
          }, 'json');
+      }
     });
+
+             $.post('__APP__/Home/Favorite/checkedFavorite', {}, function (data){
+
+                    for(var i =0; i<data.length; i++){
+                        for(var j =0; j<  $('#addFav').length; j++){
+
+                            var  that = $('#addFav')[j];
+
+                            if(data[i].gid == that.value){
+
+                              $(that).addClass('is-favorite');
+                            }
+
+                        }
+                    }
+
+            } ,'json');
+
+
 
 
             function show_msg(msg){

@@ -315,38 +315,45 @@
             });
 
             //加入收藏
-            $('.js-favorite').click( function () {
+         $('.js-favorite').click( function () {
 
-                var that = $(this);
+            var that = $(this);
+
+            if(!that.hasClass("is-favorite")){
+
 
                 $.post('__APP__/Home/Favorite/addFavorite',{
 
-                    'gid': that.val(),
+                        'gid': that.val(),
 
-                    'aid':that.attr('data-aid'),
+                    },function (data) {
 
-                },function (data) {
+                        if (data == 0) {
 
-                    if (data == 0) {
-
-                       show_msg('请先登录');
+                           show_msg('请先登录');
 
 
-                        setTimeout(function () {
+                            setTimeout(function () {
 
-                           window.location.href="__APP__/Home/User/signIn";
+                               window.location.href="__APP__/Home/User/signIn";
 
-                        }, 1200);
+                            }, 1200);
 
-                    }
+                            return false;
+                        }
 
-                    that.addClass('is-favorite');
+                        that.addClass('is-favorite');
+
+                    }, 'json');
 
 
-                }, 'json');
+             }
 
-            });
+
+        });
+
         //点亮收藏的星
+
             $.post('__APP__/Home/Favorite/checkedFavorite', {}, function (data){
 
                     for(var i =0; i<data.length; i++){
@@ -357,6 +364,7 @@
                             if(data[i].gid == that.value){
 
                                 $(that).addClass('is-favorite');
+
                             }
 
                         }
