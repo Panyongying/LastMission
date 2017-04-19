@@ -41,7 +41,7 @@ class GoodsModel extends Model
         // 根据type表的id查出这个id下的type的pid，根据pid查goods表的所有相关商品
         $Model = new Model();
 
-        $goodsList = $Model->query("SELECT p.pic,g.id,g.name,g.price FROM __GOODS__ g,__GOODS_PIC__ p,__TYPE__ t WHERE t.pid={$id} AND g.tid=t.id AND p.gid=g.id AND g.status='1' ORDER BY g.addtime DESC LIMIT 6");
+        $goodsList = $Model->query("SELECT p.pic,g.id,g.name,g.price FROM __GOODS__ g,__GOODS_PIC__ p,__TYPE__ t WHERE t.pid={$id} AND g.tid=t.id AND p.gid=g.id AND g.status='1' ORDER BY g.addtime DESC LIMIT 5");
 
         for ($i=0; $i<count($goodsList); $i++) {
 
@@ -58,7 +58,7 @@ class GoodsModel extends Model
         $tid = I('get.tid');
 
         //要g.id,g.name,g.price,p.pic,s.aid
-        $data = M('goods')->field('id,name,price')->where('tid='.$tid)->select();
+        $data = M('goods')->field('id,name,price')->where('tid='.$tid)->limit(9)->select();
 
         for ($i=0; $i<count($data); $i++) {
 
@@ -95,7 +95,60 @@ class GoodsModel extends Model
 
         }
 
+        $data['tid'] = $tid;
+
         return $data;
+    }
+
+    //ajaxGetData
+    public function ajaxGetData()
+    {
+
+        $num = I('post.limit');
+        $tid = I('post.pid');
+
+        //要g.id,g.name,g.price,p.pic,s.aid
+        $data = M('goods')->field('id,name,price')->where('tid='.$tid)->limit($num, 9)->select();
+
+        for ($i=0; $i<count($data); $i++) {
+
+            //找出图片
+            $data[$i]['pic'] = M('goods_pic')->field('pic')->where('gid='.$data[$i]['id'])->select();
+
+            //找出属性
+            $data[$i]['aid'] = M('stock')->field('aid')->where('gid='.$data[$i]['id'])->select();
+
+            //处理图片路劲
+            for ($j=0; $j<count($data[$i]['pic']); $j++) {
+
+                $data[$i]['pic'][$j] = ltrim($data[$i]['pic'][$j]['pic'], './');
+
+            }
+
+            //处理属性
+            for ($j=0; $j<count($data[$i]['aid']); $j++) {
+
+                $data[$i]['aid'][$j] = $data[$i]['aid'][$j]['aid'][0];
+
+                $data[$i]['color'] = array_unique($data[$i]['aid']);
+
+            }
+
+            unset($data[$i]['aid']);
+
+            sort($data[$i]['color']);
+
+            for ($k=0; $k<count($data[$i]['color']); $k++) {
+
+                $data[$i]['color'][$k] = M('attr')->field('attrName')->select($data[$i]['color'][$k]);
+            }
+
+        }
+
+        $data['tid'] = $tid;
+
+        return $data;
+
     }
 
     //查颜色
@@ -147,9 +200,11 @@ class GoodsModel extends Model
 
         $data = M('goods')->field($goodsfield)->where('id='.$id)->find();
 
-        $data['pic'] = M('goods_pic')->field('pic')->where('gid='.$id)->select();
-
         $data['aid'] = M('stock')->field('aid')->where('gid='.$id)->select();
+
+        $map['aid'] = $data['aid'][0]['aid'];
+        $map['gid'] = $id;
+        $data['pic'] = M('goods_pic')->field('pic')->where($map)->select();
 
         //判断是否缓存了detail，是就不查，没有就查
         if ( !isset(S($key)['detail']) ) {
@@ -193,6 +248,7 @@ class GoodsModel extends Model
         $data['size'] = array_unique($data['size']);
         sort($data['size']);
         $data['color'] = array_unique($data['color']);
+        sort($data['color']);
 
         unset($data['aid']);
 
@@ -223,15 +279,47 @@ class GoodsModel extends Model
         $map['aid'] = $aid['id'];
         $map['gid'] = $gid;
 
-        $data = M('goods_pic')->field('pic')->where($map)->select();
+        $data['pic'] = M('goods_pic')->field('pic')->where($map)->select();
+        $data['aidSize'] = M('stock')->field('aid')->where('gid='.$gid)->select();
 
         for ($i=0; $i<count($data['pic']); $i++) {
 
-            $data['pic'][$i] = ltrim($data['pic'][$i], './');
+            $data['pic'][$i]['pic'] = ltrim($data['pic'][$i]['pic'], './');
         }
 
-        // $oneAid = M('stock')->field('aid')->where('gid='.$gid)->find();
-        // dump($oneAid);exit;
+        for ($i=0; $i<count($data['aidSize']); $i++) {
+
+            if ( $aid['id'] != $data['aidSize'][$i]['aid'][0]) {
+
+                unset($data['aidSize'][$i]);
+            }
+        }
+        sort($data['aidSize']);
+        for ($i=0; $i<count($data['aidSize']); $i++) {
+
+            $sizeAid = $data['aidSize'][$i]['aid'][2];
+
+            $data['size'][$i] = M('attr')->field('attrName')->find($sizeAid);
+        }
+        unset($data['aidSize']);
+
+        return $data;
+    }
+
+    //商品对应评论
+    public function commentary()
+    {
+        //需要用户名，商品id，,评价内容,评价时间 ,评价id
+        $gid = I('get.id');
+
+        $data = M('commentary')->field('uid,centents,addtime')->where('gid='.$gid)->select();
+
+        foreach ($data as $key => $value) {
+
+            $data[$key]['uid'] = M('user')->field('email')->find($value['uid']);
+            $data[$key]['addtime'] = date('Y-m-d H:i:s', $data[$key]['addtime']);
+            $data[$key]['uid']['email'] = substr($data[$key]['uid']['email'],0,3)."*****".substr($data[$key]['uid']['email'],8,0).'com';
+        }
 
         return $data;
     }

@@ -137,15 +137,23 @@
 
                 var that = $(this);
 
-                $.get(url, {'id':$(this).attr('data-id')}, function (data) {
+                if (confirm('确定 ?')) {
 
-                  if (data == 1) {
+                    $.get(url, {'id':$(this).attr('data-id')}, function (data) {
 
-                    that.parent().parent().parent().parent().remove();
+                      if (data == 1) {
 
-                  }
+                        that.parent().parent().parent().parent().remove();
 
-                }, 'json');
+                      }
+
+                    }, 'json');
+
+                } else {
+
+                  return false;
+                }
+
 
               });
 

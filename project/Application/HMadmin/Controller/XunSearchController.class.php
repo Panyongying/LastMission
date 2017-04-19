@@ -9,8 +9,8 @@ class XunSearchController extends CommonController {
     //xunsearch首页显示
     public function index()
     {
-       $this->display('Backstage/xunsearch');
-       
+       $this->display('Backstage/xunSearch');
+
     }
 
     //直接构建索引
@@ -24,7 +24,7 @@ class XunSearchController extends CommonController {
 
     	//查数据库获取数据
         $res =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('hm_stock ON hm_goods.id = hm_stock.gid')->select();
-       
+
 	    foreach ($res as $v) {
 	        $res2 = M('attr')->field('attrName')->where("id in ({$v['aid']})")->select();
 	      	// var_dump($res2);
@@ -86,7 +86,7 @@ class XunSearchController extends CommonController {
     	$search = $xs->search;
    		$doc = new \XSDocument;
     	$res = $index->clean();
-   		
+
 
     	//查数据库获取数据
         $res =  M('goods')->field('hm_goods.id,hm_goods.name,hm_goods.price,hm_goods.tid,hm_goods.status,hm_stock.aid')->join('hm_stock ON hm_goods.id = hm_stock.gid')->select();
@@ -131,5 +131,5 @@ class XunSearchController extends CommonController {
 
     }
 
-    
+
 }

@@ -63,6 +63,8 @@ class IndexController extends Controller
         $OneList = D('goods')->OneList();
         $twoList = D('goods')->twoList();
         $lists = D('goods')->lists();
+        $tid = $lists['tid'];
+        unset($lists['tid']);
         $typeOne = D('goods')->typeOne();
         $typeTwo = D('goods')->typeTwo();
 
@@ -72,6 +74,7 @@ class IndexController extends Controller
         $this->assign('typeOne', $typeOne);
         $this->assign('typeTwo', $typeTwo);
         $this->assign('pid', $pid);
+        $this->assign('tid', $tid);
         $this->display('Goods/GoodsList');
     }
 
@@ -120,7 +123,7 @@ class IndexController extends Controller
         $xs = new \XS('jhjy');
         $search = $xs->search;
         $search->setCollapse('id');
-        
+
 
 
         if (IS_POST) {
@@ -227,11 +230,16 @@ class IndexController extends Controller
         if (IS_POST) {
 
         } else {
+
+            $data = D('goods')->commentary();
             $goodsDeatil = D('goods')->goodsDetail();
             $OneList = D('goods')->OneList();
+            $num = 1;
 
             $this->assign('OneList', $OneList);
+            $this->assign('num', $num);
             $this->assign('goodsDeatil', $goodsDeatil);
+            $this->assign('data', $data);
             $this->display('Goods/GoodsDetail');
         }
     }
@@ -242,5 +250,17 @@ class IndexController extends Controller
         $pics = D('goods')->colorPics();
 
         echo json_encode($pics);
+    }
+
+    // ajax滚动加载商品
+    public function ajaxGetData()
+    {
+
+        if (IS_AJAX) {
+
+            $list = D('goods')->ajaxGetData();
+
+            $this->ajaxReturn($list);
+        }
     }
 }
