@@ -404,6 +404,7 @@
                 }, "1200");
             }
 
+            var flag = false;
             //ajax滚动加载
             $(window).on('scroll', function() {
 
@@ -421,25 +422,43 @@
 
                 var num = $('.col-3').length;
 
-                if ( scrollTop + browserHeight >= documentHeight ) {
+                if ( scrollTop + browserHeight + 200 >= documentHeight ) {
 
-                    $.post(url, {limit:num, pid:tid}, function(data) {
+                    $.ajax({
 
-                        var len = Object.keys(data).length - 1;
+                        type:'post',
 
-                        var res = '';
+                        url:url,
 
-                        for (var i=0; i<len; i++) {
+                        beforeSend:function(){
+                            if (flag) {
+                              return false;
+                            }
+                            flag = true;
+                        },
 
-                            res += '<div class="col-3" style="float:left;margin-left:12px"><article class="product-item club-price-item"><a href="__CONTROLLER__/goodsDetail/id/'+data[i].id+'" title="'+data[i].name+'" class="product-item-link"> <img width="222" height="333" src="__PUBLIC__/'+data[i].pic[0]+'" class="product-item-image" alt="'+data[i].name+' 模特款型"title="{$vv.name} 模特款型"><button type="button" class="favorite icon icon-favorites js-favorite " value="{$vv.id}">加入收藏</button></a><div class="product-item-details"><h3 class="product-item-heading"><a href="/zh_cn/productpage.0481148009.html">'+data[i].name+'</a></h3><strong class="price">¥ '+data[i].price+' </strong><div class="product-item-selection">新品</div></div></article></div>';
+                        data:{limit:num, pid:tid},
 
-                        }
-                        $('#appendData').append(res);
+                        success: function(data) {
 
-                    }, 'json');
+                            flag = false;
 
+                            var len = Object.keys(data).length - 1;
 
+                            var res = '';
+
+                            for (var i=0; i<len; i++) {
+
+                                res += '<div class="col-3" style="float:left;margin-left:12px"><article class="product-item club-price-item"><a href="__CONTROLLER__/goodsDetail/id/'+data[i].id+'" title="'+data[i].name+'" class="product-item-link"> <img width="222" height="333" src="__PUBLIC__/'+data[i].pic[0]+'" class="product-item-image" alt="'+data[i].name+' 模特款型"title="{$vv.name} 模特款型"><button type="button" class="favorite icon icon-favorites js-favorite " value="{$vv.id}">加入收藏</button></a><div class="product-item-details"><h3 class="product-item-heading"><a href="/zh_cn/productpage.0481148009.html">'+data[i].name+'</a></h3><strong class="price">¥ '+data[i].price+' </strong><div class="product-item-selection">新品</div></div></article></div>';
+
+                            }
+                            $('#appendData').append(res);
+
+                        },
+
+                    dataType: 'json'});
                 }
+
             })
 
 

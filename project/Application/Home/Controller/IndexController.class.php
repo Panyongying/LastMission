@@ -235,9 +235,9 @@ class IndexController extends Controller
 
         } else {
 
-            $data = D('goods')->commentary();
             $goodsDeatil = D('goods')->goodsDetail();
             $OneList = D('goods')->OneList();
+            $data = D('goods')->commentary();
             $num = 1;
 
             $this->assign('OneList', $OneList);
