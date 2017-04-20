@@ -2,16 +2,16 @@
 
     <block name="title"><title>H&M</title></block>
 
-    <block name="main"> 
+    <block name="main">
         <main role="main" class="responsive segments">
                 <!--AEMPUBPRDAP16-->
             <div class="layout" >
                 <div class="parsys main" id="append-div">
                     <section class="segment section singleteasercontainer">
-                    	                    		
+
                         <article class="default-m-serif  teaser-media  single-cta" data-item-ratio="16x9" style="position:relative;" data-view- tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NB" data-promotion-creative="8NB Teaser Page prio 1" id="track_832536">
                             <a href="{$mainPic.url}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                        	
+
                           <div class="background-image teaser-image rimd">
 
                             <img src="__PUBLIC__/{$mainPic.pic}"> <!-- 首页大图 -->
@@ -20,99 +20,52 @@
                  <!-- 大图描述 -->
                                 <div class="text-container" data-text-placement="{$mainPic.hor} {$mainPic.ver}" data-text-alignment="{$mainPic.align}" data-text-color="{$mainPic.fontcolor}">
                                 	<p class="vignette">{$mainPic.smalltitle}</p>
-                                	
+
                                 	<h3 class="heading">{$mainPic.bigtitle}</h3>
-                                	
-                                	
+
+
                                 	<ul class="cta-list" data-cta-color="{$mainPic.btncolor}">
                                 		<li class="item"><a href="{$mainPic.url}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a>
                                         </li>
                                 	</ul>
                                 </div>
                 <!--大图描述结束-->
-                            </article>	  
+                            </article>
                     </section>
 
-                <div class="parbase newarrivalscontainer section"> </div> 
+                <div class="parbase newarrivalscontainer section"> </div>
 
 <!-- 第二版图片 -->
-                <section class="segment new-arrivals" id="two-section" style="">  
+                <section class="segment new-arrivals" id="two-section" style="">
 
                         <h2 class="heading">新品</h2>
 
                         <div class="four modules">
-                          
+                        <foreach name="indexData" item="vi">
                             <div class="department-product-item">
                               <article class="product-item" data-articlecode="0484891003" data-newarrivals-first-article="true" data-activity-type="MERCH" data-activity-code="NEWS_161102" data-promotion-creative="new arrivals 17-03-22" onclick="setOsaParameters(utag_data.category_id,&#39;NEW_ARRIVALS&#39;, &#39;0484891003&#39;);"><!-- Product item -->
-                    				<a href="http://www2.hm.com/zh_cn/productpage.0484891003.html" data-cta-tracking="false" title="双层雪纺上衣" class="product-item-link">
-                    	               <img width="260" height="390" alt="双层雪纺上衣" class="product-item-image" src="__PUBLIC__/show/hmprod(1)" title="双层雪纺上衣">
+                    				<a href="__CONTROLLER__/goodsDetail/id/{$vi.id}" data-cta-tracking="false" title="{$vi.name}" class="product-item-link">
+                    	               <img width="260" height="390" alt="{$vi.name}" class="product-item-image" src="__PUBLIC__/{$vi['pic'].pic}" title="{$vi.name}">
                     	               <button data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0484891003|双层雪纺上衣|HM" type="button" class="favorite icon icon-favorites js-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏">加入收藏</button>
                     	            </a>
                     	            <div class="product-item-details">
                     	            	<h3 class="product-item-heading">
-                    			    		<a href="http://www2.hm.com/zh_cn/productpage.0484891003.html" data-cta-tracking="false">双层雪纺上衣</a>
+                    			    		<a href="__CONTROLLER__/goodsDetail/id/{$vi.id}" data-cta-tracking="false">{$vi.name}</a>
                     		        	</h3>
-                    		        	<strong class="price">¥249.00</strong>
+                    		        	<strong class="price">¥{$vi.price}</strong>
                     	            </div>
                                </article><!-- /Product item -->
-                               <a href="http://www2.hm.com/zh_cn/ladies/new-arrivals/clothes.html" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
+                               <a href="__CONTROLLER__/goodsDetail/id/{$vi.id}" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
                              </div>
-                          
-                            <div class="department-product-item">
-                              <article class="product-item" data-articlecode="0504168001" data-newarrivals-first-article="false" data-activity-type="MERCH" data-activity-code="NEWS_161102" data-promotion-creative="new arrivals 17-03-22" onclick="setOsaParameters(utag_data.category_id,&#39;NEW_ARRIVALS&#39;, &#39;0504168001&#39;);"><!-- Product item -->
-                    				<a href="http://www2.hm.com/zh_cn/productpage.0504168001.html" data-cta-tracking="false" title="提花梭织紧身胸衣" class="product-item-link">
-                    	               <img width="260" height="390" alt="提花梭织紧身胸衣" class="product-item-image" src="__PUBLIC__/show/hmprod(2)" title="提花梭织紧身胸衣">
-                    	               <button data-tracking-type="event" data-tracking-json-template="utagFavorite" type="button" class="favorite icon icon-favorites js-favorite is-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏">加入收藏</button>
-                    	            </a>
-                    	            <div class="product-item-details">
-                    	            	<h3 class="product-item-heading">
-                    			    		<a href="http://www2.hm.com/zh_cn/productpage.0504168001.html" data-cta-tracking="false">提花梭织紧身胸衣</a>
-                    		        	</h3>
-                    		        	<strong class="price">¥199.00</strong>
-                    	            </div>
-                               </article><!-- /Product item -->
-                               <a href="http://www2.hm.com/zh_cn/ladies/new-arrivals/clothes.html" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
-                             </div>
-                          
-                            <div class="department-product-item">
-                            <article class="product-item" data-articlecode="0524124002" data-newarrivals-first-article="false" data-activity-type="MERCH" data-activity-code="NEWS_161102" data-promotion-creative="new arrivals 17-03-22" onclick="setOsaParameters(utag_data.category_id,&#39;NEW_ARRIVALS&#39;, &#39;0524124002&#39;);"><!-- Product item -->
-                    				<a href="http://www2.hm.com/zh_cn/productpage.0524124002.html" data-cta-tracking="false" title="褶边上衣" class="product-item-link">
-                    	               <img width="260" height="390" alt="褶边上衣" class="product-item-image" src="__PUBLIC__/show/hmprod(3)" title="褶边上衣">
-                    	               <button data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0524124002|褶边上衣|HM" type="button" class="favorite icon icon-favorites js-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏">加入收藏</button>
-                    	            </a>
-                    	            <div class="product-item-details">
-                    	            	<h3 class="product-item-heading">
-                    			    		<a href="http://www2.hm.com/zh_cn/productpage.0524124002.html" data-cta-tracking="false">褶边上衣</a>
-                    		        	</h3>
-                    		        	<strong class="price">¥399.00</strong>
-                    	            </div>
-                            </article><!-- /Product item -->
-                               <a href="http://www2.hm.com/zh_cn/ladies/new-arrivals/clothes.html" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
-                             </div>
-                          
-                            <div class="department-product-item">
-                              <article class="product-item" data-articlecode="0482832001" data-newarrivals-first-article="false" data-activity-type="MERCH" data-activity-code="NEWS_161102" data-promotion-creative="new arrivals 17-03-22" onclick="setOsaParameters(utag_data.category_id,&#39;NEW_ARRIVALS&#39;, &#39;0482832001&#39;);"><!-- Product item -->
-                    				<a href="http://www2.hm.com/zh_cn/productpage.0482832001.html" data-cta-tracking="false" title="绑带棉质衬衫" class="product-item-link">
-                    	               <img width="260" height="390" alt="绑带棉质衬衫" class="product-item-image" src="__PUBLIC__/show/hmprod(4)" title="绑带棉质衬衫">
-                    	               <button data-tracking-type="event" data-tracking-json-template="utagFavorite" data-tracking-params="Favourites|0482832001|绑带棉质衬衫|HM" type="button" class="favorite icon icon-favorites js-favorite" data-saved-text="已加入收藏" data-not-saved-text="加入收藏">加入收藏</button>
-                    	            </a>
-                    	            <div class="product-item-details">
-                    	            	<h3 class="product-item-heading">
-                    			    		<a href="http://www2.hm.com/zh_cn/productpage.0482832001.html" data-cta-tracking="false">绑带棉质衬衫</a>
-                    		        	</h3>
-                    		        	<strong class="price">¥299.00</strong>
-                    	            </div>
-                               </article><!-- /Product item -->
-                               <a href="http://www2.hm.com/zh_cn/ladies/new-arrivals/clothes.html" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
-                             </div>     
+                        </foreach>
                         </div>
                 </section>
 
             </div>
          </div>
-                	              
+
         </main>
-    <script> 
+    <script>
 
         var i = 1;
         $(window).scroll(function(){
@@ -123,9 +76,9 @@
 
         　　var windowHeight = $(this).height();
 
-            
-        　　if(scrollTop + windowHeight == scrollHeight){                
-              
+
+        　　if(scrollTop + windowHeight == scrollHeight){
+
              if (i < 6){
 
                $.ajax({
@@ -137,32 +90,32 @@
                     dataType: "json",
 
                     beforeSend: function () {
-                        
+
                         $('.loading').remove();
                         $('#append-div').append('<img  class="loading" style="width:80px; margin-left:400px" src="__PUBLIC__/show/ajax-loader.gif" alt="" />');
-                        
+
 
                     },
-                      
+
                     success:function (data) {
-                 
+
                         var threeSection = '<section class="segment section"><div class="two modules"><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NA" data-promotion-creative="8NA Teaser Page Prio 1" id="track_832537"><a href="'+data[0]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[0]['pic']+'"> </div><div class="text-container" data-text-placement="'+data[0]['hor']+ data[0]['ver']+'" data-text-alignment="'+data[0]['align']+'" data-text-color="'+data[0]['fontcolor']+'"><p class="vignette">'+data[0]['smalltitle']+'</p> <h3 class="heading">'+data[0]['bigtitle']+'</h3> <ul class="cta-list" data-cta-color="'+data[0]['btncolor']+'"> <li class="item"><a href="'+data[0]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article> <article class="merch-ladder-plate teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-activity-code="CN31_QINGMING" data-promotion-creative="CN31 QINGMING"><a href="'+data[1]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a> <div class="background-image teaser-image rimd"> <img src="__PUBLIC__/'+data[1]['pic']+'"></div><div class="text-container" data-text-placement="'+data[1]['hor']+ data[1]['ver']+'" data-text-alignment="'+data[1]['align']+'" data-text-color="'+data[1]['fontcolor']+'"><p class="vignette">'+data[1]['smalltitle']+'</p><h3 class="heading">'+data[1]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[1]['btncolor']+'">  <li class="item"><a href="'+data[1]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div> </article></div></section>';
 
                         var fourSection =  '<section class="segment section" ><div class="three modules"><article class="merch-sgi-bottom teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-activity-code="CNL12_SEASONSSHIRTS_WEEK13" data-promotion-creative="Shirts and Blouses Week 13" id="track_832538"><a href="'+data[2]['url']+'" data-promotion-page-id="Ladies : Offersandhighlights : Cnl12 - Seasons Shirts : Seasons shirts" data-promotion-page-category="LADIES_OFFERSANDHIGHLIGHTS : CNL12 - SEASONS SHIRTS_CNL12 - SEASONS SHIRTS : SEASONS SHIRTS_VIEW_ALL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[2]['pic']+'"></div><div class="text-container" data-text-placement="'+data[2]['hor']+data[2]['ver']+'" data-text-alignment="'+data[2]['align']+'" data-text-color="'+data[2]['fontcolor']+'"><p class="vignette">'+data[2]['smalltitle']+'</p><h3 class="heading">'+data[2]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[2]['btncolor']+'"><li class="item"><a href="'+data[2]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NC" data-promotion-creative="8NC Teaser page part 1" id="track_832539"><a href="'+data['3']['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[3]['pic']+'"></div><div class="text-container" data-text-placement='+data[3]['hor']+ data[3]['ver']+'" data-text-alignment="'+data[3]['align']+'" data-text-color="'+data[3]['fontcolor']+'"><p class="vignette">'+data[3]['smalltitle']+'</p><h3 class="heading">'+data[3]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[3]['btncolor']+'"><li class="item"><a href="'+data[3]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NE" data-promotion-creative="8NE Teaser page" id="track_832540"><a href="'+data[4]['url']+'" data-promotion-page-id="Men : Shopbyfeature : 8Ne - Modern Casual" data-promotion-page-category="MEN_SHOPBYFEATURE _8NE - MODERN CASUAL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[4]['pic']+'"></div><div class="text-container" data-text-placement="'+data[4]['hor']+ data[4]['ver']+'" data-text-alignment="'+data[4]['align']+' data-text-color="'+data[4]['fontcolor']+'"><p class="vignette">'+data[4]['smalltitle']+'</p><h3 class="heading">'+data[4]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[4]['btncolor']+'"><li class="item"><a href="'+data[4]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article></div> </section>';
-                           
-                        var fiveSection = '<section class="segment section singleteasercontainer" ><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" id="track_832541"><a href="'+data[5]['url']+'" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[5]['pic']+'"></div><div class="text-container" data-text-placement="'+data[5]['hor']+data[5]['ver']+'" data-text-alignment="'+data[5]['align']+'" data-text-color="'+data[5]['fontcolor']+'"><p class="vignette">'+data[5]['smalltitle']+'</p><h3 class="heading">'+data[5]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[5]['btncolor']+'"><li class="item"><a href="'+data[5]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article></section>';
-                       
 
-                        var sixSection = '<section class="segment section"><h2 class="heading">发现 H&amp;M</h2><div class="three modules"><article class="merch-deal-middle-plate teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Newsletter" id="track_832542"><a href="'+data[6]['url']+'" data-promotion-page-id="CUSTOMER_SERVICE_NEWSLETTER" data-promotion-page-category="CUSTOMER_SERVICE_NEWSLETTER" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[6]['pic']+'"> </div> <div class="text-container" data-text-placement="'+data[6]['hor']+data[6]['ver']+'" data-text-alignment="'+data[6]['align']+'" data-text-color="'+data[6]['fontcolor']+'"><p class="vignette">'+data[6]['smalltitle']+'</p><h3 class="heading">'+data[6]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[6]['btncolor']+'"><li class="item"><a href="'+data[6]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-customer-deal-small-top teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-promotion-creative="Wechat Follow Us"><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[7]['pic']+'"></div><div class="text-container" data-text-placement="'+data[7]['hor']+data[7]['ver']+'"data-text-alignment="'+data[7]['align']+'" data-text-color="'+data[7]['fontcolor']+'"><p class="vignette">'+data[7]['smalltitle']+'</p><h3 class="heading">'+data[7]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[7]['btncolor']+'"><li class="item"><a href="'+data[7]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-deal-small-top teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Download the app" id="track_832543"><a href="'+data[8]['url']+'" data-promotion-page-id="Customer Service Downloadapp (View All)" data-promotion-page-category="CUSTOMER_SERVICE_DOWNLOADAPP" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[8]['pic']+'"></div><div class="text-container" data-text-placement="'+data[8]['hor']+data[8]['ver']+'" data-text-alignment="'+data[8]['align']+'" data-text-color="'+data[8]['fontcolor']+'"><p class="vignette">'+data[8]['smalltitle']+'</p><h3 class="heading">'+data[8]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[8]['btncolor']+'"><li class="item"><a href="'+data[8]['url']+'" data-cta-tracking="true" class="cta button"target="_self">即刻选购</a></li></ul></div></article> </div></section>';                      
-                        
-               
+                        var fiveSection = '<section class="segment section singleteasercontainer" ><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" id="track_832541"><a href="'+data[5]['url']+'" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[5]['pic']+'"></div><div class="text-container" data-text-placement="'+data[5]['hor']+data[5]['ver']+'" data-text-alignment="'+data[5]['align']+'" data-text-color="'+data[5]['fontcolor']+'"><p class="vignette">'+data[5]['smalltitle']+'</p><h3 class="heading">'+data[5]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[5]['btncolor']+'"><li class="item"><a href="'+data[5]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article></section>';
+
+
+                        var sixSection = '<section class="segment section"><h2 class="heading">发现 H&amp;M</h2><div class="three modules"><article class="merch-deal-middle-plate teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Newsletter" id="track_832542"><a href="'+data[6]['url']+'" data-promotion-page-id="CUSTOMER_SERVICE_NEWSLETTER" data-promotion-page-category="CUSTOMER_SERVICE_NEWSLETTER" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[6]['pic']+'"> </div> <div class="text-container" data-text-placement="'+data[6]['hor']+data[6]['ver']+'" data-text-alignment="'+data[6]['align']+'" data-text-color="'+data[6]['fontcolor']+'"><p class="vignette">'+data[6]['smalltitle']+'</p><h3 class="heading">'+data[6]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[6]['btncolor']+'"><li class="item"><a href="'+data[6]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-customer-deal-small-top teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-promotion-creative="Wechat Follow Us"><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[7]['pic']+'"></div><div class="text-container" data-text-placement="'+data[7]['hor']+data[7]['ver']+'"data-text-alignment="'+data[7]['align']+'" data-text-color="'+data[7]['fontcolor']+'"><p class="vignette">'+data[7]['smalltitle']+'</p><h3 class="heading">'+data[7]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[7]['btncolor']+'"><li class="item"><a href="'+data[7]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-deal-small-top teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Download the app" id="track_832543"><a href="'+data[8]['url']+'" data-promotion-page-id="Customer Service Downloadapp (View All)" data-promotion-page-category="CUSTOMER_SERVICE_DOWNLOADAPP" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[8]['pic']+'"></div><div class="text-container" data-text-placement="'+data[8]['hor']+data[8]['ver']+'" data-text-alignment="'+data[8]['align']+'" data-text-color="'+data[8]['fontcolor']+'"><p class="vignette">'+data[8]['smalltitle']+'</p><h3 class="heading">'+data[8]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[8]['btncolor']+'"><li class="item"><a href="'+data[8]['url']+'" data-cta-tracking="true" class="cta button"target="_self">即刻选购</a></li></ul></div></article> </div></section>';
+
+
                         var sevenSection = '<section class="segment section singleteasercontainer" style="display:none"><article class="default-m-serif  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" data-view-tracking="true" data-activity-type="LIFE" data-activity-code="IN LOVE WITH LULAMA" data-promotion-creative="Magazine_w12_InLoveWithLulama" id="track_832544"><a href="'+data[9]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[9]['pic']+'"></div><div class="text-container" data-text-placement="'+data[9]['hor']+data[9]['ver']+'" data-text-alignment="'+data[9]['align']+'" data-text-color="'+data[9]['fontcolor']+'"><p class="vignette">'+data[9]['smalltitle']+'</p><h3 class="heading">'+data[9]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[9]['btncolor']+'"><li class="item"><a href="'+data[9]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article></section>';
-                        
-                        
-                    
-                        
-                
-             
+
+
+
+
+
+
                         if (i == 1){
 
                          $('.loading').remove();
@@ -190,22 +143,22 @@
                          $('#append-div').append(sevenSection);
                         }
 
-                        $('.loading').remove();                        
+                        $('.loading').remove();
                         i++;
 
                     }
 
-                  
+
                });
-                
+
              }
-                
+
 
     　　　　}
-          
+
         });
 
     </script>
     </block>
 
-	
+

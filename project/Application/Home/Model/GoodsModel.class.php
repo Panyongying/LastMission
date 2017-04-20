@@ -324,6 +324,20 @@ class GoodsModel extends Model
         return $data;
     }
 
+    //首页4商品
+    public function indexData()
+    {
+        $data = M('goods')->field('id,name,price')->order('addtime desc')->limit(4)->select();
+
+        foreach ($data as $key => $value) {
+
+            $data[$key]['pic'] = M('goods_pic')->field('pic')->where('gid='.$value['id'])->limit(1)->find();
+            $data[$key]['pic'] = ltrim($data[$key]['pic']['pic'], './');
+        }
+
+        return $data;
+    }
+
 
 }
 

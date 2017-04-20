@@ -10,14 +10,17 @@ import("XS.lib.XS");
 class IndexController extends Controller
 {
     public function index()
-    {   
+    {
 
         if(IS_GET){
+
+            $indexData = D('goods')->indexData();
             $OneList = D('goods')->OneList();
             $data = D('cart')->showCart();
-            $mainPic = D('IndexPic')->getMainPic();            
+            $mainPic = D('IndexPic')->getMainPic();
+
             $this->assign('mainPic', $mainPic);
-            // $this->assign('lastPic', $lastPic);
+            $this->assign('indexData', $indexData);
             $this->assign('data', $data);
             $this->assign('OneList', $OneList);
             $this->display();
@@ -26,7 +29,7 @@ class IndexController extends Controller
         if(IS_AJAX){
 
             $lastPic = D('IndexPic')->getLastPic();
-            
+
             $lastPic = json_encode($lastPic);
 
             echo $lastPic;
