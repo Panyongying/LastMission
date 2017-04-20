@@ -12,16 +12,29 @@ class IndexController extends Controller
     public function index()
     {
 
-        $OneList = D('goods')->OneList();
-        $data = D('cart')->showCart();
-        $mainPic = D('IndexPic')->getMainPic();
-        $lastPic = D('IndexPic')->getLastPic();
+        if(IS_GET){
 
-        $this->assign('mainPic', $mainPic);
-        $this->assign('lastPic', $lastPic);
-        $this->assign('data', $data);
-        $this->assign('OneList', $OneList);
-        $this->display();
+            $indexData = D('goods')->indexData();
+            $OneList = D('goods')->OneList();
+            $data = D('cart')->showCart();
+            $mainPic = D('IndexPic')->getMainPic();
+
+            $this->assign('mainPic', $mainPic);
+            $this->assign('indexData', $indexData);
+            $this->assign('data', $data);
+            $this->assign('OneList', $OneList);
+            $this->display();
+        }
+
+        if(IS_AJAX){
+
+            $lastPic = D('IndexPic')->getLastPic();
+
+            $lastPic = json_encode($lastPic);
+
+            echo $lastPic;
+
+        }
     }
 
 
@@ -235,9 +248,9 @@ class IndexController extends Controller
 
         } else {
 
-            $data = D('goods')->commentary();
             $goodsDeatil = D('goods')->goodsDetail();
             $OneList = D('goods')->OneList();
+            $data = D('goods')->commentary();
             $num = 1;
 
             $this->assign('OneList', $OneList);
