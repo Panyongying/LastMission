@@ -9,7 +9,7 @@ class XunSearchController extends CommonController {
     //xunsearch首页显示
     public function index()
     {
-       $this->display('Backstage/xunsearch');
+       $this->display('Backstage/xunSearch');
        
     }
 
