@@ -217,10 +217,9 @@
           id:$(this).attr('oid')
         },
         function (data) {
-          console.log(data);
           if (data == 1) {
+            that.parent().parent().parent().prev().prev().html('配送中');
             that.remove();
-            that.parent().parent().parent().prev().prev().text('配送中');
           } else {
             alter('操作失败，请稍后再试。');
           }

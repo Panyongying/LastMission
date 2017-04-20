@@ -312,7 +312,7 @@ class GoodsModel extends Model
         //需要用户名，商品id，,评价内容,评价时间 ,评价id
         $gid = I('get.id');
 
-        $data = M('commentary')->field('uid,centents,addtime')->where('gid='.$gid)->select();
+        $data = M('commentary')->field('uid,contents,addtime')->where('gid='.$gid)->select();
 
         foreach ($data as $key => $value) {
 
