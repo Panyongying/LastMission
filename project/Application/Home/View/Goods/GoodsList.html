@@ -173,9 +173,9 @@
                 </div>
             </div>
 
-  
+
         <section class="segment section singleteasercontainer">
-            <div class="row">
+            <div class="row" id="appendData">
                 <foreach name="lists" item="vv">
 
                 <div class="col-3" style="float:left;margin-left:12px">
@@ -186,7 +186,7 @@
 
                                 <button type="button" class="favorite icon icon-favorites js-favorite " value="{$vv.id}" data-aid="{$vv['color'][0][0].attrname}">加入收藏</button>
 
-                          
+
                         </a>
 
 
@@ -315,48 +315,56 @@
             });
 
             //加入收藏
-            $('.js-favorite').click( function () {
+         $('.js-favorite').click( function () {
 
-                var that = $(this);
-              
+            var that = $(this);
+
+            if(!that.hasClass("is-favorite")){
+
+
                 $.post('__APP__/Home/Favorite/addFavorite',{
 
-                    'gid': that.val(),
+                        'gid': that.val(),
 
-                    'aid':that.attr('data-aid'),
+                    },function (data) {
 
-                },function (data) {
+                        if (data == 0) {
 
-                    if (data == 0) {
+                           show_msg('请先登录');
 
-                       show_msg('请先登录');
 
-                        
-                        setTimeout(function () {
+                            setTimeout(function () {
 
-                           window.location.href="__APP__/Home/User/signIn";
+                               window.location.href="__APP__/Home/User/signIn";
 
-                        }, 1200);
+                            }, 1200);
 
-                    }
+                            return false;
+                        }
 
-                    that.addClass('is-favorite');
-            
+                        that.addClass('is-favorite');
 
-                }, 'json');
+                    }, 'json');
 
-            }); 
+
+             }
+
+
+        });
+
         //点亮收藏的星
+
             $.post('__APP__/Home/Favorite/checkedFavorite', {}, function (data){
 
                     for(var i =0; i<data.length; i++){
                         for(var j =0; j<  $('.js-favorite').length; j++){
 
-                            var  that = $('.js-favorite')[j];  
+                            var  that = $('.js-favorite')[j];
 
                             if(data[i].gid == that.value){
 
                                 $(that).addClass('is-favorite');
+
                             }
 
                         }
@@ -365,7 +373,7 @@
             } ,'json');
 
 
-            function show_msg(msg){ 
+            function show_msg(msg){
 
              $('body').append('<div class="sub_err" style="position:absolute;top:60px;left:0;width:500px;z-index:999999;"></div>');
 
@@ -373,7 +381,7 @@
 
                 var htmlfoot = '</div>';
 
-                $('.sub_err').html(htmltop+msg+htmlfoot); 
+                $('.sub_err').html(htmltop+msg+htmlfoot);
 
                 var left=($('body').width()-500)/2;
 
@@ -383,18 +391,60 @@
 
                  $('.sub_err').animate({'top': scroll_height+120},100);
 
-                 msgdsq=setTimeout(function(){  
+                 msgdsq=setTimeout(function(){
 
                     $('.sub_err').animate({'top': scroll_height+80},100);
 
-                    setTimeout(function(){  
+                    setTimeout(function(){
 
-                     $('.sub_err').remove();    
+                     $('.sub_err').remove();
 
-                    },100);  
-               
-                }, "1200");  
+                    },100);
+
+                }, "1200");
             }
+
+            //ajax滚动加载
+            $(window).on('scroll', function() {
+
+                var url = '__CONTROLLER__/ajaxGetData';
+                var tid = {$tid};
+
+                //先获取浏览器的可见高度
+                var browserHeight = $(this).height();
+
+                //获取到整个文档的高度
+                var documentHeight = $(document).height();
+
+                //获取到滚动条距离顶部的距离
+                var scrollTop = $(window).scrollTop();
+
+                var num = $('.col-3').length;
+
+                if ( scrollTop + browserHeight >= documentHeight ) {
+
+                    $.post(url, {limit:num, pid:tid}, function(data) {
+
+                        var len = Object.keys(data).length - 1;
+
+                        var res = '';
+
+                        for (var i=0; i<len; i++) {
+
+                            res += '<div class="col-3" style="float:left;margin-left:12px"><article class="product-item club-price-item"><a href="__CONTROLLER__/goodsDetail/id/'+data[i].id+'" title="'+data[i].name+'" class="product-item-link"> <img width="222" height="333" src="__PUBLIC__/'+data[i].pic[0]+'" class="product-item-image" alt="'+data[i].name+' 模特款型"title="{$vv.name} 模特款型"><button type="button" class="favorite icon icon-favorites js-favorite " value="{$vv.id}">加入收藏</button></a><div class="product-item-details"><h3 class="product-item-heading"><a href="/zh_cn/productpage.0481148009.html">'+data[i].name+'</a></h3><strong class="price">¥ '+data[i].price+' </strong><div class="product-item-selection">新品</div></div></article></div>';
+
+                        }
+                        $('#appendData').append(res);
+
+                    }, 'json');
+
+
+                }
+            })
+
+
+
+
         </script>
     </main>
 </block>

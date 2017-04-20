@@ -15,6 +15,15 @@
       </dl> -->
       <!--这里打开的是新页面-->
     </div>
+    <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+    <form action="__CONTROLLER__/index" method="get">
+  <ul>
+    <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="用户ID搜索" name="uid" /></li>
+    <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="商品ID搜索" name="gid" /></li>
+    <li><button type="submit" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">搜索</button></li>
+  </ul>
+    </form>
+</div>
     <form class="am-form am-g">
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped am-table-hover">
             <thead>
@@ -27,7 +36,7 @@
                 <th class="table-author am-hide-sm-only">订单id</th>
                 <th class="table-date am-hide-sm-only">内容</th>
                 <th class="table-date am-hide-sm-only">时间</th>
-                <th width="130px" class="table-set">操作</th>
+                <th width="50px" class="table-set">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -39,7 +48,7 @@
                   <td>{$ov.uid}</td>
                   <td class="am-hide-sm-only">{$ov.gid}</td>
                   <td class="am-hide-sm-only">{$ov.oid}</td>
-                  <td class="am-hide-sm-only">{$ov.contents}</td>
+                  <td class="am-hide-sm-only"><div style="width: 591px;word-break:break-all">{$ov.contents}</div></td>
                   <td class="am-hide-sm-only">{$ov.addtime}</td>
                   <td>
                   	

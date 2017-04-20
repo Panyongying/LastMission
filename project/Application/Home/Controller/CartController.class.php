@@ -15,6 +15,8 @@
 				$this->assign('login', 1);
 			}
 
+			dump($_SESSION['cart']);
+
 			$this->assign('data', $data);
 
 			$this->display('cart/index');

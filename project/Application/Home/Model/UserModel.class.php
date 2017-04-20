@@ -132,6 +132,33 @@
 
 	    			}
 
+	    			// 将SESSION中的购物车存入表
+	    			if (!empty($_SESSION['cart'])) {
+	    				foreach ($_SESSION['cart'] as $v) {
+	    					// 购物车有相同商品时数量累加
+	    					$map = [];
+	    					$map['uid'] = $_SESSION['userInfo']['id'];
+	    					$map['gid'] = $v['gid'];
+	    					$map['aid'] = $v['aid'];
+
+	    					$gnum = M('cart')->field('gnum')->where($map)->find()['gnum'];
+	    					$id = M('cart')->field('id')->where($map)->find()['id']; // 主键索引
+
+	    					if ($gnum) { // 有相同商品
+	    						$map['gnum'] = $gnum + $v['gnum'];
+
+	    						M('cart')->where("id={$id}")->save($map);
+
+	    					} else {
+		    					$v['uid'] = $_SESSION['userInfo']['id'];
+		    					
+		    					M('cart')->add($v);
+	    					}
+	    				}
+
+	    				unset($_SESSION['cart']);
+	    			}
+
 	    			return ture;
 
 	    			//登录失败
@@ -174,7 +201,7 @@
 			$num = M('user_login_detail')->field('login_time')->where($map)->select();
 
 			$lasttime = $num[0]['login_time'];
-			//当过了3600秒后,用户登录表中的登录错误结果会自动删除.
+			//当过了1800秒后,用户登录表中的登录错误结果会自动删除.
 			if ($time - $lasttime >= 1800){
 
 				M('user_login_detail')->where($map)->delete();
@@ -589,7 +616,7 @@
 			$uid = $_SESSION['userInfo']['id'];
 			$od['uid'] = $uid;
 			// 获取所有订单
-			$orders = M('order')->where($od)->select();
+			$orders = M('order')->where($od)->order('orderAddtime desc')->select();
 
 			// return $orders;
 
@@ -600,6 +627,16 @@
 				$od['oid'] = $oid;
 
 				$orderDetail = M('order_detail')->where($od)->select();
+
+				// 查找该订单有无评论
+				$comArr['oid'] = $oid;
+				$comres = M('commentary')->field('id')->where($comArr)->find();
+
+				if (empty($comres)) { // 无评论时
+					$orders[$ok]['com'] = 0;
+				} else {
+					$orders[$ok]['com'] = 1;
+				}
 
 				// 查出订单详情信息
 				foreach ($orderDetail as $k => $v) {
@@ -635,6 +672,8 @@
 					$orderDetail[$k]['color'] = $color;
 					$orderDetail[$k]['size'] = $size;
 					$orderDetail[$k]['pic'] = $pic;
+
+					
 				}
 
 				$orders[$ok]['orderaddtime'] = date('Y-m-d H:i:s', $orders[$ok]['orderaddtime']);
