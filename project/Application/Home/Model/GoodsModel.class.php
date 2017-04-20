@@ -312,13 +312,27 @@ class GoodsModel extends Model
         //需要用户名，商品id，,评价内容,评价时间 ,评价id
         $gid = I('get.id');
 
-        $data = M('commentary')->field('uid,centents,addtime')->where('gid='.$gid)->select();
+        $data = M('commentary')->field('uid,contents,addtime')->where('gid='.$gid)->select();
 
         foreach ($data as $key => $value) {
 
             $data[$key]['uid'] = M('user')->field('email')->find($value['uid']);
             $data[$key]['addtime'] = date('Y-m-d H:i:s', $data[$key]['addtime']);
             $data[$key]['uid']['email'] = substr($data[$key]['uid']['email'],0,3)."*****".substr($data[$key]['uid']['email'],8,0).'com';
+        }
+
+        return $data;
+    }
+
+    //首页4商品
+    public function indexData()
+    {
+        $data = M('goods')->field('id,name,price')->order('addtime desc')->limit(4)->select();
+
+        foreach ($data as $key => $value) {
+
+            $data[$key]['pic'] = M('goods_pic')->field('pic')->where('gid='.$value['id'])->limit(1)->find();
+            $data[$key]['pic'] = ltrim($data[$key]['pic']['pic'], './');
         }
 
         return $data;

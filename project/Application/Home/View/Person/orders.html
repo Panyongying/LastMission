@@ -99,7 +99,7 @@
  订单确认中 
 <elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 1)" /><div style="color: #dddd26;">等待配送</div>
 <elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 2)" /><div style="color: #dddd26;"><a href="javascript:;" class="receipt-btn" oid="{$ov.id}" style="color: #0d0d0d">[确认收货]</a>&nbsp;&nbsp;配送中</div>
-<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3) AND ($ov.com eq 0)" /><div style="color: #dddd26;"><a href="javascript:;" class="goToCom-btn" oid="{$ov.id}" style="color: #0d0d0d">[去评论]</a>&nbsp;&nbsp;已收货</div>
+<elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3) AND ($ov.com eq 0)" /><div class="goToCom" style="color: #dddd26;"><a href="__APP__/Home/Comment/comment/oid/{$ov.id}" class="goToCom-btn" oid="{$ov.id}" style="color: #0d0d0d">[去评论]</a>&nbsp;&nbsp;已收货</div>
 <elseif condition="($ov.orderstatus eq 2) AND ($ov.ordersendstatus eq 3) AND ($ov.com eq 1)" /><div style="color: #dddd26;">&nbsp;&nbsp;已收货</div>
 <elseif condition="$ov.orderstatus eq 3" /><div style="color: #cd2026;">已取消</div>
 </if>
@@ -297,7 +297,7 @@
 				if (data == 'no') {
 					alert('系统繁忙，请稍后再试');
 				} else {
-					that.parent().html('已收货');
+					that.parent().html('<a href="__APP__/Home/Comment/comment/oid/'+oid+'" class="goToCom-btn" style="color: #0d0d0d">[去评论]</a>&nbsp;&nbsp;已收货');
 				}
 			},
 			'json'
@@ -308,9 +308,10 @@
     	event.stopPropagation();
 	});
 
-	$('.goToCom-btn').click(function () {
+	$(document).on('click', '.goToCom-btn', function () {
 		location.href = "__APP__/Home/Comment/comment/oid/" + $(this).attr('oid');
 	});
+
 
 	$('.goToCom-btn').click(function(event){
     	event.stopPropagation();
