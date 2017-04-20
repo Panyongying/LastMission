@@ -5,11 +5,11 @@
     <block name="main"> 
         <main role="main" class="responsive segments">
                 <!--AEMPUBPRDAP16-->
-            <div class="layout">
-                <div class="parsys main">
+            <div class="layout" >
+                <div class="parsys main" id="append-div">
                     <section class="segment section singleteasercontainer">
                     	                    		
-                        <article class="default-m-serif  teaser-media  single-cta" data-item-ratio="16x9" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NB" data-promotion-creative="8NB Teaser Page prio 1" id="track_832536">
+                        <article class="default-m-serif  teaser-media  single-cta" data-item-ratio="16x9" style="position:relative;" data-view- tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NB" data-promotion-creative="8NB Teaser Page prio 1" id="track_832536">
                             <a href="{$mainPic.url}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
                         	
                           <div class="background-image teaser-image rimd">
@@ -17,7 +17,7 @@
                             <img src="__PUBLIC__/{$mainPic.pic}"> <!-- 首页大图 -->
                           </div>
 
-                 <!-- 大图描述1 -->
+                 <!-- 大图描述 -->
                                 <div class="text-container" data-text-placement="{$mainPic.hor} {$mainPic.ver}" data-text-alignment="{$mainPic.align}" data-text-color="{$mainPic.fontcolor}">
                                 	<p class="vignette">{$mainPic.smalltitle}</p>
                                 	
@@ -30,13 +30,13 @@
                                 	</ul>
                                 </div>
                 <!--大图描述结束-->
-                       </article>	  
+                            </article>	  
                     </section>
 
-                <div class="parbase newarrivalscontainer section">  <!-- 第二版图片 -->
+                <div class="parbase newarrivalscontainer section"> </div> 
 
-
-                    <section class="segment new-arrivals">  
+<!-- 第二版图片 -->
+                <section class="segment new-arrivals" id="two-section" style="">  
 
                         <h2 class="heading">新品</h2>
 
@@ -106,241 +106,106 @@
                                <a href="http://www2.hm.com/zh_cn/ladies/new-arrivals/clothes.html" class="cta button" data-cta-tracking="true" data-promotion-page-id="Ladies : New Arrivals : Clothing : Viewall" data-promotion-page-category="LADIES_NEW ARRIVALS : CLOTHING_CLOTHING : VIEWALL_VIEW_ALL">即刻选购</a>
                              </div>     
                         </div>
-                    </section>
-
-
-                </div>
-                <section class="segment section"><!-- 第三版/ -->
-                	
-                	<div class="two modules">
-                		<article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NA" data-promotion-creative="8NA Teaser Page Prio 1" id="track_832537"><a href="{$lastPic[0]['url']}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-
-                            
-                	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[0]['pic']}">
-                    </div>
-                    	<div class="text-container" data-text-placement="{$lastPic[0]['hor']} {$lastPic[0]['ver']}" data-text-alignment="{$lastPic[0]['align']}" data-text-color="{$lastPic[0]['fontcolor']}">
-                    	
-                    	<p class="vignette">{$lastPic[0]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[0]['bigtitle']}</h3>
-                    	
-                    	
-                    	
-                    	<ul class="cta-list" data-cta-color="{$lastPic[0]['btncolor']}">
-                    		<li class="item"><a href="{$lastPic[0]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                    	</ul>
-                        </div>
-                    </article>
-                	
-                		<article class="merch-ladder-plate teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-activity-code="CN31_QINGMING" data-promotion-creative="CN31 QINGMING"><a href="{$lastPic[1]['url']}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[1]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[1]['hor']} {$lastPic[1]['ver']}" data-text-alignment="{$lastPic[1]['align']}" data-text-color="{$lastPic[1]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[1]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[1]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[1]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[1]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                    </article>
-                    	</div>
-                    	
-                </section> <!--第三结束-->
-
-
-
-                <section class="segment section"> <!--第四开始-->
-                	
-                	<div class="three modules">
-                    	<article class="merch-sgi-bottom teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-activity-code="CNL12_SEASONSSHIRTS_WEEK13" data-promotion-creative="Shirts and Blouses Week 13" id="track_832538">
-                        <a href="{$lastPic[2]['url']}" data-promotion-page-id="Ladies : Offersandhighlights : Cnl12 - Seasons Shirts : Seasons shirts" data-promotion-page-category="LADIES_OFFERSANDHIGHLIGHTS : CNL12 - SEASONS SHIRTS_CNL12 - SEASONS SHIRTS : SEASONS SHIRTS_VIEW_ALL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                        	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[2]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[2]['hor']} {$lastPic[2]['ver']}" data-text-alignment="{$lastPic[2]['align']}" data-text-color="{$lastPic[2]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[2]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[2]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[2]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[2]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                    	
-                        <article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NC" data-promotion-creative="8NC Teaser page part 1" id="track_832539"><a href="{$lastPic['3']['url']}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a>
-                            	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[3]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[3]['hor']} {$lastPic[3]['ver']}" data-text-alignment="{$lastPic[3]['align']}" data-text-color="{$lastPic[3]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[3]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[3]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[3]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[3]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                        	
-                        <article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NE" data-promotion-creative="8NE Teaser page" id="track_832540"><a href="{$lastPic[4]['url']}" data-promotion-page-id="Men : Shopbyfeature : 8Ne - Modern Casual" data-promotion-page-category="MEN_SHOPBYFEATURE _8NE - MODERN CASUAL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                            	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[4]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[4]['hor']} {$lastPic[4]['ver']}" data-text-alignment="{$lastPic[4]['align']}" data-text-color="{$lastPic[4]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[4]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[4]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[4]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[4]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                	</div>
-                	
-                </section><!--第四部开始-->
-                <section class="segment section singleteasercontainer">
-                	
-                	
-                		
-                	<article class="default-m-sans  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NK" data-promotion-creative="8NK Teaser Page" id="track_832541"><a href="{$lastPic[5]['url']}" data-promotion-page-id="Kids : Shopbyconcept : Basics : Viewall" data-promotion-page-category="KIDS_SHOPBYCONCEPT : BASICS_BASICS : VIEWALL_VIEW_ALL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                	
-                    	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[5]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[5]['hor']} {$lastPic[5]['ver']}" data-text-alignment="{$lastPic[5]['align']}" data-text-color="{$lastPic[5]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[5]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[5]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[5]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[5]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                    </article>
-                	
                 </section>
-                <section class="segment section">
-                    <h2 class="heading">发现 H&amp;M</h2> <!-- 发现HM -->
-                    <div class="three modules">
-                        <article class="merch-deal-middle-plate teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Newsletter" id="track_832542">
-                                <a href="{$lastPic[6]['url']}" data-promotion-page-id="CUSTOMER_SERVICE_NEWSLETTER" data-promotion-page-category="CUSTOMER_SERVICE_NEWSLETTER" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a>
-                        	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[6]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[6]['hor']} {$lastPic[6]['ver']}" data-text-alignment="{$lastPic[6]['align']}" data-text-color="{$lastPic[6]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[6]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[6]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[6]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[6]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                    	
-                        <article class="merch-customer-deal-small-top teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-promotion-creative="Wechat Follow Us">
-                        	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[7]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[7]['hor']} {$lastPic[7]['ver']}" data-text-alignment="{$lastPic[7]['align']}" data-text-color="{$lastPic[7]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[7]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[7]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[7]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[7]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                        	
-                        <article class="merch-deal-small-top teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Download the app" id="track_832543">
-                                <a href="{$lastPic[8]['url']}" data-promotion-page-id="Customer Service Downloadapp (View All)" data-promotion-page-category="CUSTOMER_SERVICE_DOWNLOADAPP" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a>
-                                <div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[8]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[8]['hor']} {$lastPic[8]['ver']}" data-text-alignment="{$lastPic[8]['align']}" data-text-color="{$lastPic[8]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[8]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[8]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[8]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[8]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                        </article>
-                    </div>
-                    	
-                </section>
-                <section class="segment section singleteasercontainer">
-                	
-                	
-                		
-                    <article class="default-m-serif  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" data-view-tracking="true" data-activity-type="LIFE" data-activity-code="IN LOVE WITH LULAMA" data-promotion-creative="Magazine_w12_InLoveWithLulama" id="track_832544">
-                        <a href="{$lastPic[9]['url']}" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a>
-                        	
-                        	<div class="background-image teaser-image rimd">
-                 
-                        <img src="__PUBLIC__/{$lastPic[9]['pic']}">
-                    </div>
-                        <div class="text-container" data-text-placement="{$lastPic[9]['hor']} {$lastPic[9]['ver']}" data-text-alignment="{$lastPic[9]['align']}" data-text-color="{$lastPic[9]['fontcolor']}">
-                        
-                        <p class="vignette">{$lastPic[9]['smalltitle']}</p>
-                                    
-                        <h3 class="heading">{$lastPic[9]['bigtitle']}</h3>
-                        
-                        
-                        
-                        <ul class="cta-list" data-cta-color="{$lastPic[9]['btncolor']}">
-                            <li class="item"><a href="{$lastPic[9]['url']}" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li>
-                        </ul>
-                        </div>
-                    </article>
-                		
-                </section>
-                </div>
+
             </div>
+         </div>
                 	              
         </main>
+    <script> 
 
+        var i = 1;
+        $(window).scroll(function(){
+
+        　　var scrollTop = $(this).scrollTop();
+
+        　　var scrollHeight = $(document).height();
+
+        　　var windowHeight = $(this).height();
+
+            
+        　　if(scrollTop + windowHeight == scrollHeight){                
+              
+             if (i < 6){
+
+               $.ajax({
+
+                    type:'post',
+
+                    url:'__URL__/index',
+
+                    dataType: "json",
+
+                    beforeSend: function () {
+                        
+                        $('.loading').remove();
+                        $('#append-div').append('<img  class="loading" style="width:80px; margin-left:400px" src="__PUBLIC__/show/ajax-loader.gif" alt="" />');
+                        
+
+                    },
+                      
+                    success:function (data) {
+                 
+                        var threeSection = '<section class="segment section"><div class="two modules"><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NA" data-promotion-creative="8NA Teaser Page Prio 1" id="track_832537"><a href="'+data[0]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[0]['pic']+'"> </div><div class="text-container" data-text-placement="'+data[0]['hor']+ data[0]['ver']+'" data-text-alignment="'+data[0]['align']+'" data-text-color="'+data[0]['fontcolor']+'"><p class="vignette">'+data[0]['smalltitle']+'</p> <h3 class="heading">'+data[0]['bigtitle']+'</h3> <ul class="cta-list" data-cta-color="'+data[0]['btncolor']+'"> <li class="item"><a href="'+data[0]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article> <article class="merch-ladder-plate teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-activity-code="CN31_QINGMING" data-promotion-creative="CN31 QINGMING"><a href="'+data[1]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a> <div class="background-image teaser-image rimd"> <img src="__PUBLIC__/'+data[1]['pic']+'"></div><div class="text-container" data-text-placement="'+data[1]['hor']+ data[1]['ver']+'" data-text-alignment="'+data[1]['align']+'" data-text-color="'+data[1]['fontcolor']+'"><p class="vignette">'+data[1]['smalltitle']+'</p><h3 class="heading">'+data[1]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[1]['btncolor']+'">  <li class="item"><a href="'+data[1]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div> </article></div></section>';
+
+                        var fourSection =  '<section class="segment section" ><div class="three modules"><article class="merch-sgi-bottom teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-activity-code="CNL12_SEASONSSHIRTS_WEEK13" data-promotion-creative="Shirts and Blouses Week 13" id="track_832538"><a href="'+data[2]['url']+'" data-promotion-page-id="Ladies : Offersandhighlights : Cnl12 - Seasons Shirts : Seasons shirts" data-promotion-page-category="LADIES_OFFERSANDHIGHLIGHTS : CNL12 - SEASONS SHIRTS_CNL12 - SEASONS SHIRTS : SEASONS SHIRTS_VIEW_ALL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[2]['pic']+'"></div><div class="text-container" data-text-placement="'+data[2]['hor']+data[2]['ver']+'" data-text-alignment="'+data[2]['align']+'" data-text-color="'+data[2]['fontcolor']+'"><p class="vignette">'+data[2]['smalltitle']+'</p><h3 class="heading">'+data[2]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[2]['btncolor']+'"><li class="item"><a href="'+data[2]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NC" data-promotion-creative="8NC Teaser page part 1" id="track_832539"><a href="'+data['3']['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[3]['pic']+'"></div><div class="text-container" data-text-placement='+data[3]['hor']+ data[3]['ver']+'" data-text-alignment="'+data[3]['align']+'" data-text-color="'+data[3]['fontcolor']+'"><p class="vignette">'+data[3]['smalltitle']+'</p><h3 class="heading">'+data[3]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[3]['btncolor']+'"><li class="item"><a href="'+data[3]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="2x3" style="position:relative;" data-view-tracking="true" data-activity-type="CAMPAIGN" data-activity-code="8NE" data-promotion-creative="8NE Teaser page" id="track_832540"><a href="'+data[4]['url']+'" data-promotion-page-id="Men : Shopbyfeature : 8Ne - Modern Casual" data-promotion-page-category="MEN_SHOPBYFEATURE _8NE - MODERN CASUAL" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[4]['pic']+'"></div><div class="text-container" data-text-placement="'+data[4]['hor']+ data[4]['ver']+'" data-text-alignment="'+data[4]['align']+' data-text-color="'+data[4]['fontcolor']+'"><p class="vignette">'+data[4]['smalltitle']+'</p><h3 class="heading">'+data[4]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[4]['btncolor']+'"><li class="item"><a href="'+data[4]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article></div> </section>';
+                           
+                        var fiveSection = '<section class="segment section singleteasercontainer" ><article class="default-m-sans  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" id="track_832541"><a href="'+data[5]['url']+'" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[5]['pic']+'"></div><div class="text-container" data-text-placement="'+data[5]['hor']+data[5]['ver']+'" data-text-alignment="'+data[5]['align']+'" data-text-color="'+data[5]['fontcolor']+'"><p class="vignette">'+data[5]['smalltitle']+'</p><h3 class="heading">'+data[5]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[5]['btncolor']+'"><li class="item"><a href="'+data[5]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li> </ul></div></article></section>';
+                       
+
+                        var sixSection = '<section class="segment section"><h2 class="heading">发现 H&amp;M</h2><div class="three modules"><article class="merch-deal-middle-plate teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Newsletter" id="track_832542"><a href="'+data[6]['url']+'" data-promotion-page-id="CUSTOMER_SERVICE_NEWSLETTER" data-promotion-page-category="CUSTOMER_SERVICE_NEWSLETTER" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">即刻选购</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[6]['pic']+'"> </div> <div class="text-container" data-text-placement="'+data[6]['hor']+data[6]['ver']+'" data-text-alignment="'+data[6]['align']+'" data-text-color="'+data[6]['fontcolor']+'"><p class="vignette">'+data[6]['smalltitle']+'</p><h3 class="heading">'+data[6]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[6]['btncolor']+'"><li class="item"><a href="'+data[6]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-customer-deal-small-top teaser-media " data-item-ratio="2x3" data-view-tracking="false" data-activity-type="MERCH" data-promotion-creative="Wechat Follow Us"><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[7]['pic']+'"></div><div class="text-container" data-text-placement="'+data[7]['hor']+data[7]['ver']+'"data-text-alignment="'+data[7]['align']+'" data-text-color="'+data[7]['fontcolor']+'"><p class="vignette">'+data[7]['smalltitle']+'</p><h3 class="heading">'+data[7]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[7]['btncolor']+'"><li class="item"><a href="'+data[7]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article><article class="merch-deal-small-top teaser-media  single-cta" data-item-ratio="2x3" data-view-tracking="true" data-activity-type="MERCH" data-promotion-creative="Download the app" id="track_832543"><a href="'+data[8]['url']+'" data-promotion-page-id="Customer Service Downloadapp (View All)" data-promotion-page-category="CUSTOMER_SERVICE_DOWNLOADAPP" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[8]['pic']+'"></div><div class="text-container" data-text-placement="'+data[8]['hor']+data[8]['ver']+'" data-text-alignment="'+data[8]['align']+'" data-text-color="'+data[8]['fontcolor']+'"><p class="vignette">'+data[8]['smalltitle']+'</p><h3 class="heading">'+data[8]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[8]['btncolor']+'"><li class="item"><a href="'+data[8]['url']+'" data-cta-tracking="true" class="cta button"target="_self">即刻选购</a></li></ul></div></article> </div></section>';                      
+                        
+               
+                        var sevenSection = '<section class="segment section singleteasercontainer" style="display:none"><article class="default-m-serif  teaser-media  single-cta" data-item-ratio="3x2" style="position:relative;" data-view-tracking="true" data-activity-type="LIFE" data-activity-code="IN LOVE WITH LULAMA" data-promotion-creative="Magazine_w12_InLoveWithLulama" id="track_832544"><a href="'+data[9]['url']+'" data-cta-tracking="true" target="_self" class="hidden-text cta-overlay">阅读更多</a><div class="background-image teaser-image rimd"><img src="__PUBLIC__/'+data[9]['pic']+'"></div><div class="text-container" data-text-placement="'+data[9]['hor']+data[9]['ver']+'" data-text-alignment="'+data[9]['align']+'" data-text-color="'+data[9]['fontcolor']+'"><p class="vignette">'+data[9]['smalltitle']+'</p><h3 class="heading">'+data[9]['bigtitle']+'</h3><ul class="cta-list" data-cta-color="'+data[9]['btncolor']+'"><li class="item"><a href="'+data[9]['url']+'" data-cta-tracking="true" class="cta button" target="_self">即刻选购</a></li></ul></div></article></section>';
+                        
+                        
+                    
+                        
+                
+             
+                        if (i == 1){
+
+                         $('.loading').remove();
+                         $('#append-div').append(threeSection);
+
+                        }else if (i == 2){
+                         $('.loading').remove();
+
+                         $('#append-div').append(fourSection);
+
+                        }else if (i == 3){
+                         $('.loading').remove();
+
+                         $('#append-div').append(fiveSection);
+
+                        }else if (i == 4) {
+                         $('.loading').remove();
+
+                         $('#append-div').append(sixSection);
+
+                        }else if (i == 5) {
+
+                         $('.loading').remove();
+
+                         $('#append-div').append(sevenSection);
+                        }
+
+                        $('.loading').remove();                        
+                        i++;
+
+                    }
+
+                  
+               });
+                
+             }
+                
+
+    　　　　}
+          
+        });
+
+    </script>
     </block>
 
 	
