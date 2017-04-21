@@ -145,7 +145,7 @@
                         			<div class="shopping-bag-rollover-scroll-up disabled">
                         				<div class="navigation-arrow-up"></div>
                         			</div>
-                        			 <div class="shopping-bag-rollover-items-wrapper ">
+                        			 <div class="shopping-bag-rollover-items-wrapper" id="cartWrap">
                                             <!-- 购物车为空时候 -->
                                             <if condition="$data eq 'empty' ">
                             				    <div  class="cart_modal_popup empty-popup-cart">
@@ -417,27 +417,15 @@
                 <nav class="footer-category">
 
 
-                	<h4 class="footer-heading js-toggle-trigger">公司信息</h4>
+                	<h4 class="footer-heading js-toggle-trigger">友情链接</h4>
 
                 	<ul class="list">
 
-
-                		       <li class="item"><a class="link" href="http://career.hm.com/content/hmcareer/zh_cn.html" target="_blank">在H&amp;M的职业发展</a></li>
-
-
-                		       <li class="item"><a class="link" href="http://about.hm.com/zh/About.html" target="_blank">关于H&amp;M</a></li>
+                            <foreach name="links" item="ov">
+                		       <li class="item"><a class="link" href="{$ov.url}" target="_blank">{$ov.name}</a></li>
 
 
-
-                		       <li class="item"><a class="link" href="http://about.hm.com/zh_cn.html" target="_blank">我们的职责</a></li>
-
-                		       <li class="item"><a class="link" href="http://about.hm.com/zh/news/newsroom.html" target="_blank">媒体</a></li>
-
-
-                		<li class="item"><a class="link" href="http://about.hm.com/zh/About/Investor-Relations.html" target="_blank">投资者关系</a></li>
-
-
-                		<li class="item"><a class="link" href="http://about.hm.com/zh/About/Corporate-Governance.html">Corporate governance</a></li>
+                		  </foreach>
 
 
 

@@ -356,6 +356,14 @@
 	  	public function orders()
 	  	{
 	  		$orders = D('User')->orders();
+
+	  		$data = D('cart')->showCart();
+
+	  		$OneList = D('goods')->OneList();
+
+			$this->assign('data', $data);
+
+			$this->assign('OneList', $OneList);
 	  		
 	  		$this->assign('orders', $orders);
 	  		$this->display('Person/orders');
