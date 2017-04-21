@@ -1,20 +1,31 @@
 <?php
+
 	namespace Home\Controller;
 
 	use Think\Controller;
 
-	class StoreController extends CommonController
+	class CommonController extends Controller
 	{
-		public function index()
+
+
+		public function __construct()
 		{
-			$OneList = D('goods')->OneList();
+			parent::__construct();
+
+            $OneList = D('goods')->OneList();
+            $data = D('cart')->showCart();
+            $links = D('Links')->getAllLinks();
+			
+
+            $this->assign('links', $links);
 			$this->assign('OneList', $OneList);
-			$this->display('StoreInfo/store');
+			$this->assign('data', $data);
+
 
 		}
 
 		public function base()
-    	{
+	    {
 
 	        if (IS_POST) {
 
@@ -30,5 +41,5 @@
 	            $this->display('Base/base');
 	        }
 
-    	}
+	    }
 	}

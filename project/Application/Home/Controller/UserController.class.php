@@ -4,7 +4,7 @@
 
 	use Think\Controller;
 
-	class UserController extends Controller
+	class UserController extends CommonController
 	{
 		// 用户注册
 		public function register ()

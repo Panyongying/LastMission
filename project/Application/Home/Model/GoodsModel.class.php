@@ -232,7 +232,7 @@ class GoodsModel extends Model
                 S($key, $menca);
             }
         }
-
+        dump(S($key)['detail']);
         for ($i=0; $i<count($data['pic']); $i++) {
 
             $data['pic'][$i]['pic'] = ltrim($data['pic'][$i]['pic'], './');

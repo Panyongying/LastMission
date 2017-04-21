@@ -296,6 +296,7 @@
 
       $('.button-buy').removeAttr('data-size');
       $('.button-sold-out-warning').css('display', 'none');
+      $('.button-buy').addClass('button-disabled');
 
       //根据点击的值查询对应图片和size
       $.post(url, {aid:$(this).attr('title'),gid:{$goodsDeatil['id']}}, function(data) {

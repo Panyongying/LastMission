@@ -3,7 +3,7 @@
 
 	use Think\Controller;
 
-	class CartController extends Controller
+	class CartController extends CommonController
 	{
 		public function index()
 		{
@@ -17,12 +17,30 @@
 
 			$OneList = D('goods')->OneList();
 
-			$this->assign('OneList', $OneList);
 
 			$this->assign('data', $data);
 
 			$this->display('cart/index');
 		}
+
+			 public function base()
+	    {
+
+	        if (IS_POST) {
+
+	            $twoList = D('goods')->twoGoodsList();
+
+	            echo json_encode($twoList);
+
+	        } else {
+
+	            $OneList = D('goods')->OneList();
+
+	            $this->assign('OneList', $OneList);
+	            $this->display('Base/base');
+	        }
+
+	    }
 
 		// 添加购物车
 		public function addToCart()

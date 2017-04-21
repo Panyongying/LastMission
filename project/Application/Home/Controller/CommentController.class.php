@@ -3,7 +3,7 @@
 
 	use Think\Controller;
 
-	class CommentController extends Controller
+	class CommentController extends CommonController
 	{
 		public function comment()
 		{

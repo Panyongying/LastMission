@@ -7,7 +7,7 @@ use Think\Controller;
 import("XS.lib.XS");
 
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
     public function index()
     {
@@ -15,16 +15,10 @@ class IndexController extends Controller
         if(IS_GET){
 
             $indexData = D('goods')->indexData();
-            $OneList = D('goods')->OneList();
-            $data = D('cart')->showCart();
             $mainPic = D('IndexPic')->getMainPic();
-            $links = D('Links')->getAllLinks();
 
-            $this->assign('links', $links);
             $this->assign('mainPic', $mainPic);
             $this->assign('indexData', $indexData);
-            $this->assign('data', $data);
-            $this->assign('OneList', $OneList);
             $this->display();
         }
 
@@ -40,24 +34,7 @@ class IndexController extends Controller
     }
 
 
-    public function base()
-    {
-
-        if (IS_POST) {
-
-            $twoList = D('goods')->twoGoodsList();
-
-            echo json_encode($twoList);
-
-        } else {
-
-            $OneList = D('goods')->OneList();
-
-            $this->assign('OneList', $OneList);
-            $this->display('Base/base');
-        }
-
-    }
+  
 
     //拿取商品
     public function goods()

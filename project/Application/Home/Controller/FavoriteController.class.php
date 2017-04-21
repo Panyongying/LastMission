@@ -4,7 +4,7 @@
 
 	use Think\Controller;
 
-	class FavoriteController extends Controller
+	class FavoriteController extends CommonController
 	{
 		//显示收藏页
 		public function index()

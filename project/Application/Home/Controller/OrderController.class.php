@@ -3,7 +3,7 @@
 
 	use Think\Controller;
 
-	class OrderController extends Controller
+	class OrderController extends CommonController
 	{
 		public function checkoutLogin()
 		{
