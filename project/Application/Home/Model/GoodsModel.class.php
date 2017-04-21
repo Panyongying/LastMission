@@ -177,9 +177,7 @@ class GoodsModel extends Model
         //设置缓存信息
         S(array(
 
-            'type'=>'memcache',
-            'host'=>'192.168.42.167',
-            'port'=>'11211',
+            'type'=>'file',
             'prefix'=>'think',
             'expire'=>100)
         );
@@ -263,6 +261,7 @@ class GoodsModel extends Model
         }
 
         $data['id'] = $id;
+
 
         return $data;
     }

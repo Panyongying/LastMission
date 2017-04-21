@@ -9,7 +9,7 @@ return array(
     'DB_PWD'                =>  'Van1234$',          // 密码
     'DB_PORT'               =>  '3306',        // 端口
     'DB_PREFIX'             =>  'hm_',    // 数据库表前缀
-    'DATA_CACHE_TYPE'       =>  'Memcache',  // 数据缓存类型,支持:File|Db|Apc|Memcache|Shmop|Sqlite|Xcache|Apachenote|Eaccelerator
+    'DATA_CACHE_TYPE'       =>  'File',  // 数据缓存类型,支持:File|Db|Apc|Memcache|Shmop|Sqlite|Xcache|Apachenote|Eaccelerator
     'DATA_CACHE_TIME'       =>  100,      // 数据缓存有效期 0表示永久缓存
     'DATA_CACHE_PREFIX'     =>  '',     // 缓存前缀
 );

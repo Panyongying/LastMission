@@ -294,6 +294,9 @@
       //为收藏按钮添加颜色属性
       $('.button-secondary').attr('data-color', $(this).attr('title'));
 
+      $('.button-buy').removeAttr('data-size');
+      $('.button-sold-out-warning').css('display', 'none');
+
       //根据点击的值查询对应图片和size
       $.post(url, {aid:$(this).attr('title'),gid:{$goodsDeatil['id']}}, function(data) {
 
@@ -362,7 +365,9 @@
 
       //为收藏按钮添加尺码属性
       $('.button-secondary').attr('data-size', $(this).attr('value'));
-    })
+
+      $('.button-sold-out-warning').css('display', 'none');
+    });
 
     //gid,aid
     // 点击购物车按钮

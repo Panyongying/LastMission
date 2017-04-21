@@ -379,4 +379,20 @@
 	        }
 
     	}
+
+    	public function checkEmail()
+    	{
+    		$email = I('post.email');
+
+    		$map['email'] = $email;
+
+    		$res = M('user')->field('id')->where($map)->find();
+
+    		$res = count($res);
+
+    		echo $res;
+
+
+    		
+    	}
 	} 
