@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 
 <html lang="zh" class="js history rgba no-touchevents lastchild nthchild oninput backgroundsize borderradius flexbox flexboxlegacy csstransforms csstransitions grunticon ng-scope" ng-app="hmApp">
 <head>
@@ -6,18 +6,18 @@
         <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}
         </style>
 
-            <script src="__PUBLIC__/Backstage/js/jquery.min.js"></script>
+            <script src="/2nd Project/04.21/project/Public/Backstage/js/jquery.min.js"></script>
 
-            <link rel="stylesheet" href="__PUBLIC__/show/icons.data.svg.css" media="all">
-            <link rel="stylesheet" href="__PUBLIC__/show/shared.min.css" type="text/css">
-            <link rel="stylesheet" href="__PUBLIC__/show/general.min.css" type="text/css">
+            <link rel="stylesheet" href="/2nd Project/04.21/project/Public/show/icons.data.svg.css" media="all">
+            <link rel="stylesheet" href="/2nd Project/04.21/project/Public/show/shared.min.css" type="text/css">
+            <link rel="stylesheet" href="/2nd Project/04.21/project/Public/show/general.min.css" type="text/css">
             
-            <link rel="stylesheet" href="__PUBLIC__/show/checkout.min.css" type="text/css">
+            <link rel="stylesheet" href="/2nd Project/04.21/project/Public/show/checkout.min.css" type="text/css">
 
-            <link rel="stylesheet" href="__PUBLIC__/show/myhm.min.css" type="text/css">
+            <link rel="stylesheet" href="/2nd Project/04.21/project/Public/show/myhm.min.css" type="text/css">
 
-            <link rel="shortcut icon" type="image/x-icon" media="all" href="__PUBLIC__/show/favicon.ico">
-            <link href="__PUBLIC__/show/icons.data.svg.css" media="screen" rel="stylesheet" type="text/css">
+            <link rel="shortcut icon" type="image/x-icon" media="all" href="/2nd Project/04.21/project/Public/show/favicon.ico">
+            <link href="/2nd Project/04.21/project/Public/show/icons.data.svg.css" media="screen" rel="stylesheet" type="text/css">
 
             <!-- to include grunticon -->
     	   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -36,9 +36,9 @@
     	    <meta property="fb:app_id" content="1433700643510498">
 
 
-       <block name="title">
-        <title>时尚服饰，一流品质，合理价位—— H&amp;M CN | H&amp;M CN</title>
-       </block>
+       
+<?php if(is_array($OneList)): foreach($OneList as $key=>$vo): if($pid == $vo['id']): ?><title><?php echo ($vo["name"]); ?></title><?php endif; endforeach; endif; ?>
+
 </head>
 
 
@@ -54,16 +54,15 @@
                     <div class="warehousemessage"></div>
 
                     <div class="wrapper" ng-init="hmClubEnabled=false; offersSpace=&#39;&#39;; hmClubServiceCacheDuration=0; hmRedirectPath=&#39;&#39;">
-                        <a  href="__APP__/Home/Index/index" title="HM.com" class="logotype" style='background-image: url("__PUBLIC__/show/sprites.png");'>
+                        <a  href="/2nd Project/04.21/project/index.php/Home/Index/index" title="HM.com" class="logotype" style='background-image: url("/2nd Project/04.21/project/Public/show/sprites.png");'>
                         </a>
                     <div class="parbase topnav">
 
                     <nav class="primary-menu"><!-- Primary menu -->
 
                         <ul>
-                            <foreach name="OneList" item="vo">
-                                <li class="">
-                                    <a id="nav-one" href="__APP__/Home/Index/goods/pid/{$vo.id}" data-id="{$vo.id}" class="lists">{$vo.name}</a>
+                            <?php if(is_array($OneList)): foreach($OneList as $key=>$vo): ?><li class="">
+                                    <a id="nav-one" href="/2nd Project/04.21/project/index.php/Home/Index/goods/pid/<?php echo ($vo["id"]); ?>" data-id="<?php echo ($vo["id"]); ?>" class="lists"><?php echo ($vo["name"]); ?></a>
 
                                         <div id="nav-one-div" class="primary-menu-sub-menu" style="display: none;">
                                             <div class="appends primary-menu-sub-menu-inner">
@@ -83,8 +82,7 @@
 
                                             </div>
                                         </div><!-- primary-menu-sub-menu topnav 1 -->
-                                </li>
-                            </foreach>
+                                </li><?php endforeach; endif; ?>
                         </ul>
                     </nav><!-- /Primary Menu -->
 
@@ -102,7 +100,7 @@
                     		       <li class="item"><a class="link" href="">客户服务</a></li>
 
 
-                    		       <li class="item"><a class="link" href="__APP__/Home/Book/index">订阅时尚资讯 </a></li>
+                    		       <li class="item"><a class="link" href="/2nd Project/04.21/project/index.php/Home/Book/index">订阅时尚资讯 </a></li>
 
 
                     		       <li class="item"><a class="link" href="">下载 APP</a></li>
@@ -114,7 +112,7 @@
 
                     	<ul class="list">
 
-                    		<li class="item"><a class="link" href="__APP__/Home/Store/index">H&amp;M门店信息</a></li>
+                    		<li class="item"><a class="link" href="/2nd Project/04.21/project/index.php/Home/Store/index">H&amp;M门店信息</a></li>
 
                     	</ul>
                  </div>
@@ -126,18 +124,17 @@
 
                 <div class="session-menu-top-row">
 
-                        <a href="__APP__/Home/Favorite/index" class="js-favorite-entry-point favorite-entry-point is-favorite icon-favorites-dark icon">
+                        <a href="/2nd Project/04.21/project/index.php/Home/Favorite/index" class="js-favorite-entry-point favorite-entry-point is-favorite icon-favorites-dark icon">
                             收藏
                         </a>
 
                     <span class="parbase minicart">
                         <div class="shopping-bag rollover-popdown is-loaded" data-cart="/zh_cn/minicart/view">
-                            <a id="overcar" href="__APP__/Home/cart/index" class="goto-shopping-bag rollover-toggle">
+                            <a id="overcar" href="/2nd Project/04.21/project/index.php/Home/cart/index" class="goto-shopping-bag rollover-toggle">
                                购物袋
                                (<span class="shoppingbag-item-count">
-                                   <if condition="$data eq 'empty'">0
-                                   <else />{$data.num}
-                                   </if>
+                                   <?php if($data == 'empty'): ?>0
+                                   <?php else: echo ($data["num"]); endif; ?>
                                </span>)
                            </a>
                            <div id="showcart"class="shopping-bag-rollover row popdown">
@@ -147,8 +144,7 @@
                         			</div>
                         			 <div class="shopping-bag-rollover-items-wrapper" id="cartWrap">
                                             <!-- 购物车为空时候 -->
-                                            <if condition="$data eq 'empty' ">
-                            				    <div  class="cart_modal_popup empty-popup-cart">
+                                            <?php if($data == 'empty' ): ?><div  class="cart_modal_popup empty-popup-cart">
                             						<dl class="clearfix">
                             							<dd><h2>您的购物袋是空的</h2></dd>
                             						</dl>
@@ -164,41 +160,39 @@
                             							<dd>¥0.00</dd>
                             						</dl>
                             					</div>
-                                            <else />
+                                            <?php else: ?>
                                                 <div class="grid col-4">
                                                     <div class="shopping-bag-rollover-scroll-up disabled">
                                                         <div class="navigation-arrow-up"></div>
                                                     </div>
                                                     <div class="shopping-bag-rollover-items-wrapper ">
                                                         <ul class="shopping-bag-rollover-items" style="top: 0px;">
-                                                                <foreach name="data.cartList" item="ov">
-                                                                    <li class="shopping-bag-rollover-item clearfix clickable-container has-link ">
+                                                                <?php if(is_array($data["cartList"])): foreach($data["cartList"] as $key=>$ov): ?><li class="shopping-bag-rollover-item clearfix clickable-container has-link ">
                                                                             <a href="">
-                                                                                <img alt="Straight Regular Jeans" class="shopping-bag-rollover-item-image" height="126" width="84" src="{$ov.pic}" title="{$ov.name}">
+                                                                                <img alt="Straight Regular Jeans" class="shopping-bag-rollover-item-image" height="126" width="84" src="<?php echo ($ov["pic"]); ?>" title="<?php echo ($ov["name"]); ?>">
                                                                                     </a>
 
                                                                             <div class="shopping-bag-item-product">
 
-                                                                                <h3 class="product-item-headline">{$ov.name}</h3>
+                                                                                <h3 class="product-item-headline"><?php echo ($ov["name"]); ?></h3>
                                                                                 <div id="redWhitePrices_0506590001001" class="product-item-price ">
                                         <span id="main_price" class="main_price_0506590001001">
-                                                            ¥{$ov.price}</span>
+                                                            ¥<?php echo ($ov["price"]); ?></span>
                                                     <small id="white_price_0506590001001"></small>
                                                 </div>
                                         <dl class="clearfix">
                                                                                     <dt>数量：</dt>
-                                                                                    <dd>{$ov.gnum}</dd>
+                                                                                    <dd><?php echo ($ov["gnum"]); ?></dd>
                                                                                     <dt>颜色：</dt>
-                                                                                    <dd>{$ov.color}</dd>
+                                                                                    <dd><?php echo ($ov["color"]); ?></dd>
                                                                                     <dt>尺码：</dt>
-                                                                                    <dd>{$ov.size}</dd>
+                                                                                    <dd><?php echo ($ov["size"]); ?></dd>
                                                                                 </dl>
                                                                             </div>
                                                                             <div class="shopping-bag-item-total-price product-item-price">
                                                                                 总价:&nbsp;
-                                                                                ¥{$ov.allPrice}</div>
-                                                                        </li>
-                                                                    </foreach>
+                                                                                ¥<?php echo ($ov["allPrice"]); ?></div>
+                                                                        </li><?php endforeach; endif; ?>
                                                                     </ul>
                                                             </div>
                                                             <div class="shopping-bag-rollover-scroll-down">
@@ -207,23 +201,22 @@
                                                             <div class="shopping-bag-rollover-summary">
                                                                 <dl class="clearfix">
                                                                     <dt>订单价值：</dt>
-                                                                    <dd>¥{$data['totalPrice']}</dd>
+                                                                    <dd>¥<?php echo ($data['totalPrice']); ?></dd>
                                                                 </dl>
                                                                 <dl class="shopping-bag-rollover-order-total">
                                                                     <dt>总价:</dt>
-                                                                    <dd>¥{$data['totalPrice']}</dd>
+                                                                    <dd>¥<?php echo ($data['totalPrice']); ?></dd>
                                                                 </dl>
 
-                                                                <a href="__APP__/Home/order/checkout" class="button button-big">
+                                                                <a href="/2nd Project/04.21/project/index.php/Home/order/checkout" class="button button-big">
                                                                 结账</a>
-                                                                <a href="__APP__/Home/Cart/index" class="button button-big button-secondary">
+                                                                <a href="/2nd Project/04.21/project/index.php/Home/Cart/index" class="button button-big button-secondary">
                                                                     购物袋</a>
                                                                 <div >
                                                                  <p class="text"></p>
                                                               </div>
                                                             </div>
-                                                        </div>
-                                            </if>
+                                                        </div><?php endif; ?>
                         			</div>
                         	   </div>
                             </div>
@@ -235,33 +228,29 @@
                     <div class="parbase account">
 
                         <div class="signin rollover-popdown" >
-                            <if condition="isset($_SESSION['userInfo'])">
-                            <div class="signin-signed-in" style="display:block">
-                            <else />
-                            <div class="signin-signed-in">
-                            </if>
+                            <?php if(isset($_SESSION['userInfo'])): ?><div class="signin-signed-in" style="display:block">
+                            <?php else: ?>
+                            <div class="signin-signed-in"><?php endif; ?>
 
-                                <span class="greeting-text"> 您好, <a class="goto-signed-in" href="__APP__/Home/User/person" rel="noreferrer">{$_SESSION[userInfo][email]} </a> </span>
+                                <span class="greeting-text"> 您好, <a class="goto-signed-in" href="/2nd Project/04.21/project/index.php/Home/User/person" rel="noreferrer"><?php echo ($_SESSION[userInfo][email]); ?> </a> </span>
 
 
-                                <a class="goto-my-hm" href="__APP__/Home/User/person" rel="noreferrer">我的H&amp;M</a>
+                                <a class="goto-my-hm" href="/2nd Project/04.21/project/index.php/Home/User/person" rel="noreferrer">我的H&amp;M</a>
 
-                                <a class="goto-sign-in" href="__APP__/Home/User/logout">退出</a>
+                                <a class="goto-sign-in" href="/2nd Project/04.21/project/index.php/Home/User/logout">退出</a>
                         </div>
 
-                              <if condition="isset($_SESSION['userInfo'])">
-                                <div class="signin-not-signed-in" style="display:none;">
-                                <else />
-                                <div class="signin-not-signed-in">
-                              </if>
+                              <?php if(isset($_SESSION['userInfo'])): ?><div class="signin-not-signed-in" style="display:none;">
+                                <?php else: ?>
+                                <div class="signin-not-signed-in"><?php endif; ?>
 
-                                <a class="goto-my-hm" href="__APP__/Home/User/signIn" rel="noreferrer">我的H&amp;M</a>
+                                <a class="goto-my-hm" href="/2nd Project/04.21/project/index.php/Home/User/signIn" rel="noreferrer">我的H&amp;M</a>
 
                                 <a href="javascript:;" id="homelogin" class="goto-sign-in rollover-toggle">登录/加入</a>
                                 <div class="signin-rollover popdown row" id="bigdiv">
                                     <div class="inner">
                                       <div class="signin-rollover-login" id="showlogin">
-                                          <form id="loginForm"class="responsive form-section ng-pristine ng-valid" action="__APP__/Home/User/login" method="POST">
+                                          <form id="loginForm"class="responsive form-section ng-pristine ng-valid" action="/2nd Project/04.21/project/index.php/Home/User/login" method="POST">
                                                 <h3>登录</h3>
 
                                                 <div class="input-group">
@@ -277,7 +266,7 @@
                                                 <div class="input-group">
                                                     <input type="submit" class="button-big" value="登录">
                                                     <p>
-                                                        <a href="__APP__/Home/User/forgetPassword" class="underline">忘了密码？</a>
+                                                        <a href="/2nd Project/04.21/project/index.php/Home/User/forgetPassword" class="underline">忘了密码？</a>
                                                     </p>
                                                 </div>
                                                 <div class="input-group join">
@@ -289,7 +278,7 @@
                                       <div class="signin-rollover-join" id="showadd">
                                         	<section class="responsive create-account popdown-form">
 
-                        	                    <form id="registerForm" action="__APP__/Home/User/register" method="POST" class="responsive form-section ng-pristine ng-valid">
+                        	                    <form id="registerForm" action="/2nd Project/04.21/project/index.php/Home/User/register" method="POST" class="responsive form-section ng-pristine ng-valid">
                         	                        <fieldset class="form-part">
                         		                        <legend class="heading">创建H&amp;M账户 </legend>
                         		                        <div class="inputwrapper">
@@ -350,11 +339,11 @@
                 <div class="autosuggestsearch parbase">
                     <div id="search-field" class="ui-widget">
 
-                        <form method="get" action="__APP__/Home/Index/searchGoods" class="ng-pristine ng-valid">
+                        <form method="get" action="/2nd Project/04.21/project/index.php/Home/Index/searchGoods" class="ng-pristine ng-valid">
                         		<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
                         		<input id="main-search" type="text"  name="keyword" placeholder="搜索产品" minlength="1" maxlength="200"  class="ui-autocomplete-input" autocorrect="off" spellcheck="false" autocomplete="off">
                         </form>
-                        <span class="magnify" style="background-image: url('__PUBLIC__/show/sprites.png');"></span>
+                        <span class="magnify" style="background-image: url('/2nd Project/04.21/project/Public/show/sprites.png');"></span>
 
                         <ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0" style="display: none;">
 
@@ -371,8 +360,452 @@
 <!-- HeaderLife -->
 
 
-        <block name="main">
-        </block>
+        
+    <h1><?php echo ($best[0]['gid']); ?></h1>
+    <main role="main" class="responsive segments"><!-- Main -->
+        <!--AEMPUBPRDAP12-->
+    	<div class="layout">
+    		<section class="sidebarpluscontent modules">
+    			<aside class="aside section-menu">
+    				<div class="left parbase">
+
+
+        	<nav class="section-menu  ">
+        		<ul>
+        		  <li>
+
+        		      <h2>
+        		          <a href="./时尚女装——潮流购物 _ H&M CN_files/时尚女装——潮流购物 _ H&M CN.html">女士</a>
+        		      </h2>
+        	          <div class="section-menu-sub-menu">
+        	              <div class="section-menu-sub-menu-inner">
+        	                  <div class="section-menu-categories">
+
+        	                          <div class="section-menu-category">
+        	                              <h4 class="">
+        	                                   <span>通过产品筛选</span>
+        	                              </h4>
+        	                              <ul style="display: block;">
+                                                <?php if(is_array($twoList)): foreach($twoList as $key=>$v): ?><li class="section-menu-subdepartment" style="padding:5px 0px">
+        	                                           <a href="/2nd Project/04.21/project/index.php/Home/Index/goodsList/tid/<?php echo ($v["id"]); ?>/pid/<?php echo ($pid); ?>">
+        	                                               <?php echo ($v["name"]); ?>
+        	                                           </a>
+
+                                                  </li><?php endforeach; endif; ?>
+        	                              </ul>
+        	                          </div>
+
+        	                  </div>
+        	              </div>
+        	          </div>
+
+                  </li>
+                </ul>
+        	</nav>
+        </div>
+
+
+
+    			</aside>
+    			<div class="parsys main">
+
+
+
+        <div class="product-filters sticky-on-scroll" data-sticky-width="100%" data-sticky-stop-offset="25" data-sticky-fill="true" style="">
+                <div class="row">
+<!--                     <div class="totop">
+                        <a href="#" class="toptrigger">返回到顶部</a>
+                        <a href="/zh_cn/index.html" class="filterlogo">返回到开始</a>
+                    </div> -->
+                    <div class="filteractions clearfix">
+                        <ul class="triggers clearfix">
+                          <!--  category condition  -->
+                            <li class="js-clickexpand clickexpand category" data-expandoptions="{&quot;toggle&quot;:&quot;true&quot;}">
+
+                            </li>
+                            <li class="js-clickexpand clickexpand filter" data-expandoptions="{&quot;toggle&quot;:&quot;true&quot;}">
+                                <a href="javascript:;" class="trigger js-expandtrigger"><strong>筛选</strong></a>
+                                <div class="expandtarget js-expandtarget filters">
+                                <form class="js-product-list-filter-form ng-pristine ng-valid" method="get" data-productlist-page="true" data-filtered-products-url="/zh_cn/ladies/shop-by-product/basics/_jcr_content/main/productlisting_f4d1.display.html">
+
+
+
+
+
+                                <div class="row shut">
+                                    <div class="cols clearfix">
+
+
+                                                <div class="col">
+                                                    <h4>颜色</h4>
+                                                    <ul class="inputlist grid" data-filter-param-name="colorWithNames">
+
+                                                    <?php if(is_array($typeOne)): foreach($typeOne as $key=>$vc): ?><li>
+                                                            <label  title="黑色" class="filter-option" data-value="000000_%E9%BB%91%E8%89%B2"><input id="<?php echo ($vc["attrname"]); ?>" type="checkbox" value="<?php echo ($vc["attrname"]); ?>">
+                                                              <span class="pattern" style="background:<?php echo ($vc["attrname"]); ?>;margin-left:2px"></span>
+
+                                                            </label>
+
+                                                        </li><?php endforeach; endif; ?>
+                                                    </ul>
+                                                </div>
+
+
+                                                <div class="col">
+                                                    <h4>尺码</h4>
+                                                    <ul class="inputlist row-cols">
+
+
+                                                    <?php if(is_array($typeTwo)): foreach($typeTwo as $key=>$vt): ?><li class="row-col">
+                                                            <ul data-filter-param-name="sizes" class="inputlist rows">
+
+
+
+
+                                                                <li>
+                                                                    <label for="filter-size-5_<?php echo ($vt["attrname"]); ?>">
+                                                                        <input id="filter-size-5_<?php echo ($vt["attrname"]); ?>" type="checkbox" value="5_<?php echo ($vt["attrname"]); ?>">
+
+
+
+
+
+                                                                                        <div class="detailbox detailbox-value"><span><?php echo ($vt["attrname"]); ?></span></div>
+
+
+                                                                    </label>
+                                                                </li>
+
+
+                                                            </ul>
+                                                        </li><?php endforeach; endif; ?>
+
+
+                                                    </ul>
+                                                </div>
+
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row clearfilters shut">
+                                    <button class="button button-secondary js-filters-clear">清除所有</button>
+                                    <a class="button js-filters-close close" href="javascript:;">关闭</a>
+                                </div>
+
+                                <input type="hidden" name="image" value="model" class="filter-toggle-images-value" data-filter-param-name="image">
+
+
+                                </form>
+                                </div>
+                            </li>
+                            <li class="js-clickexpand clickexpand sort-by" data-expandoptions="{&quot;toggle&quot;:&quot;true&quot;}">
+                                    <a href="javascript:;" class="trigger js-expandtrigger">
+                                    <strong>分类方式</strong></a>
+                                <div class="expandtarget js-expandtarget sort">
+
+                                    <ul class="menu toggleCurrent">
+                                        <li class="menu-sub-item"><span class="menu-link" data-value="newProduct">最新</span></li>
+                                        <li class="menu-sub-item"><span class="menu-link" data-value="ascPrice">最低价格</span></li>
+                                        <li class="menu-sub-item"><span class="menu-link" data-value="descPrice">最高价格</span></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        <section class="segment section singleteasercontainer">
+            <div class="row" id="appendData">
+                <?php if(is_array($lists)): foreach($lists as $key=>$vv): ?><div class="col-3" style="float:left;margin-left:12px">
+
+                    <article class="product-item club-price-item" data-articlecode="0481148009" onclick="setOsaParameters(utag_data.category_id,'SMALL', '0481148009'); setNotificationTicket('Oy9wbHAvcHJvZHVjdC1saXN0LXdpdGgtY291bnQvcHJvZHVjdC1saXN0OyM7cHJvZHVjdF9rZXk7MDQ4MTE0OF96aF9jbjswNDgxMTQ4MDEwX3poX2NuOzsjOzU7','0481148009');">
+                        <a href="/2nd Project/04.21/project/index.php/Home/Index/goodsDetail/id/<?php echo ($vv["id"]); ?>" title="<?php echo ($vv["name"]); ?>" class="product-item-link"> <img width="222" height="333" src="/2nd Project/04.21/project/Public/<?php echo ($vv[pic][0]); ?>" class="product-item-image" alt="<?php echo ($vv["name"]); ?> 模特款型"title="<?php echo ($vv["name"]); ?> 模特款型">
+
+
+                                <button type="button" class="favorite icon icon-favorites js-favorite " value="<?php echo ($vv["id"]); ?>" data-aid="<?php echo ($vv['color'][0][0]["attrname"]); ?>">加入收藏</button>
+
+
+                        </a>
+
+
+                        <div class="product-item-details">
+
+
+
+                            <h3 class="product-item-heading">
+                                <a href="/zh_cn/productpage.0481148009.html"><?php echo ($vv["name"]); ?></a>
+                            </h3>
+
+
+
+
+                                        <strong class="price">
+                                            ¥ <?php echo ($vv["price"]); ?> </strong>
+
+
+
+
+
+                                <div class="product-item-selection">新品</div>
+
+
+                            <ul class="list-swatches">
+                            <?php if(is_array($vv["color"])): foreach($vv["color"] as $key=>$va): ?><li class="item" style="background:<?php echo ($va[0]["attrname"]); ?>;margin-left:2px"></li><?php endforeach; endif; ?>
+                            </ul>
+                        </div>
+                    </article>
+                </div><?php endforeach; endif; ?>
+            </div>
+
+
+
+
+        </section>
+        <script>
+
+            var num = 1;
+
+            var nums = 1;
+
+            $('.filter').on('click', function(event) {
+
+                var that = $(this);
+
+                if (num == 1) {
+
+                    that.addClass('isOpen');
+
+                    $('.sort-by').removeClass('isOpen');
+
+                    nums = 1;
+                } else {
+
+                    that.removeClass('isOpen');
+
+                    num = 0;
+                }
+
+                num += 1;
+
+                event.stopPropagation();
+            });
+
+            $('.close').click(function() {
+
+                $('.filter').removeClass('isOpen');
+
+                num = 1;
+            });
+
+            //阻止冒泡
+            $('.shut').click(function(event) {
+
+                event.stopPropagation();
+            });
+
+
+            $(document).click(function(event) {
+
+                $('.filter').removeClass('isOpen');
+                $('.sort-by').removeClass('isOpen');
+
+                num = 1;
+                nums = 1;
+                event.stopPropagation();
+            });
+
+            //阻止a跳转
+            $('.favorite').on('click', function() {
+
+                $(this).parent().one('click', function() {
+                    return false;
+                });
+
+            });
+
+
+            $('.sort-by').on('click', function(event) {
+
+                var that = $(this);
+
+                that.addClass('isOpen');
+
+                if (nums == 1) {
+
+                    that.addClass('isOpen');
+
+                    $('.filter').removeClass('isOpen');
+                    num = 1;
+                } else {
+
+                    that.removeClass('isOpen');
+
+                    nums = 0;
+                }
+
+                nums += 1;
+
+                event.stopPropagation();
+            });
+
+            //加入收藏
+         $('.js-favorite').click( function () {
+
+            var that = $(this);
+
+            if(!that.hasClass("is-favorite")){
+
+
+                $.post('/2nd Project/04.21/project/index.php/Home/Favorite/addFavorite',{
+
+                        'gid': that.val(),
+
+                    },function (data) {
+
+                        if (data == 0) {
+
+                           show_msg('请先登录');
+
+
+                            setTimeout(function () {
+
+                               window.location.href="/2nd Project/04.21/project/index.php/Home/User/signIn";
+
+                            }, 1200);
+
+                            return false;
+                        }
+
+                        that.addClass('is-favorite');
+
+                    }, 'json');
+
+
+             }
+
+
+        });
+
+        //点亮收藏的星
+
+            $.post('/2nd Project/04.21/project/index.php/Home/Favorite/checkedFavorite', {}, function (data){
+
+                    for(var i =0; i<data.length; i++){
+                        for(var j =0; j<  $('.js-favorite').length; j++){
+
+                            var  that = $('.js-favorite')[j];
+
+                            if(data[i].gid == that.value){
+
+                                $(that).addClass('is-favorite');
+
+                            }
+
+                        }
+                    }
+
+            } ,'json');
+
+
+            function show_msg(msg){
+
+             $('body').append('<div class="sub_err" style="position:absolute;top:60px;left:0;width:500px;z-index:999999;"></div>');
+
+                var htmltop='<div class="bac" style="padding:8px 0px;border:1px solid #090;width:100%;margin:0 auto;background-color:white;color:#0d0d0d;border:2px black solid;text-align:center;font-size:16px;">';
+
+                var htmlfoot = '</div>';
+
+                $('.sub_err').html(htmltop+msg+htmlfoot);
+
+                var left=($('body').width()-500)/2;
+
+                $('.sub_err').css({'left':left+'px'});
+
+                var scroll_height=$(document).scrollTop();
+
+                 $('.sub_err').animate({'top': scroll_height+120},100);
+
+                 msgdsq=setTimeout(function(){
+
+                    $('.sub_err').animate({'top': scroll_height+80},100);
+
+                    setTimeout(function(){
+
+                     $('.sub_err').remove();
+
+                    },100);
+
+                }, "1200");
+            }
+
+            var flag = false;
+            //ajax滚动加载
+            $(window).on('scroll', function() {
+
+                var url = '/2nd Project/04.21/project/index.php/Home/Index/ajaxGetData';
+                var tid = <?php echo ($tid); ?>;
+
+                //先获取浏览器的可见高度
+                var browserHeight = $(this).height();
+
+                //获取到整个文档的高度
+                var documentHeight = $(document).height();
+
+                //获取到滚动条距离顶部的距离
+                var scrollTop = $(window).scrollTop();
+
+                var num = $('.col-3').length;
+
+                if ( scrollTop + browserHeight + 200 >= documentHeight ) {
+
+                    $.ajax({
+
+                        type:'post',
+
+                        url:url,
+
+                        beforeSend:function(){
+                            if (flag) {
+                              return false;
+                            }
+                            flag = true;
+                        },
+
+                        data:{limit:num, pid:tid},
+
+                        success: function(data) {
+
+                            flag = false;
+
+                            var len = Object.keys(data).length - 1;
+
+                            var res = '';
+
+                            for (var i=0; i<len; i++) {
+
+                                res += '<div class="col-3" style="float:left;margin-left:12px"><article class="product-item club-price-item"><a href="/2nd Project/04.21/project/index.php/Home/Index/goodsDetail/id/'+data[i].id+'" title="'+data[i].name+'" class="product-item-link"> <img width="222" height="333" src="/2nd Project/04.21/project/Public/'+data[i].pic[0]+'" class="product-item-image" alt="'+data[i].name+' 模特款型"title="<?php echo ($vv["name"]); ?> 模特款型"><button type="button" class="favorite icon icon-favorites js-favorite " value="<?php echo ($vv["id"]); ?>">加入收藏</button></a><div class="product-item-details"><h3 class="product-item-heading"><a href="/zh_cn/productpage.0481148009.html">'+data[i].name+'</a></h3><strong class="price">¥ '+data[i].price+' </strong><div class="product-item-selection">新品</div></div></article></div>';
+
+                            }
+                            $('#appendData').append(res);
+
+                        },
+
+                    dataType: 'json'});
+                }
+
+            })
+
+
+
+
+        </script>
+    </main>
+
 
 
         <footer class="footer-global responsive"><!-- Footer -->
@@ -381,14 +814,12 @@
             <div class="layout">
 
 
-                <a class="button button-chat" target="_blank" href="__APP__/Home/CustomService/index">在线客服
+                <a class="button button-chat" target="_blank" href="/2nd Project/04.21/project/index.php/Home/CustomService/index">在线客服
                     <span>嗨我们在这里如果您需要任何帮助</span>
                 </a>
-                <if condition="$_SESSION['userInfo']['status'] eq 1">
-                <a class="button button-chat" style="margin-right:1150px" href="__APP__/Home/User/active/email/{$_SESSION['userInfo']['email']}">激活邮箱
+                <?php if($_SESSION['userInfo']['status'] == 1): ?><a class="button button-chat" style="margin-right:1150px" href="/2nd Project/04.21/project/index.php/Home/User/active/email/<?php echo ($_SESSION['userInfo']['email']); ?>">激活邮箱
                     <span>点击此处激活</span>
-                </a>
-                </if>
+                </a><?php endif; ?>
 
                 <div class="four modules footer-menu footer-content">
 
@@ -421,11 +852,7 @@
 
                 	<ul class="list">
 
-                            <foreach name="links" item="ov">
-                		       <li class="item"><a class="link" href="{$ov.url}" target="_blank">{$ov.name}</a></li>
-
-
-                		  </foreach>
+                            <?php if(is_array($links)): foreach($links as $key=>$ov): ?><li class="item"><a class="link" href="<?php echo ($ov["url"]); ?>" target="_blank"><?php echo ($ov["name"]); ?></a></li><?php endforeach; endif; ?>
 
 
 
@@ -445,13 +872,10 @@
 
                 		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service.html">客户服务</a></li>
 
-                             <if condition="isset($_SESSION['userInfo'])">
-                		       <li class="item"><a class="link" href="__APP__/Home/User/person">我的H&amp;M</a></li>
-                            <else />
-                               <li class="item"><a class="link" href="__APP__/Home/User/signIn">我的H&amp;M</a></li>
-
-                            </if>   
-                		       <li class="item"><a class="link" href="__APP__/Home/Store/index">H&amp;M门店信息</a></li>
+                             <?php if(isset($_SESSION['userInfo'])): ?><li class="item"><a class="link" href="/2nd Project/04.21/project/index.php/Home/User/person">我的H&amp;M</a></li>
+                            <?php else: ?>
+                               <li class="item"><a class="link" href="/2nd Project/04.21/project/index.php/Home/User/signIn">我的H&amp;M</a></li><?php endif; ?>   
+                		       <li class="item"><a class="link" href="/2nd Project/04.21/project/index.php/Home/Store/index">H&amp;M门店信息</a></li>
 
 
                 		       <li class="item"><a class="link" href="http://www2.hm.com/zh_cn/customer-service/legal-and-privacy/privacy-link.html">隐私及法律条款</a></li>
@@ -469,7 +893,7 @@
                         <div class="newsletter parbase newslettersignupform">
                         <h4 class="footer-heading">订阅通讯</h4>
                         <p class="text">立即注册，获得85折优惠</p>
-                        <a href="__APP__/Home/User/signUp" class="button">注册</a></div>
+                        <a href="/2nd Project/04.21/project/index.php/Home/User/signUp" class="button">注册</a></div>
 
 
                     </section>
@@ -533,7 +957,7 @@
             //鼠标进去触发
             $('.lists').on('mouseover', function() {
 
-                var url = '__CONTROLLER__/base';
+                var url = '/2nd Project/04.21/project/index.php/Home/Index/base';
 
                 var that = $(this);
 
@@ -550,7 +974,7 @@
 
                         for (var i=0; i<data.length; i++) {
 
-                            res += '<li style="float:left;margin-left:40px;padding:10px;width:150px" ><a href="__APP__/Home/Index/goodsList/tid/'+data[i].id+'/pid/'+that.attr('data-id')+'">'+ data[i].name +'</a></li>';
+                            res += '<li style="float:left;margin-left:40px;padding:10px;width:150px" ><a href="/2nd Project/04.21/project/index.php/Home/Index/goodsList/tid/'+data[i].id+'/pid/'+that.attr('data-id')+'">'+ data[i].name +'</a></li>';
 
                         }
                         res += '</ul>';

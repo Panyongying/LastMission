@@ -15,6 +15,10 @@
 				$this->assign('login', 1);
 			}
 
+			$OneList = D('goods')->OneList();
+
+			$this->assign('OneList', $OneList);
+
 			$this->assign('data', $data);
 
 			$this->display('cart/index');

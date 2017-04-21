@@ -36,6 +36,10 @@
 
 				$this->assign('data', $data);
 
+				$OneList = D('goods')->OneList();
+
+				$this->assign('OneList', $OneList);
+
 				$this->display('checkoutLogin');
 			}
 		}
@@ -55,7 +59,9 @@
 
 				$addr = D('order')->showAddress();
 
-				// dump($addr);exit;
+				$OneList = D('goods')->OneList();
+
+				$this->assign('OneList', $OneList);
 
 				$this->assign('data', $data);
 				$this->assign('addr', $addr);
@@ -107,6 +113,10 @@
 				// 购物车数据
 				$data = D('cart')->showCart();
 
+				$OneList = D('goods')->OneList();
+
+				$this->assign('OneList', $OneList);
+
 				$this->assign('data', $data);
 				$this->assign('orderData', $order['orderData']);
 				$this->assign('orderDetail', $order['orderDetail']);
@@ -131,6 +141,10 @@
 		public function thinkYou()
 		{
 			$data = D('cart')->showCart();
+
+			$OneList = D('goods')->OneList();
+
+			$this->assign('OneList', $OneList);
 
 			$this->assign('data', $data);
 			$this->display();

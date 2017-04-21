@@ -251,10 +251,10 @@
 
 </div>
 <div><h2>评论区：</h2></div>
-<empty name="data">
+<empty name="commentary">
 暂无评论
 <else />
-<foreach name="data" item="vc">
+<foreach name="commentary" item="vc">
 <div style="width:1000px;border-top:1px solid #ccc;margin-top:20px;padding:10px">
     #{$num++} 用户：<span style="color:#6d757a">{$vc['uid'].email}</span> <br>
     <p></p>
@@ -392,11 +392,12 @@
             } else if (data == 3) { // 没库存
               alert('没库存了')
             } else { // 添加成功
-              $('shopping-bag-rollover-items-wrapper').children().remove();
-              $('.shopping-bag-rollover-items-wrapper').append(data.topCart);
-              $('.shopping-bag-rollover-summary .clearfix').children().find('dd').text('￥' + data.totalPrice);
-              $('.shoppingbag-item-count').text(data.goodsNum);
-              $('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + data.totalPrice);
+              console.log(data);
+              $('#cartWrap').children().remove();
+              $('#cartWrap').append(JSON.parse(data)['topCart']);
+              $('.shopping-bag-rollover-summary .clearfix').children().find('dd').text('￥' + JSON.parse(data).totalPrice);
+              $('.shoppingbag-item-count').text(JSON.parse(data).goodsNum);
+              $('.shopping-bag-rollover-order-total').children().find('dd').text('￥' + JSON.parse(data).totalPrice);
             }
           },
           'json'

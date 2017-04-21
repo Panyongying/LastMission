@@ -243,6 +243,7 @@
 				$data['gnum'] = I('get.gnum');
 
 				$map['gid'] = I('get.gid');
+				$map['aid'] = I('get.aid');
 				$map['uid'] = $_SESSION['userInfo']['id'];
 
 				// 查出所剩库存
@@ -281,8 +282,9 @@
 			$bool = $this->checkLogin();
 
 			if ($bool) { // 已登录
-				$map = I('get.');
+				// $map = I('get.');
 				$map['uid'] = $_SESSION['userInfo']['id'];
+				$map['gid'] = I('get.gid');
 
 				// 开启事务
 				$this->startTrans();
@@ -353,7 +355,7 @@
 									<div class="ng-scope">
 										您的购物袋是空的<br><br>';
 				if (empty($_SESSION['userInfo']['id'])) {
-					$result['mainCart'] .= '<a href="__APP__/Home/User/signIn">登录</a>';
+					$result['mainCart'] .= '<a href="'.__APP__ .'/Home/User/signIn">登录</a>';
 				}
 
 				$result['mainCart'] .= '
@@ -425,7 +427,7 @@
 				<!-- ngRepeat: marker in entry.productMarker -->
 							
 				<h3 class="sub-sub-heading ng-binding">'.$v['name'].'</h3>
-							<div ng-show="entry.isYellowPriceAvailable" class="ng-hide">
+							<div ng-show="entry.isYellowPriceAvailable">
 				<p class="ng-binding product-detail-price">
 					¥'.$v['price'].'</p>
 			</div>
@@ -475,7 +477,27 @@
 			</li>';
 				}
 
-				$result['topCart'] .= '</ul>';
+				$result['topCart'] .= '</ul></div>
+                                        <div class="shopping-bag-rollover-summary">
+                                                                <dl class="clearfix">
+                                                                    <dt>订单价值：</dt>
+                                                                    <dd>¥'.$result['totalPrice'].'</dd>
+                                                                </dl>
+                                                                <dl class="shopping-bag-rollover-order-total">
+                                                                    <dt>总价:</dt>
+                                                                    <dd>¥'.$result['totalPrice'].'</dd>
+                                                                </dl>
+
+                                                                <a href="'.__APP__ .'/Home/order/checkout" class="button button-big">
+                                                                结账</a>
+                                                                <a href="'.__APP__ .'Home/Cart/index" class="button button-big button-secondary">
+                                                                    购物袋</a>
+                                                                <div >
+                                                                 <p class="text"></p>
+                                                              </div>
+                                                            </div>
+
+				';
 				$result['mainCart'] .= '</ul>';
 			}
 

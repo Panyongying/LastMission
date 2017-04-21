@@ -18,7 +18,9 @@ class IndexController extends Controller
             $OneList = D('goods')->OneList();
             $data = D('cart')->showCart();
             $mainPic = D('IndexPic')->getMainPic();
+            $links = D('Links')->getAllLinks();
 
+            $this->assign('links', $links);
             $this->assign('mainPic', $mainPic);
             $this->assign('indexData', $indexData);
             $this->assign('data', $data);
@@ -250,13 +252,15 @@ class IndexController extends Controller
 
             $goodsDeatil = D('goods')->goodsDetail();
             $OneList = D('goods')->OneList();
-            $data = D('goods')->commentary();
+            $commentary = D('goods')->commentary();
             $num = 1;
+            $data = D('cart')->showCart();
 
+            $this->assign('data', $data);
             $this->assign('OneList', $OneList);
             $this->assign('num', $num);
             $this->assign('goodsDeatil', $goodsDeatil);
-            $this->assign('data', $data);
+            $this->assign('commentary', $commentary);
             $this->display('Goods/GoodsDetail');
         }
     }

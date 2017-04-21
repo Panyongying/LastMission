@@ -131,13 +131,37 @@
 					return false;
 				}
 
-				// 循环将购物车的内容添加入订单详情
+				// 循环将购物车的内容添加入订单详情减库存
 				foreach ($cartData as $k => $v) {
 					$v['oid'] = $oid;
+
+
 
 					$res = M('order_detail')->add($v);
 
 					if (!$res) { // 添加失败
+						M('order')->rollback();
+
+						return false;
+					}
+
+					// 减库存
+					$kucun['gid'] = $v['gid'];
+					$kucun['aid'] = $v['aid'];
+
+					// 查出库存
+					$goodsNum = M('stock')->field('goodsNum')->where($kucun)->find()['goodsnum'];
+
+					
+					// 查出主键
+					$kucun['id'] = M('stock')->field('id')->where($kucun)->find()['id'];
+
+					$kucun['goodsNum'] = $goodsNum - $v['gnum'];
+
+					// 更新库存
+					$res = M('stock')->save($kucun);
+
+					if (!$res) {
 						M('order')->rollback();
 
 						return false;

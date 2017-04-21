@@ -41,7 +41,7 @@
 			$hor = [1=>'left', 'center', 'right'];
 			$ver = [1=>'top', 'middle', 'bottom'];
 
-			$lastPic = M('index_pic')->where($map)->select();
+			$lastPic = M('index_pic')->where($map)->order('location')->select();
 
 			foreach ($lastPic as $k => $v) {
 				$lastPic[$k]['fontcolor'] = $fontcolor[$v['fontcolor']];
