@@ -1,8 +1,0 @@
-class="paramDescCol">返回对象本身以支持串接操作</td>
-</tr>
-</table>
-
-<div class="sourceCode">
-<b>源码:</b> <a class="sourceLink" href="https://github.com/hightman/xunsearch/blob/master/sdk/php/lib/XSTokenizer.class.php#L242">sdk/php/lib/XSTokenizer.class.php#L242</a> (<b><a href="#" class="show">显示</a></b>)
-<div class="code"><code><span style="color: #000000">
-<span style="color: #0000BB"></span><span style="color: #007700">public&nbsp;function&nbsp;</span><span style="color: #0000BB">setCharset</span><span style="color: #007700">(</span><span style="color: #0000BB">$charset</span><span styl

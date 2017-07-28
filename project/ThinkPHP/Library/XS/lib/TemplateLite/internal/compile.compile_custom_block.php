@@ -1,8 +1,0 @@
-uot;</span><span class="php-hl-string"> [</span><span class="php-hl-quotes">&quot;</span><span class="php-hl-code"> . </span><span class="php-hl-var">$doc</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">percent</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-code"> . </span><span class="php-hl-quotes">&quot;</span><span class="php-hl-string">%]</span><span class="php-hl-special">\n</span><span class="php-hl-quotes">&quot;</span><span class="php-hl-code">;
-       </span><span class="php-hl-reserved">echo</span> <span class="php-hl-var">$doc</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">message</span><span class="php-hl-code"> . </span><span class="php-hl-quotes">&quot;</span><span class="php-hl-special">\n</span><span class="php-hl-quotes">&quot;</span><span class="php-hl-code">;
-    </span><span class="php-hl-brackets">}</span>
-<span class="php-hl-brackets">}</span>
-<span class="php-hl-reserved">catch</span> <span class="php-hl-brackets">(</span><span class="php-hl-identifier">XSException</span> <span class="php-hl-var">$e</span><span class="php-hl-brackets">)</span>
-<span class="php-hl-brackets">{</span>
-    <span class="php-hl-reserved">echo</span> <span class="php-hl-var">$e</span><span class="php-hl-code">;               </span><span class="php-hl-comment">//</span><span class="php-hl-comment"> 直接输出异常描述</span>
-    <span class="php-hl-reserved">if</span> <span class="php-hl-brac
